@@ -151,8 +151,9 @@ gulp.task('vulcanize', function () {
     .pipe($.vulcanize({
       dest: DEST_DIR,
       strip: true,
-      //inlineCss: true,
-      inlineScripts: true
+      inlineCss: true,
+      inlineScripts: true,
+      excludes: ['//fonts.googleapis.com/*']
     }))
     .pipe(gulp.dest(DEST_DIR))
     .pipe($.size({title: 'vulcanize'}));
