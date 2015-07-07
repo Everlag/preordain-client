@@ -20,6 +20,7 @@ var merge = require('merge-stream');
 var path = require('path');
 var fs = require('fs');
 var glob = require('glob');
+var traceur = require('gulp-babel');
 
 var AUTOPREFIXER_BROWSERS = [
   'ie >= 10',
@@ -159,6 +160,18 @@ gulp.task('vulcanize', function () {
     .pipe($.size({title: 'vulcanize'}));
 });
 
+// Take every bit of js and run it through babel
+gulp.task('babel', function () {
+  var dir = 'dist';
+
+  return gulp.src(['app/**/*.js'])
+    .pipe($.sourcemaps.init())
+    .pipe($.babel())
+    .pipe($.sourcemaps.write('.', {sourceRoot: '/app/' }))
+    .pipe(gulp.dest('.tmp'))
+    .pipe(gulp.dest(dir));
+});
+
 // Generate a list of files that should be precached when serving from 'dist'.
 // The list will be consumed by the <platinum-sw-cache> element.
 gulp.task('precache', function (callback) {
@@ -205,7 +218,7 @@ gulp.task('serve', ['styles', 'elements', 'images'], function () {
   gulp.watch(['app/**/*.html'], reload);
   gulp.watch(['app/styles/**/*.css'], ['styles', reload]);
   gulp.watch(['app/elements/**/*.css'], ['elements', reload]);
-  gulp.watch(['app/{scripts,elements}/**/*.js'], ['jshint']);
+  gulp.watch(['app/{scripts,elements}/**/*.js'], ['jshint', 'babel', reload]);
   gulp.watch(['app/images/**/*'], reload);
 });
 
@@ -233,7 +246,7 @@ gulp.task('serve:dist', ['default'], function () {
 gulp.task('default', ['clean'], function (cb) {
   runSequence(
     ['copy', 'styles'],
-    'elements',
+    'elements', 'babel',
     ['jshint', 'images', 'fonts', 'html'],
     'vulcanize',
     cb);
