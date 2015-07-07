@@ -151,7 +151,7 @@ gulp.task('vulcanize', function () {
     .pipe($.vulcanize({
       dest: DEST_DIR,
       strip: true,
-      inlineCss: true,
+      //inlineCss: true,
       inlineScripts: true
     }))
     .pipe(gulp.dest(DEST_DIR))
@@ -234,7 +234,7 @@ gulp.task('default', ['clean'], function (cb) {
     ['copy', 'styles'],
     'elements',
     ['jshint', 'images', 'fonts', 'html'],
-    'vulcanize', 'precache',
+    'vulcanize',
     cb);
 });
 
