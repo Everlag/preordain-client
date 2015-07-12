@@ -11,6 +11,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 // Include Gulp & Tools We'll Use
 var gulp = require('gulp');
+var gutil = require('gulp-util');
 var $ = require('gulp-load-plugins')();
 var del = require('del');
 var runSequence = require('run-sequence');
@@ -111,13 +112,6 @@ gulp.task('copy', function () {
     .pipe($.size({title: 'copy'}));
 });
 
-// Copy Web Fonts To Dist
-gulp.task('fonts', function () {
-  return gulp.src(['app/fonts/**'])
-    .pipe(gulp.dest('dist/fonts'))
-    .pipe($.size({title: 'fonts'}));
-});
-
 // Scan Your HTML For Assets & Optimize Them
 gulp.task('html', function () {
   var assets = $.useref.assets({searchPath: ['.tmp', 'app', 'dist']});
@@ -127,7 +121,7 @@ gulp.task('html', function () {
     .pipe($.if('*.html', $.replace('elements/elements.html', 'elements/elements.vulcanized.html')))
     .pipe(assets)
     // Concatenate And Minify JavaScript
-    .pipe($.if('*.js', $.uglify({preserveComments: 'some'})))
+    // .pipe($.if('*.js', $.uglify({preserveComments: 'some'}).on('error', swallowError)))
     // Concatenate And Minify Styles
     // In case you are still using useref build blocks
     .pipe($.if('*.css', $.cssmin()))
@@ -164,28 +158,14 @@ gulp.task('vulcanize', function () {
 gulp.task('babel', function () {
   var dir = 'dist';
 
+  console.log('running babel');
+
   return gulp.src(['app/**/*.js'])
     .pipe($.sourcemaps.init())
-    .pipe($.babel())
+    .pipe($.babel().on('error', swallowError))
     .pipe($.sourcemaps.write('.', {sourceRoot: '/app/' }))
     .pipe(gulp.dest('.tmp'))
     .pipe(gulp.dest(dir));
-});
-
-// Generate a list of files that should be precached when serving from 'dist'.
-// The list will be consumed by the <platinum-sw-cache> element.
-gulp.task('precache', function (callback) {
-  var dir = 'dist';
-
-  glob('{elements,scripts,styles}/**/*.*', {cwd: dir}, function(error, files) {
-    if (error) {
-      callback(error);
-    } else {
-      files.push('index.html', './', 'bower_components/webcomponentsjs/webcomponents-lite.min.js');
-      var filePath = path.join(dir, 'precache.json');
-      fs.writeFile(filePath, JSON.stringify(files), callback);
-    }
-  });
 });
 
 // Clean Output Directory
@@ -218,7 +198,7 @@ gulp.task('serve', ['styles', 'elements', 'images'], function () {
   gulp.watch(['app/**/*.html'], reload);
   gulp.watch(['app/styles/**/*.css'], ['styles', reload]);
   gulp.watch(['app/elements/**/*.css'], ['elements', reload]);
-  gulp.watch(['app/{scripts,elements}/**/*.js'], ['jshint', 'babel', reload]);
+  gulp.watch(['app/{scripts,elements}/**/*.js'], ['babel', /*'jshint',*/ reload]);
   gulp.watch(['app/images/**/*'], reload);
 });
 
@@ -247,8 +227,8 @@ gulp.task('default', ['clean'], function (cb) {
   runSequence(
     ['copy', 'styles'],
     'elements', 'babel',
-    ['jshint', 'images', 'fonts', 'html'],
-    'vulcanize',
+    [/*'jshint',*/ 'images', 'html'],
+    // 'vulcanize',
     cb);
 });
 
@@ -258,3 +238,12 @@ try { require('web-component-tester').gulp.init(gulp); } catch (err) {}
 
 // Load custom tasks from the `tasks` directory
 try { require('require-dir')('tasks'); } catch (err) {}
+
+
+function swallowError (error) {
+
+    //If you want details of the error in the console
+    console.log(error.toString());
+
+    this.emit('end');
+}
