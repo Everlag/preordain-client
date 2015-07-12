@@ -21,6 +21,7 @@ var merge = require('merge-stream');
 var path = require('path');
 var fs = require('fs');
 var glob = require('glob');
+var traceur = require('gulp-babel');
 
 var AUTOPREFIXER_BROWSERS = [
   'ie >= 10',
@@ -164,6 +165,7 @@ gulp.task('babel', function () {
     .pipe($.babel().on('error', swallowError))
     .pipe($.sourcemaps.write('.', {sourceRoot: '/app/' }))
     .pipe(gulp.dest('.tmp'))
+    .pipe(gulp.dest(dir));
 });
 
 // Clean Output Directory

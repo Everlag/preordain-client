@@ -1,0 +1,32 @@
+<dom-module id="preordain-card-info">
+
+  <style>
+    :host {
+      display: block;
+    }
+  </style>
+
+  <template>
+
+    <mtg-card-data name="{{name}}" on-data="freshData"></mtg-card-data>
+
+    <iron-media-query query="(min-width: 600px)" query-matches="{{big}}"></iron-media-query>
+
+    <div horizontal$="{{big}}">
+
+
+
+    </div>
+  </template>
+
+  <style>
+
+    div[horizontal]{
+       @apply(--layout-horizontal);
+    }
+
+  </style>
+
+</dom-module>
+
+<script src="preordain-card-info.js"></script>

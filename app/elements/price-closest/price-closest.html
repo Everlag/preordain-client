@@ -1,0 +1,18 @@
+<dom-module id="price-closest">
+
+  <style>
+    :host {
+      display: none;
+    }
+  </style>
+
+  <template>
+
+  <mtg-card-price name='{{name}}' set="{{set}}" on-price="gotPrice"
+                mkm-source$="{{mkmSource}}" latest-closest></mtg-card-price>
+
+  </template>
+
+</dom-module>
+
+<script src="price-closest.js"></script>

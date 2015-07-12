@@ -1,0 +1,103 @@
+<dom-module id="mtg-card">
+
+  <style>
+    :host {
+      display: block;
+    }
+  </style>
+
+  <template>
+
+    <mtg-card-data name="{{name}}" on-data="freshData"></mtg-card-data>
+
+    <div class="vertical layout center" id="cardContainer" color$="{{ColorIdentity}}">
+      <div class="horizontal layout self-stretch" id="nameAndCost">
+        <div>{{name}}</div>
+        <div class="flex"></div>
+        <div><mtg-text text="{{ManaCost}}"></mtg-text></div>  
+      </div>
+
+      <div id="imageContainer">
+          <!--
+          Not using iron-image here as it has issues with not breaking.
+          Pre-populating the ImageLoc with a dataurl is clunky but works.
+          -->
+          <img src="{{ImageLoc}}">
+        </div>
+
+      <div class="self-start" id="type">{{Type}}</div>
+      
+      <div class="self-start" id="text">  
+        <template is="dom-repeat" items="{{TextLines}}">
+            <mtg-text text="{{item}}"></mtg-text>
+          </template>
+      </div>
+
+      <div class="horizontal layout self-end" id="stats">
+        <div>
+          <template is="dom-if" if="{{isCreature}}">
+            <div>
+              <span>{{Power}}</span>
+              <span>&nbsp;/&nbsp;</span>
+              <span>{{Toughness}}</span>
+            </div>
+          </template>
+
+          <template is="dom-if" if="{{isPlaneswalker}}">
+            <span>{{Loyalty}}</span>
+          </template>
+        </div>
+
+      </div>
+    </div>
+
+  </template>
+
+  <style type="text/css">
+    img{
+      width: 100%;
+      height: auto;
+    }
+  </style>
+
+  <style type="text/css">
+    #cardContainer{
+      border-radius: 0.4em;
+    }
+
+    #cardContainer[color="white"] {
+      background-color:rgba(238, 238, 230,1.0);
+    }
+
+    #cardContainer[color="black"] {
+      background-color:rgba(153,148,146,0.4);
+    }
+
+    #cardContainer[color="green"] {
+      background-color:rgba(212,228,219,1.0);
+    }
+
+    #cardContainer[color="blue"] {
+      background-color:rgba(220,234,243,1.0);
+    }
+
+    #cardContainer[color="red"] {
+      background-color:rgba(241,222,212,1.0);
+    }
+
+    #cardContainer[color="gold"] {
+      background-color:rgba(214,188,124,0.2);
+    }
+
+    #cardContainer[color="land"] {
+      background-color:rgba(209,204,200,1.0);
+    }
+
+    #cardContainer[color="artifact"] {
+      background-color:rgba(214,225,231,1.0);
+    }
+
+  </style>
+</dom-module>
+
+<script src="mtg-card.js"></script>

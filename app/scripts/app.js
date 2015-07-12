@@ -10,6 +10,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 (function(document) {
   'use strict';
 
+  let started = new Date();
+
   // Grab a reference to our auto-binding template
   // and give it some initial binding values
   // Learn more about auto-binding templates at http://goo.gl/Dx1u2g
@@ -18,7 +20,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   // Listen for template bound event to know when bindings
   // have resolved and content has been stamped to the page
   app.addEventListener('dom-change', function() {
-    console.log('Our app is ready to rock!');
+    let loaded = new Date();
+
+    console.log(`Our app is ready to rock, start time is ${loaded-started}ms`);
   });
 
   // See https://github.com/Polymer/polymer/issues/1381

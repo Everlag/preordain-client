@@ -1,0 +1,24 @@
+<dom-module id="mtg-card-data">
+
+  <style>
+    :host {
+      display: block;
+    }
+  </style>
+
+  <template>
+
+    <iron-ajax
+        auto
+        id="ajax"
+        url="{{_url}}"
+        handle-as="json"
+        on-response="hresponse"
+        debounce-duration="300">
+    </iron-ajax>
+
+  </template>
+
+</dom-module>
+
+<script src="mtg-card-data.js"></script>

@@ -1,0 +1,30 @@
+<dom-module id="preordain-card-view">
+
+  <style>
+    :host {
+      display: block;
+    }
+  </style>
+
+  <template>
+
+
+    <iron-media-query query="(min-width: 600px)" query-matches="{{big}}"></iron-media-query>
+
+    <div horizontal$="{{big}}">
+      <mtg-card name="{{name}}" class="flex"></mtg-card>
+      <preordain-card-info name='{{name}}' class="flex"></preordain-card-info>
+    </div>
+  </template>
+
+  <style>
+
+    div[horizontal]{
+       @apply(--layout-horizontal);
+    }
+
+  </style>
+
+</dom-module>
+
+<script src="preordain-card-view.js"></script>

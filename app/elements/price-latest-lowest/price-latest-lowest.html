@@ -1,0 +1,18 @@
+<dom-module id="price-latest-lowest">
+
+  <style>
+    :host {
+      display: none;
+    }
+  </style>
+
+  <template>
+
+  <mtg-card-price name='{{name}}' on-price="gotPrice"
+                mkm-source$="{{mkmSource}}" latest-lowest></mtg-card-price>
+
+  </template>
+
+</dom-module>
+
+<script src="price-latest-lowest.js"></script>
