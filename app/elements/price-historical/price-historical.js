@@ -29,7 +29,6 @@
       }
     },
     gotPrices: function(e){
-      console.log(e.detail);
       this.prices = e.detail;
     }
 

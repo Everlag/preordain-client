@@ -57,8 +57,6 @@
     },
     attached: function(){
 
-      console.log("AHAHAHAHA");
-
       // Ensure we run in only a single mode or else things break...
       if (!this._validChoice()) {
         throw 'Mode needs a single choice'
@@ -106,12 +104,10 @@
       };
 
       if (this._url.length > 0) this.$.ajax.generateRequest();
-      console.log(this._url)
 
     },
     hresponse: function(e){
-      console.log(this._url);
-      this.fire('price', this.$.ajax.lastResponse)
+      this.fire('price', this.$.ajax.lastResponse);
     },
 
 

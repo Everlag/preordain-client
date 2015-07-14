@@ -1,0 +1,41 @@
+<!--
+  Sample usage:
+    <preordain-price>
+      <price-latest-highest name='Fear' mkm-source></price-latest-highest>
+    </preordain-price>
+
+  <preordain-price show-usd>
+      <price-latest-lowest name='Tarmogoyf' mkm-source></price-latest-lowest>
+    </preordain-price>
+-->
+
+<dom-module id="preordain-price">
+
+  <style>
+    :host {
+      display: block;
+    }
+  </style>
+
+  <template>
+
+   <content id='content'></content>
+
+   <span>
+    <span>$</span>
+    <template is="dom-if" if="{{noPrice}}">
+      <span>?</span>
+    </template>
+    <template is="dom-if" if="{{hasPrice}}">
+      <span>{{price}}</span>
+    </template>
+    <template is="dom-if" if="{{showUsd}}">
+      <span>USD</span>
+    </template>
+   </span>
+
+  </template>
+
+</dom-module>
+
+<script src="preordain-price.js"></script>

@@ -25,6 +25,7 @@
     },
     gotPrice: function(e){
       this.price = e.detail.Price;
+      this.fire('display-price', this.price);
     }
 
 
