@@ -58,7 +58,6 @@
     attached: function(){
 
       console.log("AHAHAHAHA");
-      this.ajax = this.$.ajax;
 
       // Ensure we run in only a single mode or else things break...
       if (!this._validChoice()) {
@@ -77,8 +76,9 @@
       return true;
     },
     _facetChanged: function(){
+
       // Make sure we're initialzed
-      if (!this._validChoice() || this.name.trim().length !== 0) {
+      if (!this._validChoice() || this.name.trim().length === 0) {
         return;
       };
 
@@ -105,10 +105,13 @@
           this.closest, source);
       };
 
+      if (this._url.length > 0) this.$.ajax.generateRequest();
+      console.log(this._url)
+
     },
     hresponse: function(e){
-      console.log(this);
-      this.fire('price', this.ajax.lastResponse)
+      console.log(this._url);
+      this.fire('price', this.$.ajax.lastResponse)
     },
 
 

@@ -11,7 +11,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 // Include Gulp & Tools We'll Use
 var gulp = require('gulp');
-var gutil = require('gulp-util');
 var $ = require('gulp-load-plugins')();
 var del = require('del');
 var runSequence = require('run-sequence');
@@ -97,18 +96,19 @@ gulp.task('copy', function () {
   var elements = gulp.src(['app/elements/**/*.html'])
     .pipe(gulp.dest('dist/elements'));
 
-  var swBootstrap = gulp.src(['bower_components/platinum-sw/bootstrap/*.js'])
-    .pipe(gulp.dest('dist/elements/bootstrap'));
-
-  var swToolbox = gulp.src(['bower_components/sw-toolbox/*.js'])
-    .pipe(gulp.dest('dist/sw-toolbox'));
-
   var vulcanized = gulp.src(['app/elements/elements.html'])
     .pipe($.rename('elements.vulcanized.html'))
     .pipe(gulp.dest('dist/elements'));
 
-  return merge(app, bower, elements, vulcanized, swBootstrap, swToolbox)
+  return merge(app, bower, elements, vulcanized)
     .pipe($.size({title: 'copy'}));
+});
+
+// Copy Web Fonts To Dist
+gulp.task('fonts', function () {
+  return gulp.src(['app/fonts/**'])
+    .pipe(gulp.dest('dist/fonts'))
+    .pipe($.size({title: 'fonts'}));
 });
 
 // Scan Your HTML For Assets & Optimize Them
@@ -120,7 +120,7 @@ gulp.task('html', function () {
     .pipe($.if('*.html', $.replace('elements/elements.html', 'elements/elements.vulcanized.html')))
     .pipe(assets)
     // Concatenate And Minify JavaScript
-    // .pipe($.if('*.js', $.uglify({preserveComments: 'some'}).on('error', swallowError)))
+    // .pipe($.if('*.js', $.uglify({preserveComments: 'some'})))
     // Concatenate And Minify Styles
     // In case you are still using useref build blocks
     .pipe($.if('*.css', $.cssmin()))
@@ -143,36 +143,35 @@ gulp.task('vulcanize', function () {
 
   return gulp.src('dist/elements/elements.vulcanized.html')
     .pipe($.vulcanize({
-      dest: DEST_DIR,
-      strip: true,
+      stripComments: true,
       inlineCss: true,
       inlineScripts: true,
-      excludes: ['//fonts.googleapis.com/*']
+      excludes: ['//fonts.googleapis.com/*'],
     }))
     .pipe(gulp.dest(DEST_DIR))
     .pipe($.size({title: 'vulcanize'}));
 });
 
-// Take every bit of js and run it through babel
+// Compile es6 to es5 compliant code
 gulp.task('babel', function () {
-  var dir = 'dist';
-
-  console.log('running babel');
+  var DEST_DIR = 'dist';
 
   return gulp.src(['app/**/*.js'])
     .pipe($.sourcemaps.init())
-    .pipe($.babel().on('error', swallowError))
+    .pipe($.babel()).on('error', swallowError)
     .pipe($.sourcemaps.write('.', {sourceRoot: '/app/' }))
-    .pipe(gulp.dest('.tmp'))
+    .pipe($.debug())
+    .pipe(gulp.dest(DEST_DIR));
 });
 
 // Clean Output Directory
 gulp.task('clean', del.bind(null, ['.tmp', 'dist']));
 
 // Watch Files For Changes & Reload
-gulp.task('serve', ['styles', 'elements', 'images'], function () {
+gulp.task('serve', ['styles', 'elements', 'images', 'babel'], function () {
   browserSync({
     notify: false,
+    logPrefix: 'PSK',
     snippetOptions: {
       rule: {
         match: '<span id="browser-sync-binding"></span>',
@@ -186,7 +185,8 @@ gulp.task('serve', ['styles', 'elements', 'images'], function () {
     //       will present a certificate warning in the browser.
     // https: true,
     server: {
-      baseDir: ['.tmp', 'app'],
+      baseDir: ['.tmp', 'dist', 'app'],
+      middleware: [],
       routes: {
         '/bower_components': 'bower_components'
       }
@@ -196,7 +196,7 @@ gulp.task('serve', ['styles', 'elements', 'images'], function () {
   gulp.watch(['app/**/*.html'], reload);
   gulp.watch(['app/styles/**/*.css'], ['styles', reload]);
   gulp.watch(['app/elements/**/*.css'], ['elements', reload]);
-  gulp.watch(['app/{scripts,elements}/**/*.js'], ['babel', /*'jshint',*/ reload]);
+  gulp.watch(['app/{scripts,elements}/**/*.js'], ['babel', reload]);
   gulp.watch(['app/images/**/*'], reload);
 });
 
@@ -204,6 +204,7 @@ gulp.task('serve', ['styles', 'elements', 'images'], function () {
 gulp.task('serve:dist', ['default'], function () {
   browserSync({
     notify: false,
+    logPrefix: 'PSK',
     snippetOptions: {
       rule: {
         match: '<span id="browser-sync-binding"></span>',
@@ -216,7 +217,8 @@ gulp.task('serve:dist', ['default'], function () {
     // Note: this uses an unsigned certificate which on first access
     //       will present a certificate warning in the browser.
     // https: true,
-    server: 'dist'
+    server: 'dist',
+    middleware: []
   });
 });
 
@@ -225,18 +227,10 @@ gulp.task('default', ['clean'], function (cb) {
   runSequence(
     ['copy', 'styles'],
     'elements', 'babel',
-    [/*'jshint',*/ 'images', 'html'],
-    // 'vulcanize',
+    [/*'jshint',*/ 'images', 'fonts', 'html'],
+    'vulcanize',
     cb);
 });
-
-// Load tasks for web-component-tester
-// Adds tasks for `gulp test:local` and `gulp test:remote`
-try { require('web-component-tester').gulp.init(gulp); } catch (err) {}
-
-// Load custom tasks from the `tasks` directory
-try { require('require-dir')('tasks'); } catch (err) {}
-
 
 function swallowError (error) {
 
@@ -245,3 +239,6 @@ function swallowError (error) {
 
     this.emit('end');
 }
+
+// Load custom tasks from the `tasks` directory
+try { require('require-dir')('tasks'); } catch (err) {}

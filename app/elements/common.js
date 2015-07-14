@@ -5,11 +5,11 @@ const cardImage = 'https://beta.perfectlag.me/cardImages/';
 const cardPrice = 'https://beta.perfectlag.me/api/Prices/Card';
 
 function buildCardURL(cardName) {
-	return `${cardText}${cardName}.json`
+	return `${cardText}${cardName}.json`;
 }
 
 function buildSymbolURL (symbolName) {
-	let cleaned = symbolName.toLocaleLowerCase().replace("/", "");
+	let cleaned = symbolName.toLocaleLowerCase().replace('/', '');
 	return `${cardSymbol}${cleaned}.svg`;
 }
 
@@ -27,7 +27,7 @@ const sources = {'mkm': 'mkm', 'mtgprice': 'mtgprice'};
 
 function buildCardPriceURL (content, suffix, source) {
 	if (sources[source] === undefined) {
-		throw `unknown price source ${source}`
+		throw `unknown price source ${source}`;
 	};
 	return `${cardPrice}/${content}/${suffix}?source=${source}`;
 }
