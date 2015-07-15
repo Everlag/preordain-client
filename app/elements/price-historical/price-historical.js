@@ -24,7 +24,7 @@
       // Result
       prices: {
         type: Array,
-        value: ()=>[],
+        value: ()=> [],
         notify: true,
       }
     },

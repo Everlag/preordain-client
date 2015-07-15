@@ -19,6 +19,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <title>Polymer Starter Kit</title>
   <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 
+  <!-- Fonts -->
+  <link href='http://fonts.googleapis.com/css?family=Roboto+Slab:700,400' rel='stylesheet' type='text/css'>
+
   <!-- Chrome for Android theme color -->
   <meta name="theme-color" content="#303F9F">
 
@@ -90,18 +93,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <!-- Main Toolbar -->
         <paper-toolbar id="mainToolbar">
           <paper-icon-button id="paperToggle" icon="menu" paper-drawer-toggle></paper-icon-button>
+
+          <!-- App Name, possibility for a subtitle -->
+          <div class="vertical layout">
+            <div class="paper-font-headline">Preorda.in</div>
+          </div>
+
           <span class="flex"></span>
 
           <!-- Toolbar icons -->
-          <paper-icon-button icon="refresh"></paper-icon-button>
           <paper-icon-button icon="search"></paper-icon-button>
-
-          <!-- Application name -->
-          <div class="middle paper-font-display2 app-name">Polymer Starter Kit</div>
-
-          <!-- Application sub title -->
-          <div class="bottom title"></div>
-
         </paper-toolbar>
 
         <!-- Main Content -->

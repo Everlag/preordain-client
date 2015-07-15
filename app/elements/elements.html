@@ -12,6 +12,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/iron-flex-layout/classes/iron-flex-layout.html">
 <link rel="import" href="../bower_components/iron-icons/iron-icons.html">
 <link rel="import" href="../bower_components/iron-icon/iron-icon.html">
+<link rel="import" href="../bower_components/iron-input/iron-input.html">
 <link rel="import" href="../bower_components/iron-image/iron-image.html">
 <link rel="import" href="../bower_components/iron-pages/iron-pages.html">
 <link rel="import" href="../bower_components/iron-selector/iron-selector.html">
@@ -23,6 +24,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../bower_components/paper-item/paper-item.html">
 <link rel="import" href="../bower_components/paper-material/paper-material.html">
+<link rel="import" href="../bower_components/paper-input/paper-input.html">
 <link rel="import" href="../bower_components/paper-menu/paper-menu.html">
 <link rel="import" href="../bower_components/paper-styles/paper-styles-classes.html">
 <link rel="import" href="../bower_components/paper-toast/paper-toast.html">
@@ -35,6 +37,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../styles/app-theme.html">
 <link rel="import" href="my-greeting/my-greeting.html">
 <link rel="import" href="my-list/my-list.html">
+
+<!-- 
+Note:
+The following elements are arranged in terms of dependencies.
+IE, all preordain-* elements can depend on core-* and/or price-*
+but a core-* element can depend only on other core-* elements.
+-->
 
 <!-- Core Elements -->
 <link rel="import" href="mtg-card-data/mtg-card-data.html">
@@ -51,6 +60,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 <!-- Higher level display elements -->
 <link rel="import" href="preordain-price/preordain-price.html">
+<link rel="import" href="preordain-typeahead/preordain-typeahead.html">
 <link rel="import" href="preordain-card-info/preordain-card-info.html">
 <link rel="import" href="preordain-card-view/preordain-card-view.html">
 
