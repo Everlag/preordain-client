@@ -1,0 +1,36 @@
+<dom-module id="misc-typeahead-line">
+
+  <style>
+    :host{
+      display: block;
+    }
+  </style>
+
+  <template>
+
+    <div>
+      <div>{{suggestion}}</div>
+      <template is="dom-if" if="{{_notSet}}">
+        <div class="horizontal layout">
+          
+          Low:
+          <preordain-price>
+            <price-latest-lowest name='{{suggestion}}'></price-latest-lowest>
+          </preordain-price>
+          <div class="flex"></div>
+          High:
+          <preordain-price>
+            <price-latest-highest name='{{suggestion}}'></price-latest-highest>
+          </preordain-price>
+          
+          
+
+        </div>
+      </template>
+    </div>
+
+  </template>
+
+</dom-module>
+
+<script src="misc-typeahead-line.js"></script>

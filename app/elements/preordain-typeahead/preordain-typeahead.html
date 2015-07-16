@@ -1,0 +1,75 @@
+<!-- We use a custom element for tempalting our lines -->
+<link rel="import" href="misc-typeahead-line/misc-typeahead-line.html">
+
+<script src="../../bower_components/jquery/dist/jquery.min.js"></script>
+<script src="../../bower_components/typeahead.js/dist/typeahead.bundle.min.js"></script>
+
+<dom-module id="preordain-typeahead">
+
+  <style>
+    :host{
+      display: block;
+      width: 100%;
+    }
+  </style>
+
+  <template>
+
+    <input id="visibleInput" is="iron-input" placeholder="Card or Set">
+
+    <style>
+    .tt-hint,
+    .tt-input {
+        width: 100%;
+        height: 30px;
+        padding-top: 8px;
+        padding-bottom: 8px;
+        font-size: 24px;
+        line-height: 30px;
+        border: 2px solid #ccc;
+        border-radius: 8px;
+        outline: none;
+    }
+
+    .tt-input {
+        box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+    }
+
+    .tt-hint {
+        color: #999;
+    }
+
+    .tt-menu {
+        width: 16em;
+        margin-top: 12px;
+        padding: 8px 0;
+        background-color: #fff;
+        border: 1px solid #ccc;
+        border: 1px solid rgba(0, 0, 0, 0.2);
+        border-radius: 8px;
+        box-shadow: 0 5px 10px rgba(0,0,0,.2);
+    }
+
+    .tt-suggestion {
+        padding: 3px 20px;
+        font-size: 18px;
+        line-height: 24px;
+        color: black;
+    }
+
+    .tt-suggestion.tt-cursor {
+        color: #fff;
+        background-color: #0097cf;
+
+    }
+
+    .tt-suggestion {
+        margin: 0;
+    }
+    </style>
+
+  </template>
+
+</dom-module>
+
+<script src="preordain-typeahead.js"></script>

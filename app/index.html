@@ -59,10 +59,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 </head>
 
 <body unresolved class="fullbleed layout vertical">
+
   <span id="browser-sync-binding"></span>
   <template is="dom-bind" id="app">
 
-    <paper-drawer-panel id="paperDrawerPanel">
+    <iron-media-query query="(min-width: 840px)" query-matches="{{big}}"></iron-media-query>
+
+    <iron-media-query query="(max-width: 840px)" query-matches="{{small}}"></iron-media-query>
+
+    <paper-drawer-panel id="paperDrawerPanel" responsive-width="840px">
       <div drawer>
 
         <!-- Drawer Toolbar -->
@@ -94,15 +99,23 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <paper-toolbar id="mainToolbar">
           <paper-icon-button id="paperToggle" icon="menu" paper-drawer-toggle></paper-icon-button>
 
-          <!-- App Name, possibility for a subtitle -->
-          <div class="vertical layout">
-            <div class="paper-font-headline">Preorda.in</div>
-          </div>
 
-          <span class="flex"></span>
+          <!-- App Name, possibility for a subtitle -->
+          <template is="dom-if" if="{{big}}">
+            <div class="vertical layout">
+              <div class="paper-font-headline">Preorda.in</div>
+            </div>
+            <span class="flex"></span>
+          </template>
+
+          <span class="layout center">
+            <preordain-typeahead on-completed="typeaheadCompleted"></preordain-typeahead>
+          </span>
 
           <!-- Toolbar icons -->
-          <paper-icon-button icon="search"></paper-icon-button>
+          <div>
+            <paper-icon-button icon="search"></paper-icon-button>
+          </div>
         </paper-toolbar>
 
         <!-- Main Content -->
