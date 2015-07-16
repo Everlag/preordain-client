@@ -1,0 +1,19 @@
+<dom-module id="price-ev">
+
+  <style>
+    :host {
+      display: none;
+    }
+  </style>
+
+  <template>
+
+  <mtg-set-price name='{{name}}'
+                on-price="gotPrice"
+                mkm-source$="{{mkmSource}}" expected-value></mtg-set-price>
+
+  </template>
+
+</dom-module>
+
+<script src="price-ev.js"></script>

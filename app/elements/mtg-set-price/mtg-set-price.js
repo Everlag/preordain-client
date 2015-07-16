@@ -71,7 +71,6 @@
 
     },
     hresponse: function(e){
-      console.log(this.$.ajax.lastResponse);
       this.fire('price', this.$.ajax.lastResponse);
     },
 

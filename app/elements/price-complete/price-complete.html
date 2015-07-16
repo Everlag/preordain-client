@@ -1,0 +1,19 @@
+<dom-module id="price-complete">
+
+  <style>
+    :host {
+      display: none;
+    }
+  </style>
+
+  <template>
+
+  <mtg-set-price name='{{name}}'
+                on-price="gotPrice"
+                mkm-source$="{{mkmSource}}" complete-latest></mtg-set-price>
+
+  </template>
+
+</dom-module>
+
+<script src="price-complete.js"></script>
