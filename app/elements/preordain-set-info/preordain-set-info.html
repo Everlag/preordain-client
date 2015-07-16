@@ -1,0 +1,64 @@
+<dom-module id="preordain-set-info">
+
+  <style>
+    :host {
+      display: block;
+    }
+
+    #setSymbol{
+      height: 7em;
+      width: 7em;
+    }
+
+    .contribution{
+      margin-left: 1em;
+    }
+
+  </style>
+
+  <template>
+
+
+  <div class="horizontal layout center">
+    <div class="horizontal layout">
+      <iron-icon id="setSymbol" src="{{_symbolURL}}"></iron-icon>
+      <div class="self-start paper-font-title">{{name}}</div>
+    </div>
+    <template is="dom-if" if="{{_showEV}}">
+      <div class="vertical layout end">
+        
+        <div class="horizontal layout">
+          <span>EV:&nbsp;</span>
+          <preordain-price>
+            <price-ev name="[[name]]"
+            on-display-price="evDown"
+            on-prices-down="evDetailsDown"
+            ></price-ev>
+          </preordain-price>
+        </div>
+        
+        <template is="dom-if" if="[[_validContribs]]">
+          <div class="vertical layout">
+            <div class="horizontal layout">
+              <span class="contribution">C:&nbsp;<span>[[cContribution]]</span>%</span>
+              <div class="flex"></div>
+              <span class="contribution">U:&nbsp;<span>[[uContribution]]</span>%</span>
+            </div>
+            <div class="horizontal layout">
+              <span class="contribution">R:&nbsp;<span>[[rContribution]]</span>%</span>
+              <div class="flex"></div>
+              <span class="contribution">M:&nbsp;<span>[[mContribution]]</span>%</span>
+            </div>
+          </div>
+        </template>
+
+      </div>
+    </template>
+  </div>  
+
+  </template>
+
+
+</dom-module>
+
+<script src="preordain-set-info.js"></script>

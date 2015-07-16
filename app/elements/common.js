@@ -31,6 +31,15 @@ function buildSymbolURL (symbolName) {
 	return `${remote.cardSymbol}${cleaned}.svg`;
 }
 
+function buildSetSymbolURL (setName){
+	let cleaned = setName
+	.replace('/', '')
+	.replace('Foil', '')
+	.trim();
+	
+	return `${remote.cardSymbol}${cleaned}.svg`;
+}
+
 function buildImageURL (imageName) {
 	return `${remote.cardImage}${imageName}.jpg`;
 }

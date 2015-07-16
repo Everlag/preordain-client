@@ -2,7 +2,8 @@
   Polymer({
     // A wrapper for raw access to preorda.in pricing.
     //
-    // Events are fired when we are successful
+    // Fires the 'display-price' event with ev
+    // and the 'prices-down' event with the complete details.
     is: 'price-ev',
     properties: {
       // Filters
@@ -26,6 +27,7 @@
     gotPrice: function(e){
       this.total = e.detail;
       this.fire('display-price', this.total.EV);
+      this.fire('prices-down', this.total);
     }
 
 
