@@ -4,6 +4,7 @@ const remote = {
 	cardSymbol: 'https://beta.perfectlag.me/cardSymbols/',
 	cardImage: 'https://beta.perfectlag.me/cardImages/',
 	cardPrice: 'https://beta.perfectlag.me/api/Prices/Card',
+	setPrice: 'https://beta.perfectlag.me/api/Prices/Set',
 	typeAhead: 'https://beta.perfectlag.me/typeAhead/%QUERY.json',
 };
 
@@ -14,8 +15,13 @@ const suffixes = {
 	LatestSpecificSuffix: 'Latest',
 	WeeksMedianSuffix: 'WeeksMedian',
 	ClosestSuffix: 'Closest',
+	ExpectedValue: 'EV',
 }
 
+// Valid price sources
+const sources = {'mkm': 'mkm', 'mtgprice': 'mtgprice'};
+
+// Card price URL builders
 function buildCardURL(cardName) {
 	return `${remote.cardText}${cardName}.json`;
 }
@@ -29,10 +35,8 @@ function buildImageURL (imageName) {
 	return `${remote.cardImage}${imageName}.jpg`;
 }
 
-const sources = {'mkm': 'mkm', 'mtgprice': 'mtgprice'};
-
 function buildCardPriceURL (content, suffix, source) {
-	if (sources[source] === undefined) {
+	if (!(source in sources)) {
 		throw `unknown price source ${source}`;
 	};
 	return `${remote.cardPrice}/${content}/${suffix}?source=${source}`;
@@ -60,6 +64,23 @@ function buildClosestURL (name, set, closest, source) {
 	let content = `${name}/${set}/${closest}`;
 	return buildCardPriceURL(content, suffixes.ClosestSuffix, source);
 }
+
+// Set price URL builders
+function buildSetPriceURL(setName, suffix, source) {
+	if (!(source in sources)) {
+		throw `unknown price source ${source}`;
+	};
+	return `${remote.setPrice}/${setName}/${suffix}?source=${source}`;
+}
+
+function buildCompleteLatestURL(name, source){
+	return buildSetPriceURL(name, suffixes.LatestSpecificSuffix, source);
+}
+
+function buildExpectedValueURL(name, source){
+	return buildSetPriceURL(name, suffixes.ExpectedValue, source);
+}
+
 
 // Bulk data goes down here
 const setList = new Set([

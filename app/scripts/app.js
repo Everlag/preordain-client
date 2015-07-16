@@ -22,9 +22,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   app.addEventListener('dom-change', function() {
     let loaded = new Date();
 
-    console.log(app.big);
-    console.log(app.small);
-
     console.log(`Our app is ready to rock, start time is ${loaded-started}ms`);
   });
 

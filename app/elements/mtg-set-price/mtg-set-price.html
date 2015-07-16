@@ -1,0 +1,23 @@
+<dom-module id="mtg-set-price">
+
+  <style>
+    :host {
+      display: none;
+    }
+  </style>
+
+  <template>
+
+    <iron-ajax
+        id="ajax"
+        url="{{_url}}"
+        handle-as="json"
+        on-response="hresponse"
+        debounce-duration="300">
+    </iron-ajax>
+
+  </template>
+
+</dom-module>
+
+<script src="mtg-set-price.js"></script>

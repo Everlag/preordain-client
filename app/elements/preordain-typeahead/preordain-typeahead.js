@@ -48,7 +48,6 @@
     },
     attached: function(){
       this.loaded = false;
-      console.log('typeahead attached');
       this.loadTypeahead();
 
       // Set up the event listeners a single time.
