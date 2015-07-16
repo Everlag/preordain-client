@@ -35,6 +35,22 @@ function buildImageURL (imageName) {
 	return `${remote.cardImage}${imageName}.jpg`;
 }
 
+// For the most part an image name is simply the same as the card
+// name but without any capital letters.
+//
+// This makes some minor effort to correct for edge cases such as split
+// cards but makes no guarantees. Always use the imagename presented by the
+// server in mtg-card-data when available.
+function cardToImageName(cardName){
+	cardName = cardName.split("//")[0]
+
+	return cardName
+	.replace(':', '')
+	.replace('AE', 'Æ')
+	.trim()
+	.toLocaleLowerCase();
+}
+
 function buildCardPriceURL (content, suffix, source) {
 	if (!(source in sources)) {
 		throw `unknown price source ${source}`;

@@ -1,0 +1,97 @@
+<dom-module id="preordain-set-gallery">
+
+  <style>
+    :host {
+      display: block;
+    }
+
+    .fancyGrid { 
+      padding: .5vw;
+      display: -ms-flexbox;
+      -ms-flex-wrap: wrap;
+      -ms-flex-direction: column;
+      -webkit-flex-flow: row wrap; 
+      flex-flow: row wrap; 
+      display: -webkit-box;
+      display: flex;
+    }
+    .fancyGrid .container { 
+      -webkit-box-flex: auto;
+      -ms-flex: auto;
+      flex: auto; 
+      padding: 0.05em;
+      max-width: 250px; 
+      position: relative;
+    }
+    .fancyGrid img { 
+      width: 100%; 
+      height: auto; 
+    }
+    .fancyGrid .fancyText{
+      color: white;
+      background-color: rgba(0,0,0, 0.5);
+      padding-top: 0.2em;
+      padding-left: 0.2em;
+      padding-right: 0.4em;
+      position: absolute;
+      font-size: 1.1em !important;
+    }
+    .fancyGrid .bottomButton{
+      position: absolute;
+      bottom: 15%;
+      right: 5%;
+    }
+    @media screen and (max-width: 400px) {
+      header div { margin: 0; }
+      header { padding: 0; }
+    }
+
+    paper-button{
+      text-transform: none;
+      background: var(--primary-background-color);
+      color: var(--primary-text-color);
+      opacity: 0.65;
+      transition: opacity .25s ease-in-out;
+     -moz-transition: opacity .25s ease-in-out;
+     -webkit-transition: opacity .25s ease-in-out;
+    }
+    paper-button:hover{
+      opacity: 1;
+    }
+
+  </style>
+
+  <template>
+
+  <price-complete name="{{name}}" on-prices-down="pricesDown"></price-complete>
+
+  <!-- A gallery of every card in the set over $1 -->
+  <div class="vertical layout center">
+    <template is="dom-if" if="{{_pricesReady}}">
+      <div class="fancyGrid" hidden$="{{!_galleryReady}}">
+        <template is="dom-repeat" items="{{_prices}}">
+            
+            <div class="container">
+              <div class="vertical layout fancyText">
+                <div class="name">{{item.Name}}</div>
+                <div class="flex"></div>
+                <span>$<span>{{item.Price}}</span></span>
+              </div>
+
+              <div class="bottomButton">
+                <paper-button on-tap="requestCard">view</paper-button>
+              </div>
+
+              <img onload="{{_imageLoaded()}}" src="{{item.ImageLoc}}">
+            </div>
+
+        </template>
+      </div>
+    </template>
+  </div>
+  </template>
+
+
+</dom-module>
+
+<script src="preordain-set-gallery.js"></script>
