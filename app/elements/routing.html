@@ -15,6 +15,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     // We use Page.js for routing. This is a Micro
     // client-side router inspired by the Express router
     // More info: https://visionmedia.github.io/page.js/
+    //
+    // All navigation goes through this. Thus, we use this to lazily
+    // load sections as they are viewed
     page('/', function () {
       app.route = 'home';
     });
@@ -24,12 +27,24 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     });
 
     page('/users/:name', function (data) {
-      app.route = 'user-info';
       app.params = data.params;
+      app.route = 'user-info';
     });
 
     page('/contact', function () {
       app.route = 'contact';
+    });
+
+    page('/card/:name/:set?', function (data) {
+      app.cardParams = data.params;
+      app.route = 'card';
+      app.cardViewed = true;
+    });
+
+    page('/set/:set', function (data) {
+      app.setParams = data.params;
+      app.route = 'set';
+      app.setViewed = true;
     });
 
     // add #! before urls

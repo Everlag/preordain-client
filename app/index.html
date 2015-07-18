@@ -126,10 +126,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
               <paper-material elevation="1">
                 <my-greeting></my-greeting>
 
-                <preordain-set-view name="Modern Masters 2015 Edition"></preordain-set-view>
-
-
-                <preordain-price show-usd>
+                <!-- <preordain-price show-usd>
                   <price-ev name="Khans of Tarkir"></price-ev>
                 </preordain-price>
                 <price-complete name="Judge Gift Program" mkm-source></price-complete>
@@ -173,9 +170,22 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 <preordain-card-view name="Heartless Hidetsugu"></preordain-card-view>
                 <preordain-card-view name="Wild Beastmaster"></preordain-card-view>
                 <preordain-card-view name="Vesuva"></preordain-card-view>
-
+ -->
               </paper-material>
 
+            </section>
+
+            <section data-route="card">
+              <template is="dom-if" if="[[cardViewed]]">
+                <preordain-card-view name="[[cardParams.name]]"></preordain-card-view>
+              </template>
+            </section>
+
+            <section data-route="set">
+              
+              <template is="dom-if" if="[[setViewed]]">
+                <preordain-set-view name="[[setParams.set]]"></preordain-set-view>
+              </template>
             </section>
 
             <section data-route="users">
