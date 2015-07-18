@@ -53,6 +53,7 @@
       // Set up the event listeners a single time.
       $('#visibleInput').on('typeahead:selected typeahead:autocompleted',
         (e, selection)=> this._fireResult(selection.name));
+
     },
     loadTypeahead: function(){
       if (this.loaded) throw 'typeahead already loaded';
@@ -63,8 +64,10 @@
         remote = {
           url: this.url,
           replace: customReplacer,
-           filter: function(list) {
-              return $.map(list, function(name) { return { name: name}; });
+          filter: (list)=> { 
+            return list.map((s)=> {
+              return {name: s};
+            });;
           }
         }
       }
@@ -72,9 +75,11 @@
       var names = new Bloodhound({
         datumTokenizer: Bloodhound.tokenizers.obj.whitespace("name"),
         queryTokenizer: customTokenizer,
-        local: $.map(this.hardOptions, function(name) { return { name: name }; }),
+        local: this.hardOptions.map((s)=> {
+              return {name: s};
+        }),
         remote: remote,
-        rateLimitWait: 500
+        rateLimitWait: 250
       });
 
       names.initialize();
