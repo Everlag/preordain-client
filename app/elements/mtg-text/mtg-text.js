@@ -50,6 +50,13 @@
     },
     _populate: function(cleaned){
       let holster = this.$.text;
+
+      // Empty it
+      while (holster.firstChild){
+        holster.removeChild(holster.firstChild);
+      }
+
+      // Fill it
       for (let t of cleaned)
         holster.appendChild(t);
     }
