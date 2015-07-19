@@ -39,7 +39,6 @@
     },
     stalePrice: function(){
       // We are holding onto an invalid price!
-      console.log('stale price!');
       this.price = NaN;
     },
     _hasPrice: function(price){

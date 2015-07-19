@@ -32,7 +32,6 @@
       // have been downloaded for layout to occur.
       this.imagesToLoad = 0;
       this.imagesLoaded = 0;
-      console.log('set view attached!');
     },
     pricesDown: function(e){
       let prices = e.detail;
