@@ -69,6 +69,9 @@
 
       if (this._url.length > 0) this.$.ajax.generateRequest();
 
+      // Send out a notice that we're holding onto a stale price
+      this.fire('stale-price', true);
+
     },
     hresponse: function(e){
       this.fire('price', this.$.ajax.lastResponse);

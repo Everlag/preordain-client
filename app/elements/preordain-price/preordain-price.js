@@ -32,9 +32,15 @@
     attached: function(){
       // Listen for any price events inside of the entire element.
       this.addEventListener("display-price", this.gotPrice);
+      this.addEventListener("stale-price", this.stalePrice);
     },
     gotPrice: function(e){
       this.price = e.detail / 100;
+    },
+    stalePrice: function(){
+      // We are holding onto an invalid price!
+      console.log('stale price!');
+      this.price = NaN;
     },
     _hasPrice: function(price){
       if (isNaN(price)) return false;
