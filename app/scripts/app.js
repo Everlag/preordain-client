@@ -55,4 +55,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
   };
 
+  app.cardRequested = function({detail:{Name, Set}}){
+    // Navigate to the desired card-set combo
+    page(`/card/${Name}/${Set}`);
+  }
+
 })(document);
