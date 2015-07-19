@@ -109,6 +109,8 @@ function buildExpectedValueURL(name, source){
 
 // Bulk data goes down here
 const setList = new Set([
+  "Magic Origins",
+  "Magic Origins Foil",
   "Starter 2000",
   "Gatecrash Foil",
   "Fourth Edition",

@@ -1,0 +1,26 @@
+<dom-module id="mtg-card-art">
+
+  <style>
+    :host {
+      display: block;
+    }
+
+    img { 
+      width: 100%; 
+      height: auto; 
+    }
+
+  </style>
+
+  <template>
+
+    <img hidden$="{{_loaded}}" id="placeHolder" src$="{{_placeHolder}}">
+
+    <img hidden$="{{!_loaded}}" id="img" src$="{{imgSrc}}">
+  
+  </template>
+
+
+</dom-module>
+
+<script src="mtg-card-art.js"></script>
