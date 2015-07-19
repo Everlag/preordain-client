@@ -18,11 +18,7 @@
       </div>
 
       <div id="imageContainer">
-          <!--
-          Not using iron-image here as it has issues with not breaking.
-          Pre-populating the ImageLoc with a dataurl is clunky but works.
-          -->
-          <img src="{{ImageLoc}}">
+          <mtg-card-art img-src="{{ImageLoc}}"></mtg-card-art>
         </div>
 
       <div class="self-start" id="type">{{Type}}</div>
