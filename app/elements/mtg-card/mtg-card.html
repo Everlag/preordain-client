@@ -1,8 +1,22 @@
 <dom-module id="mtg-card">
 
+  <!-- Layout -->
   <style>
     :host {
       display: block;
+    }
+
+    #nameAndCost, #text, #type{
+      padding-left: 0.2em;
+    }
+
+    #stats{
+      padding-right: 1em;
+    }
+
+    #imageContainer{
+      padding-left: 0em !important;
+      padding-right: 0em !important;
     }
   </style>
 
@@ -11,25 +25,25 @@
     <mtg-card-data name="{{name}}" on-data="freshData"></mtg-card-data>
 
     <div class="vertical layout center" id="cardContainer" color$="{{ColorIdentity}}">
-      <div class="horizontal layout self-stretch" id="nameAndCost">
+      <div class="horizontal layout self-stretch paper-font-headline" id="nameAndCost">
         <div>{{name}}</div>
         <div class="flex"></div>
         <div><mtg-text text="{{ManaCost}}"></mtg-text></div>  
       </div>
 
       <div id="imageContainer">
-          <mtg-card-art img-src="{{ImageLoc}}"></mtg-card-art>
-        </div>
+        <mtg-card-art img-src="{{ImageLoc}}"></mtg-card-art>
+      </div>
 
-      <div class="self-start" id="type">{{Type}}</div>
+      <div class="self-start paper-font-subhead" id="type">{{Type}}</div>
       
-      <div class="self-start" id="text">  
+      <div class="self-start paper-font-body1" id="text">  
         <template is="dom-repeat" items="{{TextLines}}">
             <mtg-text text="{{item}}"></mtg-text>
           </template>
       </div>
 
-      <div class="horizontal layout self-end" id="stats">
+      <div class="horizontal layout self-end paper-font-title" id="stats">
         <div>
           <template is="dom-if" if="{{isCreature}}">
             <div>
@@ -49,6 +63,7 @@
 
   </template>
 
+  <!-- Coloring -->
   <style type="text/css">
     #cardContainer{
       border-radius: 0.4em;
