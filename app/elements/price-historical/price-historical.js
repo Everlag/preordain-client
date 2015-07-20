@@ -2,7 +2,7 @@
   Polymer({
     // A wrapper for raw access to preorda.in pricing.
     //
-    // Events are fired when we are successful
+    // Fires the 'historical-prices' when complete.
     is: 'price-historical',
     properties: {
       // Filters
@@ -30,6 +30,7 @@
     },
     gotPrices: function(e){
       this.prices = e.detail;
+      this.fire('historical-prices', this.prices);
     }
 
 
