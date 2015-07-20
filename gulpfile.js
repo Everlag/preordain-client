@@ -156,9 +156,11 @@ gulp.task('vulcanize', function () {
 gulp.task('babel', function () {
   var DEST_DIR = 'dist';
 
+  var opts = {ignore: ['**/d3.v3.js', '**/rickshaw.js']};
+
   return gulp.src(['app/**/*.js'])
     .pipe($.sourcemaps.init())
-    .pipe($.babel()).on('error', swallowError)
+    .pipe($.babel(opts)).on('error', swallowError)
     .pipe($.sourcemaps.write('.', {sourceRoot: '/app/' }))
     .pipe($.debug())
     .pipe(gulp.dest(DEST_DIR));

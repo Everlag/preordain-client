@@ -1,0 +1,79 @@
+<script src="d3.v3.js"></script>
+<script src="rickshaw.js"></script>
+
+<link rel="stylesheet" type="text/css" href="rickshaw.css">
+
+<dom-module id="price-graph">
+
+  <style>
+    :host {
+      display: block;
+    }
+  </style>
+
+  <template>
+
+  <price-historical name="[[name]]" set="[[set]]" mkmSource="[[mkmSource]]"></price-historical>
+
+  <div id="completeContainer"></div>
+
+  <style type="text/css">
+    #completeContainer{
+      position: relative;
+    }
+
+    .rickshaw_annotation_timeline{
+      position: initial !important;
+      height: 0px !important;
+      border-top: none !important;
+    }
+    
+    /* Style the annotations to avoid significant jank. */
+    .rickshaw_annotation_timeline .annotation .content{
+      display: none !important;
+    }
+    
+    .rickshaw_annotation_timeline .annotation{
+      background-color: transparent !important;
+      margin-top: 0.6em;
+    }
+
+    .change.verticalOffset{
+      margin-top: 1em;
+    }
+    
+    .change{
+      font-size: 1.5em;
+      margin-top: -1em;
+    }
+    
+    .change.negative{
+      color: #7C4B69;
+    }
+    
+    .change.positive{
+      color: #006C18;
+    }
+    
+    .rickshaw_graph .detail .x_label { display: none }
+    
+    .rickshaw_graph .y_ticks text {
+        opacity: 1 !important;
+        position: relative !important;
+        font-size: 1em;
+    }
+  </style>
+
+  </template>
+
+  <style>
+
+    div[horizontal]{
+       @apply(--layout-horizontal);
+    }
+
+  </style>
+
+</dom-module>
+
+<script src="price-graph.js"></script>

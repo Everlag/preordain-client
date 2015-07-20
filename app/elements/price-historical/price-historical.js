@@ -29,6 +29,7 @@
       }
     },
     gotPrices: function(e){
+      if (e.detail.length === undefined) return;
       this.prices = e.detail;
       this.fire('historical-prices', this.prices);
     }
