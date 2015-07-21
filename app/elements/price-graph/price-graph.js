@@ -40,7 +40,7 @@
 
       this.draw();
     },
-    _prepare: function(){ // Prepare large data
+    _prepare: function(){ // Prepare set annotations.
 
       this._setAnnotations = [];
 
@@ -127,7 +127,7 @@
 
       if (usedTimes.has(Time)) return;
       
-      points.push({x: Time, y: Price})
+      points.push({x: Time, y: Math.round(Price) / 100})
       usedTimes.add(Time);
 
       if (earliestTime > Time){

@@ -1,0 +1,49 @@
+<dom-module id="preordain-card-prices">
+
+  <style>
+    :host {
+      display: block;
+    }
+
+    .fancyGrid { 
+      display: -ms-flexbox;
+      -ms-flex-wrap: wrap;
+      -ms-flex-direction: column;
+      -webkit-flex-flow: row wrap; 
+      flex-flow: row wrap; 
+      display: -webkit-box;
+      display: flex;
+    }
+    .fancyGrid .container { 
+      -webkit-box-flex: auto;
+      -ms-flex: auto;
+      flex: auto; 
+      padding-right: 0.05em;
+      max-width: 300px; 
+      position: relative;
+    }
+  </style>
+
+  <template>
+
+    <mtg-card-data name="[[name]]" on-data="newData"></mtg-card-data>
+    
+    <paper-radio-group selected="{{_selected}}">
+      <template is="dom-repeat" items="{{_printings}}">
+        <paper-radio-button name="{{item}}">
+        <span>{{item}}</span>
+        <preordain-price>
+          <price-latest name="[[name]]" set="[[item]]"></price-latest>
+        </preordain-price>
+        </paper-radio-button>
+      </template>
+    </paper-radio-group>
+
+    <price-graph name="[[name]]" set="[[_selected]]"></price-graph>
+
+  </template>
+
+
+</dom-module>
+
+<script src="preordain-card-prices.js"></script>
