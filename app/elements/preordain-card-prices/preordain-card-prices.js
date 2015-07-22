@@ -1,4 +1,40 @@
 (function () {
+
+  // Substrings undesirable sets may have.
+  const badSets = ['Promo', 'Friday', 'Prix', 'Duel', 'Media', 'Gift'];
+
+  // Selects a printing that would have sane
+  // data.
+  //
+  // Sometimes promo sets get unhinged in terms of mtgprice.
+  function selectSet(printings) {
+    
+    if (printings.length === 0) throw 'No valid printings';
+
+    // Default to the first set if we
+    // can't find a more desirable one.
+    let fallback = printings[0];
+
+    // Grab the first reasonable set
+    for (let p of printings){
+      let valid = true;
+
+      for (let bad of badSets){
+        if (p.indexOf(bad) !== -1){
+          valid = false;
+          break;
+        };
+      }
+
+      console.log(valid, p);
+
+      if (valid) return p;
+    }
+
+    return fallback;
+
+  }
+
   Polymer({
     // A view of all price data relevant for a specific card.
     is: 'preordain-card-prices',
@@ -23,8 +59,8 @@
     newData: function({detail:{Printings}}) {
       // Grab all the valid printings for this card.
       this._printings = Printings.filter((p)=> setList.has(p));
-      this._selected = this._printings[0];
-      console.log(this._printings);
+      this._selected = selectSet(this._printings);
+      console.log(this._selected);
     },
 
 
