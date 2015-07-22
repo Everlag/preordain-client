@@ -4,18 +4,81 @@
     :host {
       display: block;
     }
+
+    .avg{
+      padding-left: 1em;
+    }
   </style>
 
   <template>
 
+    <iron-media-query query="(min-width: 600px)" query-matches="{{_big}}"></iron-media-query>
+
     <mtg-card-data name="{{name}}" on-data="freshData"></mtg-card-data>
 
-    <iron-media-query query="(min-width: 600px)" query-matches="{{big}}"></iron-media-query>
+    <!-- Price summary -->
+    <div class="vertical layout center paper-font-caption">
+      
+      <div class="horizontal layout">
+        Low:
+        <preordain-price>
+          <price-latest-lowest name='[[name]]'></price-latest-lowest>
+        </preordain-price>
+        <div>&nbsp;&nbsp;&nbsp;&nbsp;</div>
+        High:
+        <preordain-price>
+          <price-latest-highest name='[[name]]'></price-latest-highest>
+        </preordain-price>
+      </div>
 
-    <div horizontal$="{{big}}">
+    </div>
 
+    <div class="vertical layout flex"></div>
 
+    <!-- Header -->
+    <div class="vertical layout center paper-font-headline">Context</div>    
 
+    <template is="dom-if" if="{{!_interestingContent}}">
+      <div class="vertical layout center">
+        <span class="paper-font-subhead">Not overly interesting.</span>
+      </div>
+    </template>
+
+    <div class="horizontal layout">
+
+      <!-- Modern Play Info -->
+      <template is="dom-if" if="{{_interestingModern}}">
+        <div class="vertical layout center">
+          <div class="paper-font-title self-end">Modern</div>
+          <table id="modernPlayTable">
+            <tr class="paper-font-subhead">
+              <th>Deck</th>
+              <th class="avg">Avg</th>
+            </tr>
+            <template is="dom-repeat" items="{{ModernDecks}}">
+              <tr>
+                <td>{{item.Name}}</td>
+                <td class="avg">{{item.Average}}</td>
+              </tr>
+            </template>
+          </table>
+          <div class="paper-font-caption self-end"><span>Median&nbsp;</span><span>[[MedianModernPlay]]</span></div>
+        </div>
+      </template>
+
+      <div class="flex"></div>
+
+      <!-- Commander Play Info -->
+      <template is="dom-if" if="{{_interestingCommander}}">
+        <div class="vertical layout">
+          <div class="paper-font-title">Commander</div>
+          <div class="paper-font-caption">Avg <span>[[CommanderUsage]]</span>%</div>
+          <div class="paper-font-subhead">[[CommanderAppearance]]</div>
+          <template is="dom-if" if="{{TinyLeadersAppeal}}">
+            <div>Tiny Leader</div>
+          </template>
+        </div>
+      </template>
     </div>
   </template>
 
