@@ -105,3 +105,10 @@ function buildCompleteLatestURL(name, source){
 function buildExpectedValueURL(name, source){
 	return buildSetPriceURL(name, suffixes.ExpectedValue, source);
 }
+
+// Rounds a given 'n' to the first 'decimals' decimal places
+function Truncate(n, decimals) {
+  let coeff = Math.pow(10, decimals);
+
+  return Math.floor(n * coeff) / coeff;
+}
