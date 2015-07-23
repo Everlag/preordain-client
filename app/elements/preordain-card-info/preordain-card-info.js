@@ -7,10 +7,6 @@
   // is legendary.
   const commanderGeneral = 0.5;
 
-  // A tiny leaders general might see significantly less play than a regular
-  // general due to lower mana cost in a high power format.
-  const tinyLeader = commanderGeneral * 0.5;
-
   // Returns the median of play that an array of sorted decks has. 
   function medianPlay(decks) {
 
@@ -39,15 +35,6 @@
     // Anything that falls through to here can be all be labeled
     // with a nonspecific identity.
     return 'Commander Fringe';
-  }
-
-  // Given the % play a card sees in commander and its type,
-  // returns true if it could be interesting in tiny leaders
-  function getTinyLeadersAppeal(play, type) {
-    if (play < tinyLeader  ) return false;
-    if (type.indexOf('Legendary Creature') === -1) return false;
-
-    return true;
   }
 
   // Given an array of decks played in modern,
@@ -93,10 +80,6 @@
       CommanderAppearance: {
         type: String,
         value: ' ',
-      },
-      TinyLeadersAppeal: {
-        type: Boolean,
-        value: false,
       },
       ModernDecks: {
         type: Array,
@@ -164,7 +147,6 @@
       rawCommanderUse = rawCommanderUse * 100;
       this.CommanderUsage = Truncate(rawCommanderUse, 2);
       this.CommanderAppearance = getCommanderDisplay(rawCommanderUse, Type);
-      this.TinyLeadersAppeal = getTinyLeadersAppeal(this.CommanderUsage, Type);
 
       [this.ModernDecks, this.MedianModernPlay] = cleanModernUse(this.ModernDecks);
 
