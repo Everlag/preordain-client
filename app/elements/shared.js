@@ -19,7 +19,7 @@ const suffixes = {
 }
 
 // Valid price sources
-const sources = {'mkm': 'mkm', 'mtgprice': 'mtgprice'};
+const sources = {'mkm': 'mkm', 'mtgprice': 'mtgprice', 'default':'mtgprice'};
 
 // Card price URL builders
 function buildCardURL(cardName) {

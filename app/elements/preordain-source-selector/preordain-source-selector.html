@@ -1,0 +1,29 @@
+<dom-module id="preordain-source-selector">
+
+  <style>
+    :host {
+      display: block;
+    }
+  </style>
+
+  <template>
+
+
+    <span>
+      <div class="paper-font-caption">Price Source</div>
+      <div>{{priceSource}}</div>
+      <paper-radio-group selected="{{source}}">
+          <paper-radio-button name="mtgprice">
+          mtgprice
+          </paper-radio-button>
+          <paper-radio-button name="mkm">
+          magiccardmarket
+          </paper-radio-button>
+      </paper-radio-group>
+    </span>
+
+  </template>
+
+</dom-module>
+
+<script src="preordain-source-selector.js"></script>

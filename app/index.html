@@ -68,7 +68,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <iron-media-query query="(max-width: 840px)" query-matches="{{small}}"></iron-media-query>
 
     <paper-drawer-panel id="paperDrawerPanel" responsive-width="840px">
-      <div drawer>
+      <div class="vertical layout" drawer>
 
         <!-- Drawer Toolbar -->
         <paper-toolbar id="drawerToolbar">
@@ -92,6 +92,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 <span>Contact</span>
               </a>
           </paper-menu>
+
+          <div class="flex"></div>
+
+          <preordain-source-selector></preordain-source-selector>
+
       </div>
       <paper-header-panel main mode="seamed">
 

@@ -16,11 +16,6 @@
         value: ' ',
         notify: true,
       },
-      // Price source options
-      mkmSource: {
-        type: Boolean,
-        value: false,
-      },
       // Result
       prices: {
         type: Array,
