@@ -105,6 +105,9 @@
     },
     // Sends a choice a user has made alongside some relevant metadata.
     _fireResult: function(selection){
+
+      document.activeElement.blur();
+
       this.fire('completed', {
         'choice':selection,
         'isSet': setList.has(selection),
