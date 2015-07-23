@@ -21,11 +21,6 @@
         type: Boolean,
         value: false,
       },
-      // Price source options
-      mkmSource: {
-        type: Boolean,
-        value: false,
-      },
       _url:{
         type: String,
         value: ' ',
@@ -54,11 +49,9 @@
         return;
       };
 
-      // Deal with alternative sources
-      let source = sources.mtgprice;
-      if (this.mkmSource) {
-        source = sources.mkm;
-      };
+      // Fetch the price source from the global, mutable scope.
+      let source = mutable.priceSource;
+
 
       if (this.expectedValue) {
         this._url = buildExpectedValueURL(this.name, source);
