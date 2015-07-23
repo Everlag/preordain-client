@@ -26,8 +26,6 @@
         };
       }
 
-      console.log(valid, p);
-
       if (valid) return p;
     }
 
@@ -53,14 +51,10 @@
         value: ()=> [],
       }
     },
-    attached: function(){
-      console.log('aha');
-    },
     newData: function({detail:{Printings}}) {
       // Grab all the valid printings for this card.
       this._printings = Printings.filter((p)=> setList.has(p));
       this._selected = selectSet(this._printings);
-      console.log(this._selected);
     },
 
 
