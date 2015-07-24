@@ -17,6 +17,8 @@
       // Reflect to the global state that we're using
       // this source now.
       mutable.priceSource = this.source;
+
+      this.fire('iron-signal', {name: 'source-change', data: null});
     }
 
   });
