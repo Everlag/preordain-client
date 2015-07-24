@@ -1,7 +1,8 @@
 (function () {
 
   // Substrings undesirable sets may have.
-  const badSets = ['Promo', 'Friday', 'Prix', 'Duel', 'Media', 'Gift'];
+  const badSets = ['Promo', 'Friday', 'Prix', 'Duel', 'Media', 'Gift',
+  'Event', 'From the Vault'];
 
   // Selects a printing that would have sane data.
   //
