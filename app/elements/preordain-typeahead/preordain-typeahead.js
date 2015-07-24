@@ -41,7 +41,7 @@
         type: Array,
         value: ()=> [],
       },
-      _smallDisplay: {
+      _small: {
         type: Boolean,
         value: false,
       }
@@ -106,7 +106,8 @@
     // Sends a choice a user has made alongside some relevant metadata.
     _fireResult: function(selection){
 
-      document.activeElement.blur();
+      // Remove focus from the typeahead to hide any mobile keyboards.
+      if (this._small) document.activeElement.blur();
 
       this.fire('completed', {
         'choice':selection,
