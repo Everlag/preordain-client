@@ -249,20 +249,16 @@
       let t2 = totalWidth;
       let t0 = 0;
 
-      let edown = document.createEvent("HTMLEvents");
-      edown.initEvent("mousedown", true, true);
+      let edown = new Event("mousedown", true, true);
       edown.clientX = 0;
-      let emove = document.createEvent("HTMLEvents");
-      emove.initEvent("mousemove", true, true);
+      let emove = new Event("mousemove", true, true);
       emove.clientX = 0.9 * w * (t1 - t0) / (t2 - t0) ;
-      let eup = document.createEvent("HTMLEvents");
-      eup.initEvent("mouseup", true, true);
+      let eup = new Event("mouseup", true, true);
 
       let lHandle = sliderContainer.getElementsByClassName("left_handle")[0];
       lHandle.dispatchEvent(edown);
-      //$('#slider .left_handle')[0].dispatchEvent(edown);
       document.dispatchEvent(emove);
-      document.dispatchEvent(eup); 
+      document.dispatchEvent(eup);
 
     }
     
