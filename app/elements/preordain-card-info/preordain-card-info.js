@@ -145,9 +145,9 @@
         Legalities, Type,
       } = e.detail);
     
-      this.ModernBanned = Legalities.Modern !== 'Legal';
-      this.LegacyBanned = Legalities.Legacy !== 'Legal';
-      this.CommanderBanned = Legalities.Commander !== 'Legal';
+      this.ModernBanned = Legalities.Modern === 'Banned';
+      this.LegacyBanned = Legalities.Legacy === 'Banned';
+      this.CommanderBanned = Legalities.Commander === 'Banned';
 
       // Find our display name for the commander usage
       rawCommanderUse = rawCommanderUse * 100;
