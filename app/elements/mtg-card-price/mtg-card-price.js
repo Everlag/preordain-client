@@ -75,6 +75,11 @@
         return;
       };
 
+      // Avoid sending invalid requests for endpoints that
+      // require sets.
+      if ((this.latestSpecific || this.closestMatch || this.weeksMedian) &&
+        (this.set.trim().length === 0)) return;
+
       // Fetch the price source from the global, mutable scope.
       let source = mutable.priceSource;
 
