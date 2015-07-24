@@ -95,6 +95,21 @@
 
     </div>
 
+    <!--
+    Time since last printing.
+    Requires other interesting content to prompt it.
+    -->
+    <template is="dom-if" if="{{_interestingContent}}">
+      <template is="dom-if" if="{{_interestingSinceLastPrint}}">
+        <div class="vertical layout center">
+          <span class="paper-font-caption">
+          Last printed
+          <span>{{SinceLastPrint}}</span>
+          years ago</span>
+        </div>
+      </template>
+    </template>
+
   </template>
 
   <style>

@@ -7,6 +7,9 @@
   // is legendary.
   const commanderGeneral = 0.5;
 
+  // A year in seconds
+  const year = 3600 * 24 * 365;
+
   // Returns the median of play that an array of sorted decks has. 
   function medianPlay(decks) {
 
@@ -56,6 +59,23 @@
     return [decks, median];
   }
 
+  // Given an array of printings for a card, returns the latest
+  // time for that printing.
+  function getLatestPrintingTime(printings) {
+    // Map to set releases, removed sets without dates,
+    // sort ascending then reverse.
+    let dates = printings
+    .map((set)=> setReleases[set])
+    .filter((t)=> t !== undefined)
+    .sort((a, b)=> a - b)
+    .reverse();
+
+    // If none of the set times survived, return the current time.
+    if (dates.length === 0) return (new Date() - 0)/ 1000;
+    
+    return dates[0];
+  }
+
   Polymer({
     is: 'preordain-card-info',
     properties: {
@@ -101,6 +121,10 @@
         type: Boolean,
         value: false,
       },
+      SinceLastPrint: { // Integer years since last printing.
+        type: Number,
+        value: 0,
+      },
       // Display settings
       _big: {
         type: Boolean,
@@ -129,6 +153,11 @@
         value: false,
         computed: '_banInterest(ModernBanned, LegacyBanned, CommanderBanned)',
       },
+      _interestingSinceLastPrint: { // Last printing > some years ago
+        type: Boolean,
+        value: false,
+        computed: '_timeSinceInterest(SinceLastPrint)',
+      }
     },
     freshData: function(e){
 
@@ -156,6 +185,15 @@
 
       [this.ModernDecks, this.MedianModernPlay] = cleanModernUse(this.ModernDecks);
 
+      // Find how long its been since this was last in a major
+      // printing
+      let now = (new Date() - 0)/ 1000;
+      console.log(this.Printings);
+      let secondsSince = now - getLatestPrintingTime(this.Printings);
+      console.log(this.Printings);
+
+      // Convert to years
+      this.SinceLastPrint = Truncate(secondsSince / year, 0);
     },
     _commanderInterest: function(CommanderUsage) {
       let commanderInteresting = false;
@@ -181,10 +219,19 @@
 
       return ModernBanned || LegacyBanned || CommanderBanned;
     },
+    _timeSinceInterest: function(SinceLastPrint) {
+      // A card that was printed at least two years ago
+      // is worthwhile to note.
+      return SinceLastPrint >= 2;
+    },
     // Returns whether or not we have data interesting
     // enough to be worth displaying.
     _isInteresting: function(MedianModernPlay,
       CommanderUsage, ModernBanned, LegacyBanned, CommanderBanned) {
+
+      // Note: SinceLastPrint is not inherently interesting
+      // on its own so we do not take it into consideration when
+      // determining if a card has sufficiently spicy context.
 
       return this._modernInterest(MedianModernPlay) ||
              this._commanderInterest(CommanderUsage) ||
