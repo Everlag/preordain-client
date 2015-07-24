@@ -182,7 +182,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
             <section data-route="card">
               <template is="dom-if" if="[[cardViewed]]">
-                <preordain-card-view name="[[cardParams.name]]"></preordain-card-view>
+                <preordain-card-view
+                name="[[cardParams.name]]"
+                set="[[cardParams.set]]"></preordain-card-view>
               </template>
             </section>
 
