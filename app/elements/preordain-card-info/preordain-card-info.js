@@ -108,10 +108,11 @@
       },
       // Flags for when we have interesting
       // content.
-      _interestingContent: { // No interest whatsoever
+      _interestingContent: { // Any interesting data to show.
         type: Boolean,
         value: false,
-        computed: '_isInteresting(MedianModernPlay, CommanderUsage)',
+        // We need to state all dependencies here
+        computed: '_isInteresting(MedianModernPlay, CommanderUsage, ModernBanned, LegacyBanned, CommanderBanned)',
       },
       _interestingCommander: { // Spicy commander usage
         type: Boolean,
@@ -122,7 +123,12 @@
         type: Boolean,
         value: false,
         computed: '_modernInterest(MedianModernPlay)',
-      }
+      },
+      _interestingBan: { // Worthwhile modern results
+        type: Boolean,
+        value: false,
+        computed: '_banInterest(ModernBanned, LegacyBanned, CommanderBanned)',
+      },
     },
     freshData: function(e){
 
@@ -169,12 +175,20 @@
 
       return modernInteresting
     },
+    _banInterest: function(ModernBanned,
+      LegacyBanned, CommanderBanned) {
+      
+
+      return ModernBanned || LegacyBanned || CommanderBanned;
+    },
     // Returns whether or not we have data interesting
     // enough to be worth displaying.
-    _isInteresting: function(MedianModernPlay, CommanderUsage) {
+    _isInteresting: function(MedianModernPlay,
+      CommanderUsage, ModernBanned, LegacyBanned, CommanderBanned) {
 
       return this._modernInterest(MedianModernPlay) ||
-             this._commanderInterest(CommanderUsage);
+             this._commanderInterest(CommanderUsage) ||
+             this._banInterest(ModernBanned, LegacyBanned, CommanderBanned);
 
     }
 

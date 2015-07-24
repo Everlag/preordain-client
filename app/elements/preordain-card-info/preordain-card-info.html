@@ -8,6 +8,10 @@
     .avg{
       padding-left: 1em;
     }
+
+    #bannings{
+      min-height: 1em;
+    }
   </style>
 
   <template>
@@ -44,6 +48,18 @@
       </div>
     </template>
 
+    <div class="vertical layout center" id="bannings">
+      <template is="dom-if" if="{{ModernBanned}}">
+        <div class="paper-font-caption">Banned in Modern</div>
+      </template>
+      <template is="dom-if" if="{{LegacyBanned}}">
+        <div class="paper-font-caption">Banned in Legacy</div>
+      </template>
+      <template is="dom-if" if="{{CommanderBanned}}">
+        <div class="paper-font-caption">Banned in Commander</div>
+      </template>
+    </div>
+
     <div class="horizontal layout">
 
       <!-- Modern Play Info -->
@@ -76,7 +92,9 @@
           <div class="paper-font-subhead">[[CommanderAppearance]]</div>
         </div>
       </template>
+
     </div>
+
   </template>
 
   <style>
