@@ -161,7 +161,7 @@ gulp.task('babel', function () {
     .pipe($.sourcemaps.init())
     .pipe($.babel(opts)).on('error', swallowError)
     .pipe($.sourcemaps.write('.', {sourceRoot: '/app/' }))
-    .pipe($.debug())
+    // .pipe($.debug())
     .pipe(gulp.dest(DEST_DIR));
 });
 
