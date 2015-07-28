@@ -7,4 +7,9 @@
 let mutable = {
 	// The global source all price sources fetch from.
 	priceSource: sources.mtgprice,
+	// Credentials for the logged in user.
+	user: {
+		name: '',
+		session: '',
+	},
 };

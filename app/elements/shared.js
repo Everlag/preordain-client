@@ -6,6 +6,7 @@ const remote = {
 	cardPrice: 'https://beta.perfectlag.me/api/Prices/Card',
 	setPrice: 'https://beta.perfectlag.me/api/Prices/Set',
 	typeAhead: 'https://beta.perfectlag.me/typeAhead/%QUERY.json',
+	users: 'https://beta.perfectlag.me/api/Users',
 };
 
 // Store all the suffixes here.
@@ -106,9 +107,73 @@ function buildExpectedValueURL(name, source){
 	return buildSetPriceURL(name, suffixes.ExpectedValue, source);
 }
 
+// User endpoint URL builders
+function buildUserURL(content) {
+	return `${remote.users}/${content}`;
+}
+
+function buildLoginURL(name) {
+	let content = `${name}/Login`
+	return buildUserURL(content);
+}
+
+// Fires an ajax request.
+function ajaxJSON(method, url, body,
+	success, failure) {
+
+	var request = new XMLHttpRequest();
+
+	request.open(method, url);
+	request.setRequestHeader('Content-Type', 'application/json');
+
+	request.onreadystatechange = function() {
+	if (request.readyState == XMLHttpRequest.DONE ) {
+			if(request.status == 200){
+				success(request.response);
+			}
+			else if(request.status >= 400 && request.status <= 600) {
+				failure();
+			}
+		}
+	}
+
+	request.send(body);
+}
+
+// Briefly shakes an element to indicate an incorrect
+// action on the part of the user.
+function indicateBadness(element) {
+	// Turn it on
+	element.classList.add('shake');
+	element.classList.add('shake-constant');
+	element.classList.add('shake-horizontal');
+
+	// Turn it off
+	setTimeout(()=>{
+		element.classList.remove('shake');
+		element.classList.remove('shake-constant');
+		element.classList.remove('shake-horizontal');
+	}, 200);
+}
+
 // Rounds a given 'n' to the first 'decimals' decimal places
 function Truncate(n, decimals) {
   let coeff = Math.pow(10, decimals);
 
   return Math.floor(n * coeff) / coeff;
+}
+
+// Returns whether or not a provided username is valid.
+//
+// A valid username is at least a character but less than 30.
+function validUsername(name) {
+	return name.length > 0 && name.length < 30;
+}
+
+// Returns whether or not a provided password is valid.
+//
+// A valid password is at least 10 characters but less than
+// 255
+function validPassword(password) {
+	return password.length >= 10 && password.length < 255;
 }
