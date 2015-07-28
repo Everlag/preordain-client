@@ -85,6 +85,11 @@
       // Shake the button for a moment
       indicateBadness(this.$.submitter);
     },
+    _forgot: function(){ // Send them over to /reset
+      // We can't use the wonderful string templating features
+      // here as the input is user controlled :(
+      page('/reset/' + this.input.username.value);
+    }
 
   });
 })();
