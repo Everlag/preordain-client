@@ -26,7 +26,7 @@
       if (!valid){
         indicateBadness(this.$.submitter);
         return;
-      };
+      }
 
       // Form the payload
       let payload = JSON.stringify({

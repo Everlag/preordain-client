@@ -77,8 +77,11 @@
     freshData: function(e){
 
       let Legalities = {};
-      let ImageName = "";
+      let ImageName = '';
 
+      // [ignore] jshint seems to get unhappy with a
+      // destructuring assignment that uses existing variables.
+      /* jshint ignore:start */
       ({
         ManaCost: this.ManaCost,
         Type: this.Type,
@@ -90,21 +93,22 @@
         Printings: this.Printings,
         ImageName,
       } = e.detail);
+      /* jshint ignore:end */
     
       this.ModernBanned = Legalities.Modern !== 'Legal';
       this.LegacyBanned = Legalities.Legacy !== 'Legal';
       this.CommanderBanned = Legalities.Commander !== 'Legal';
 
-      this.TextLines = this.Text.split("\n").map((t)=> t);
+      this.TextLines = this.Text.split('\n').map((t)=> t);
 
       this.ImageLoc = new URL(buildImageURL(ImageName)).href;
 
-      if (this.Colors == null){
+      if (this.Colors === null){
         this.ColorIdentity = 'artifact';
       }else{
         if (this.Colors.length > 1) {
-          this.ColorIdentity = 'gold'
-        }else if (this.Colors.length == 1){
+          this.ColorIdentity = 'gold';
+        }else if (this.Colors.length === 1){
           this.ColorIdentity = this.Colors[0].toLocaleLowerCase();
         }else if (this.Type.indexOf('Land')){
           this.ColorIdentity = 'artifact';
@@ -115,15 +119,15 @@
     },
     hasCombatStats: function(Type){
 
-      if (Type.indexOf("Creature") !== -1) {
+      if (Type.indexOf('Creature') !== -1) {
         return true;
-      };
+      }
       return false;
     },
     hasLoyalty: function(Type){
-      if (Type.indexOf("Planeswalker") !== -1) {
+      if (Type.indexOf('Planeswalker') !== -1) {
         return true;
-      };
+      }
 
       return false;
     }

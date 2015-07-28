@@ -27,7 +27,7 @@
     hresponse: function(a,b,c){
       this.data = this.ajax.lastResponse;
 
-      this.fire('data', this.data)
+      this.fire('data', this.data);
     }
 
   });

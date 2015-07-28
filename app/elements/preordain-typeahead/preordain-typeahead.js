@@ -10,7 +10,7 @@
   // sending it.
   function customReplacer (url, query) {
     query = query.toLowerCase();
-    let freshUrl = url.replace("%QUERY", query);
+    let freshUrl = url.replace('%QUERY', query);
     return freshUrl;
   }
 
@@ -19,7 +19,7 @@
     //
     // Yes, those are actually two different versions of quotes
     let value = datum.name.replace('"', '&quot;').replace('"', '&quot;');
-    return `<misc-typeahead-line suggestion="${value}"></misc-typeahead-line>`;;
+    return `<misc-typeahead-line suggestion="${value}"></misc-typeahead-line>`;
   }
 
   Polymer({
@@ -67,13 +67,13 @@
           filter: (list)=> { 
             return list.map((s)=> {
               return {name: s};
-            });;
+            });
           }
-        }
+        };
       }
 
       var names = new Bloodhound({
-        datumTokenizer: Bloodhound.tokenizers.obj.whitespace("name"),
+        datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
         queryTokenizer: customTokenizer,
         local: this.hardOptions.map((s)=> {
               return {name: s};

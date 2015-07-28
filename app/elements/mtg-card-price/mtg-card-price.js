@@ -54,8 +54,8 @@
 
       // Ensure we run in only a single mode or else things break...
       if (!this._validChoice()) {
-        throw 'Mode needs a single choice'
-      };
+        throw 'Mode needs a single choice';
+      }
 
       this._facetChanged();
     },
@@ -64,7 +64,7 @@
       this.weeksMedian + this.latestSpecific + this.closestMatch;
       if (sum !== 1) {
         return false;
-      };
+      }
 
       return true;
     },
@@ -73,7 +73,7 @@
       // Make sure we're initialzed
       if (!this._validChoice() || this.name.trim().length === 0) {
         return;
-      };
+      }
 
       // Avoid sending invalid requests for endpoints that
       // require sets.
@@ -85,20 +85,20 @@
 
       if (this.latestHighest) {
         this._url = buildLatestHighestURL(this.name, source);
-      };
+      }
       if (this.latestLowest) {
         this._url = buildLatestLowestURL(this.name, source);
-      };
+      }
       if (this.latestSpecific) {
         this._url = buildLatestSpecificURL(this.name, this.set, source);
-      };
+      }
       if (this.weeksMedian) {
         this._url = buildWeeksMedianURL(this.name, this.set, source);
-      };
+      }
       if (this.closestMatch) {
         this._url = buildClosestURL(this.name, this.set,
           this.closest, source);
-      };
+      }
 
       if (this._url.length > 0) this.$.ajax.generateRequest();
 

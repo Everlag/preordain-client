@@ -65,13 +65,13 @@
       this.imagesLoaded++;
       if (this.imagesLoaded >= this.imagesToLoad){
         this._galleryReady = true;
-      };
+      }
     },
     requestCard: function(e){
       let data = {
         Name: e.model.item.Name,
         Set: this.name,
-      }
+      };
 
       this.fire('request-card', data);
     }

@@ -29,8 +29,8 @@
     attached: function(){
       // Ensure we run in only a single mode or else things break...
       if (!this._validChoice()) {
-        throw 'Mode needs a single choice'
-      };
+        throw 'Mode needs a single choice';
+      }
 
       this._facetChanged();
     },
@@ -38,7 +38,7 @@
       let sum = this.completeLatest + this.expectedValue;
       if (sum !== 1) {
         return false;
-      };
+      }
 
       return true;
     },
@@ -47,7 +47,7 @@
       // Make sure we're initialzed
       if (!this._validChoice() || this.name.trim().length === 0) {
         return;
-      };
+      }
 
       // Fetch the price source from the global, mutable scope.
       let source = mutable.priceSource;
@@ -55,10 +55,10 @@
 
       if (this.expectedValue) {
         this._url = buildExpectedValueURL(this.name, source);
-      };
+      }
       if (this.completeLatest) {
         this._url = buildCompleteLatestURL(this.name, source);
-      };
+      }
 
       if (this._url.length > 0) this.$.ajax.generateRequest();
 

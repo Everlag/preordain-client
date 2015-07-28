@@ -28,7 +28,7 @@
         if (p.indexOf(bad) !== -1){
           valid = false;
           break;
-        };
+        }
       }
 
       if (valid) return p;

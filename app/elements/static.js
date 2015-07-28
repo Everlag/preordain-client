@@ -1,4 +1,4 @@
-
+// jshint ignore: start
 
 // Every set supported built for efficient querying.
 const setList = new Set([

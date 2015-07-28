@@ -17,7 +17,7 @@ const suffixes = {
 	WeeksMedianSuffix: 'WeeksMedian',
 	ClosestSuffix: 'Closest',
 	ExpectedValue: 'EV',
-}
+};
 
 // Valid price sources
 const sources = {'mkm': 'mkm', 'mtgprice': 'mtgprice', 'default':'mtgprice'};
@@ -52,7 +52,7 @@ function buildImageURL (imageName) {
 // cards but makes no guarantees. Always use the imagename presented by the
 // server in mtg-card-data when available.
 function cardToImageName(cardName){
-	cardName = cardName.split("//")[0]
+	cardName = cardName.split('//')[0];
 
 	return cardName
 	.replace(':', '')
@@ -64,7 +64,7 @@ function cardToImageName(cardName){
 function buildCardPriceURL (content, suffix, source) {
 	if (!(source in sources)) {
 		throw `unknown price source ${source}`;
-	};
+	}
 	return `${remote.cardPrice}/${content}/${suffix}?source=${source}`;
 }
 
@@ -95,7 +95,7 @@ function buildClosestURL (name, set, closest, source) {
 function buildSetPriceURL(setName, suffix, source) {
 	if (!(source in sources)) {
 		throw `unknown price source ${source}`;
-	};
+	}
 	return `${remote.setPrice}/${setName}/${suffix}?source=${source}`;
 }
 
@@ -113,7 +113,7 @@ function buildUserURL(content) {
 }
 
 function buildLoginURL(name) {
-	let content = `${name}/Login`
+	let content = `${name}/Login`;
 	return buildUserURL(content);
 }
 
@@ -127,15 +127,15 @@ function ajaxJSON(method, url, body,
 	request.setRequestHeader('Content-Type', 'application/json');
 
 	request.onreadystatechange = function() {
-	if (request.readyState == XMLHttpRequest.DONE ) {
-			if(request.status == 200){
+	if (request.readyState === XMLHttpRequest.DONE ) {
+			if(request.status === 200){
 				success(request.response);
 			}
 			else if(request.status >= 400 && request.status <= 600) {
 				failure();
 			}
 		}
-	}
+	};
 
 	request.send(body);
 }

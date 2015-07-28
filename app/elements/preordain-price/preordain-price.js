@@ -31,8 +31,8 @@
     },
     attached: function(){
       // Listen for any price events inside of the entire element.
-      this.addEventListener("display-price", this.gotPrice);
-      this.addEventListener("stale-price", this.stalePrice);
+      this.addEventListener('display-price', this.gotPrice);
+      this.addEventListener('stale-price', this.stalePrice);
     },
     gotPrice: function(e){
       this.price = e.detail / 100;

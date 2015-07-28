@@ -60,12 +60,12 @@
       
       // Build the containers we need
       // [chart, slider, timeline]
-      let containers = []
+      let containers = [];
       let c = this.$.completeContainer;
       for (var i = 0; i < 3; i++) {
-        containers.push(document.createElement('div'))
+        containers.push(document.createElement('div'));
         c.appendChild(containers[i]);
-      };
+      }
 
       return containers;
     },
@@ -122,7 +122,7 @@
 
       if (usedTimes.has(Time)) return;
       
-      points.push({x: Time, y: Math.round(Price) / 100})
+      points.push({x: Time, y: Math.round(Price) / 100});
       usedTimes.add(Time);
 
       if (earliestTime > Time){
@@ -131,7 +131,7 @@
     });
 
     // Set the color and cycle through till we get something pretty
-    let palette = new Rickshaw.Color.Palette( { scheme: "cool" } );
+    let palette = new Rickshaw.Color.Palette( { scheme: 'cool' } );
     palette.color();
     palette.color();
     palette.color();
@@ -141,7 +141,7 @@
             element: chartContainer,
             renderer: 'multi',
             series: [ {
-                    name: "USD",
+                    name: 'USD',
                     color: palette.color(),
                     data: points.reverse(),
                     renderer: 'area'
@@ -179,7 +179,7 @@
       formatter: function(series, x, y) {
       let date = '<span class="date">' + new Date(x * 1000).toUTCString() + '</span>';
       let swatch = '<span class="detail_swatch" style="background-color: ' + series.color + '"></span>';
-      let content = swatch + series.name + ": " + parseFloat(parseFloat(y).toFixed(2)) + '<br>' + date;
+      let content = swatch + series.name + ': ' + parseFloat(parseFloat(y).toFixed(2)) + '<br>' + date;
       return content;
     }
     });
@@ -198,7 +198,7 @@
 
       // Prevent duplicates!
       if(annotations[i][0] < earliestTime ||
-        boringToCool[id] != undefined){
+        boringToCool[id] !== undefined){
         // Skipped unused annotations
         continue;
       }
@@ -209,25 +209,25 @@
       // Allow us to translate between arbitrary annotations and their
       // element equivalents
       boringToCool[id] = annotations[i][2];
-    };
+    }
 
     // Update to build the spacing we'll use
     annotator.update();
 
-    let boring = timelineContainer.getElementsByClassName("annotation");
+    let boring = timelineContainer.getElementsByClassName('annotation');
 
     // Slip in the actual annotations
     for (let i = boring.length - 1; i >= 0; i--) {
       let id = boring[i].textContent;
       let cool = boringToCool[id];
 
-      if (cool == undefined) {
+      if (cool === undefined) {
         continue;
-      };
+      }
 
 
       boring[i].appendChild(cool);
-    };
+    }
 
     let deltaTime = Math.floor(Date.now()/1000) - earliestTime;
     if (deltaTime > zoomTime) {
@@ -249,13 +249,13 @@
       let t2 = totalWidth;
       let t0 = 0;
 
-      let edown = new Event("mousedown", true, true);
+      let edown = new Event('mousedown', true, true);
       edown.clientX = 0;
-      let emove = new Event("mousemove", true, true);
+      let emove = new Event('mousemove', true, true);
       emove.clientX = 0.9 * w * (t1 - t0) / (t2 - t0) ;
-      let eup = new Event("mouseup", true, true);
+      let eup = new Event('mouseup', true, true);
 
-      let lHandle = sliderContainer.getElementsByClassName("left_handle")[0];
+      let lHandle = sliderContainer.getElementsByClassName('left_handle')[0];
       lHandle.dispatchEvent(edown);
       document.dispatchEvent(emove);
       document.dispatchEvent(eup);

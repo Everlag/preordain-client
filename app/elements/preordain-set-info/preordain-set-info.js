@@ -2,7 +2,7 @@
 
   function contains (total, sub) {
     if (total.indexOf(sub) !== -1) return true;
-    return false
+    return false;
   }
 
   // A list of substrings we don't show EV for when
@@ -83,13 +83,13 @@
         if (contains(name, noEVSets[i])){
           return false;
         }
-      };
+      }
 
       return true;
 
     },
     _isValidContribs: function(c, u, r, m) {
-      return !(isNaN(c) || isNaN(u) || isNaN(r) || isNaN(m))
+      return !(isNaN(c) || isNaN(u) || isNaN(r) || isNaN(m));
     },
     evDown: function(e){
       this.ev = e.detail;

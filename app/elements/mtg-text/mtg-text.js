@@ -19,7 +19,7 @@
       for (let section of t.split('(')){
         if (section.indexOf(')') === -1) {
           noReminders+= section;
-        };
+        }
       }
 
       let cleaned = [];
@@ -32,12 +32,12 @@
             let symbolElement = document.createElement('iron-icon');
             symbolElement.src = buildSymbolURL(symbol);
             cleaned.push(symbolElement);
-          };
+          }
           if (text.length > 0) {
             let textElement = document.createElement('span');
             textElement.textContent = text;
             cleaned.push(textElement);
-          };
+          }
         }else{
           let textElement = document.createElement('span');
           textElement.textContent = section;

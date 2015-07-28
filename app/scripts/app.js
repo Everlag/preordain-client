@@ -49,7 +49,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     if (e.detail.isSet) {
       page(`/set/${name}`);
       return;
-    };
+    }
 
     page(`/card/${name}`);
 
@@ -58,6 +58,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   app.cardRequested = function({detail:{Name, Set}}){
     // Navigate to the desired card-set combo
     page(`/card/${Name}/${Set}`);
-  }
+  };
 
 })(document);

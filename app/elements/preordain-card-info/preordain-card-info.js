@@ -31,7 +31,7 @@
 
     // Check if this is could be a general and opportunistically
     // assume that if it can be, then it is.
-    if (type.indexOf('Legendary Creature') != -1) return 'Popular General';
+    if (type.indexOf('Legendary Creature') !== -1) return 'Popular General';
 
     if (play >= commanderStaple) return 'Commander Staple';
 
@@ -46,7 +46,7 @@
     // Filter out useless noise
     decks = decks.filter((d)=> d.Average >= 1);
     // Sort in ascending usage then reverse to descending.
-    decks.sort((a, b)=> a.Average - b.Average).reverse()
+    decks.sort((a, b)=> a.Average - b.Average).reverse();
     // Round them nicely to a single decimal point.
     decks.forEach((d)=>{
       d.Average = Truncate(d.Average, 1);
@@ -159,12 +159,15 @@
         computed: '_timeSinceInterest(SinceLastPrint)',
       }
     },
-    freshData: function(e){
+    freshData: function({detail}){
 
       let Legalities = {};
       let Type = '';
       let rawCommanderUse = 0;
 
+      // [ignore] jshint seems to get unhappy with a
+      // destructuring assignment that uses existing variables.
+      /* jshint ignore:start */
       ({
         Printings: this.Printings,
         SimilarCards: this.SimilarCards,
@@ -172,7 +175,8 @@
         CommanderUsage: rawCommanderUse,
         ModernPlay:{Decks: this.ModernDecks},
         Legalities, Type,
-      } = e.detail);
+      } = detail);
+      /* jshint ignore:end */
     
       this.ModernBanned = Legalities.Modern === 'Banned';
       this.LegacyBanned = Legalities.Legacy === 'Banned';
@@ -202,7 +206,7 @@
       // is also worth showing.
       if (CommanderUsage > commanderGeneral) commanderInteresting = true;
 
-      return commanderInteresting
+      return commanderInteresting;
     },
     _modernInterest: function (MedianModernPlay) {
       let modernInteresting = false;
@@ -211,7 +215,7 @@
       // is worth showing
       if (MedianModernPlay > 1) modernInteresting = true;
 
-      return modernInteresting
+      return modernInteresting;
     },
     _banInterest: function(ModernBanned,
       LegacyBanned, CommanderBanned) {
