@@ -120,7 +120,7 @@
 
       this.fire('completed', {
         'choice':selection,
-        'isSet': setList.has(selection),
+        'isSet': displaySets.has(selection),
       });
     }
 
