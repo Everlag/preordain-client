@@ -63,7 +63,7 @@
     },
     newData: function({detail:{Printings}}) {
       // Grab all the valid printings for this card.
-      this._printings = Printings.filter((p)=> setList.has(p));
+      this._printings = Printings.filter((p)=> displaySets.has(p));
 
       // Choose one to display
       this._selected = selectSet(this._printings, this.set);

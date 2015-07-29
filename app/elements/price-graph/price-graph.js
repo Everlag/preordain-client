@@ -42,7 +42,7 @@
       let sets = Object.keys(setReleases);
       sets.forEach((set)=>{
         // Ensure we display only supported sets.
-        if (!setList.has(set)) return;
+        if (!displaySets.has(set)) return;
 
         let display = document.createElement('iron-icon');
         display.src = buildSetSymbolURL(set);

@@ -59,7 +59,7 @@
     },
     _facetChanged: function(){
       // Ensure we are dealing only with valid set names
-      if (!setList.has(this.name)) throw 'invalid set name';
+      if (!displaySets.has(this.name)) throw 'invalid set name';
     },
     _imageLoaded: function(){
       this.imagesLoaded++;

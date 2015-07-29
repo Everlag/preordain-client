@@ -33,7 +33,8 @@ function buildSymbolURL (symbolName) {
 }
 
 function buildSetSymbolURL (setName){
-	let cleaned = setName
+	// Convert to official then normalize to server representation.
+	let cleaned = displayToOfficialSets[setName]
 	.replace('/', '')
 	.replace('Foil', '')
 	.trim();

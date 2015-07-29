@@ -64,7 +64,7 @@
     },
     _facetChanged: function(){
       // Ensure we are dealing only with valid set names
-      if (!setList.has(this.name)) throw 'invalid set name';
+      if (!displaySets.has(this.name)) throw 'invalid set name';
 
       // Reset _validContribs so we don't show stale data.
       this.uContribution = NaN;

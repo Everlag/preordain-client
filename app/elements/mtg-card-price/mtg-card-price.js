@@ -83,6 +83,11 @@
       // Fetch the price source from the global, mutable scope.
       let source = mutable.priceSource;
 
+      let officialSetName = '';
+      if (this.set.trim().length > 0) {
+        officialSetName = displayToOfficialSets[this.set];
+      }
+
       if (this.latestHighest) {
         this._url = buildLatestHighestURL(this.name, source);
       }
@@ -90,13 +95,13 @@
         this._url = buildLatestLowestURL(this.name, source);
       }
       if (this.latestSpecific) {
-        this._url = buildLatestSpecificURL(this.name, this.set, source);
+        this._url = buildLatestSpecificURL(this.name, officialSetName, source);
       }
       if (this.weeksMedian) {
-        this._url = buildWeeksMedianURL(this.name, this.set, source);
+        this._url = buildWeeksMedianURL(this.name, officialSetName, source);
       }
       if (this.closestMatch) {
-        this._url = buildClosestURL(this.name, this.set,
+        this._url = buildClosestURL(this.name, officialSetName,
           this.closest, source);
       }
 

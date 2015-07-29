@@ -52,12 +52,14 @@
       // Fetch the price source from the global, mutable scope.
       let source = mutable.priceSource;
 
+      // Convert to the official name that the remote uses.
+      let officialName = displayToOfficialSets[this.name];
 
       if (this.expectedValue) {
-        this._url = buildExpectedValueURL(this.name, source);
+        this._url = buildExpectedValueURL(officialName, source);
       }
       if (this.completeLatest) {
-        this._url = buildCompleteLatestURL(this.name, source);
+        this._url = buildCompleteLatestURL(officialName, source);
       }
 
       if (this._url.length > 0) this.$.ajax.generateRequest();
