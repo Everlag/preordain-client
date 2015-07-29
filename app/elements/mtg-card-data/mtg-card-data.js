@@ -24,8 +24,19 @@
       // Rebuild the url
       this._url = buildCardURL(this.name);
     },
-    hresponse: function(a,b,c){
+    hresponse: function(){
       this.data = this.ajax.lastResponse;
+
+      // Filter and convert printings so we only display
+      // supported sets and only display those sets with
+      // normalized names that users can rely on.
+      let Printings = this.data.Printings;
+      // Check the official set.
+      Printings.filter((s)=> setList.has(s));
+      // Convert to our internal representation
+      Printings = Printings.map((s)=> officialToDisplaySet(s));
+
+      this.data.Printings = Printings;
 
       this.fire('data', this.data);
     }
