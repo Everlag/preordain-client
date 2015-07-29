@@ -221,10 +221,12 @@ const setReleases = {"15th Anniversary":1207008000,"Alara Reborn":1241049600,"Al
 // the capability to map between the two.
 const displaySets = new Set([]);
 const displayToOfficialSets = {};
+const displaySetReleases = {};
 setList.forEach((s)=>{
   let display = officialToDisplaySet(s);
   displaySets.add(display)
   displayToOfficialSets[display] = s;
+  displaySetReleases[display] = setReleases[s];
 });
 
 // Base64 encoded placeholder image.
