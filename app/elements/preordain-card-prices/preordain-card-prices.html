@@ -4,6 +4,12 @@
     :host {
       display: block;
     }
+
+    mtg-set-symbol{
+      height: 1.7em;
+      width: 1.7em;
+      padding-right: 0.2em;
+    }
   </style>
 
   <template>
@@ -13,10 +19,13 @@
     <paper-radio-group selected="{{_selected}}">
       <template is="dom-repeat" items="{{_printings}}">
         <paper-radio-button name="{{item}}">
-        <span>{{item}}</span>
-        <preordain-price>
-          <price-latest name="[[name]]" set="[[item]]"></price-latest>
-        </preordain-price>
+          <span>{{item}}</span>
+          <div class="horizontal layout">
+            <mtg-set-symbol set="{{item}}"></mtg-set-symbol>
+            <preordain-price>
+              <price-latest name="[[name]]" set="[[item]]"></price-latest>
+            </preordain-price>
+          </div>
         </paper-radio-button>
       </template>
     </paper-radio-group>
