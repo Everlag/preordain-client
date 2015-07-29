@@ -32,11 +32,6 @@
         type: Number,
         value: NaN,
       },
-      _symbolURL: {
-        type: String,
-        value: ' ',
-        computed: '_getSetSymbol(name)',
-      },
       _showEV: {
         type: Boolean,
         value: true,
@@ -73,9 +68,6 @@
 
       // Reset _validContribs so we don't show stale data.
       this.uContribution = NaN;
-    },
-    _getSetSymbol: function(name){
-      return buildSetSymbolURL(name);
     },
     _validEV: function(name, _validContribs){
 

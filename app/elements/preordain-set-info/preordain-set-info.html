@@ -21,7 +21,7 @@
 
   <div class="horizontal layout center">
     <div class="horizontal layout">
-      <iron-icon id="setSymbol" src="{{_symbolURL}}"></iron-icon>
+      <mtg-set-symbol id="setSymbol" set="{{name}}"></mtg-set-symbol>
       <div class="self-start paper-font-title">{{name}}</div>
     </div>
     <template is="dom-if" if="{{_showEV}}">
