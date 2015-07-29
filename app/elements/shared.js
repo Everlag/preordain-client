@@ -177,3 +177,15 @@ function validUsername(name) {
 function validPassword(password) {
 	return password.length >= 10 && password.length < 255;
 }
+
+// Converts a given official set name to a more pleasant display name.
+function officialToDisplaySet(s) {
+	return s
+	.replace('Edition', '') // Clutter
+	.replace('Limited', '') // Early sets
+	.replace('Core Set', '') // Irregularly applied to core sets
+	.replace('Magic: The Gathering—', '') // Conspiracy, EM dash
+	.replace('Magic: The Gathering-', '') // Commander, hypen
+	.replace(/  +/g, ' ') // Extraneous internal whitespace
+	.trim(); // Extraneous external whitespace
+}
