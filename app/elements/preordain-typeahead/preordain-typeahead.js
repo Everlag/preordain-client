@@ -64,7 +64,9 @@
         remote = {
           url: this.url,
           replace: customReplacer,
-          filter: (list)=> { 
+          filter: (list)=> {
+            // Filter out any official set names the remote presents to us.
+            list = list.filter((s)=> !setList.has(s));
             return list.map((s)=> {
               return {name: s};
             });
@@ -72,10 +74,17 @@
         };
       }
 
+      // Spread operator is borked in this babel release, getting an
+      // 'Array.from is not a function' error, falling back to es5
+      let preloaded = this.hardOptions.concat();
+      displaySets.forEach((s)=> preloaded.push(s));
+      // Make sure we are sorted by length with lowest first
+      preloaded.sort((a, b)=> a.length - b.length);
+
       var names = new Bloodhound({
         datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
         queryTokenizer: customTokenizer,
-        local: this.hardOptions.map((s)=> {
+        local: preloaded.map((s)=> {
               return {name: s};
         }),
         remote: remote,

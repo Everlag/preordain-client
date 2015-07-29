@@ -29,7 +29,7 @@
     },
     attached: function(){
 
-      this._set = setList.has(this.suggestion);
+      this._set = displaySets.has(this.suggestion);
 
     },
     _isNotSet: function(isSet){
