@@ -7,7 +7,8 @@
 
   // A list of substrings we don't show EV for when
   // it is triggered
-  let noEVSets = ['Foil', 'Promo'];
+  let noEVSets = ['Foil', 'Promo',
+  'From the Vault', 'Commander', 'Planechase'];
 
   // Returns division cleanly truncated at 2 decimal places.
   function roundPercent (dividend, divider) {
