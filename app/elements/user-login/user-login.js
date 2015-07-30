@@ -72,8 +72,8 @@
     },
     _success: function(result){
       // Set the global state to represent our result
-      mutable.user.name = this.input.username.value;
-      mutable.user.session = result.split('"').join('');
+      mutable.name = this.input.username.value;
+      mutable.session = result.split('"').join('');
       console.log(mutable);
     },
     _failure: function(){

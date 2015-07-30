@@ -8,7 +8,7 @@
       // State
       source: {
         type: String,
-        value: sources.default,
+        value: mutable.priceSource,
         notify: true,
         observer: '_sourceChanged',
       },
