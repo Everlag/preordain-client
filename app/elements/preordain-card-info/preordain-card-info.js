@@ -65,7 +65,7 @@
     // Map to set releases, removed sets without dates,
     // sort ascending then reverse.
     let dates = printings
-    .map((set)=> setReleases[set])
+    .map((set)=> displaySetReleases[set])
     .filter((t)=> t !== undefined)
     .sort((a, b)=> a - b)
     .reverse();
