@@ -192,9 +192,7 @@
       // Find how long its been since this was last in a major
       // printing
       let now = (new Date() - 0)/ 1000;
-      console.log(this.Printings);
       let secondsSince = now - getLatestPrintingTime(this.Printings);
-      console.log(this.Printings);
 
       // Convert to years
       this.SinceLastPrint = Truncate(secondsSince / year, 0);

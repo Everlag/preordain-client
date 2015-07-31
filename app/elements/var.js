@@ -30,7 +30,6 @@ class State {
 				// Exit if the oldState is unparsable.
 				s = {};
 			}
-			console.log(Object.keys(s).sort(), Object.keys(this._internals).sort())
 
 			// Ensure our current internals and the obtained
 			// share the same high level structure.
