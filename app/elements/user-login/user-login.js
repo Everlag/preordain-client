@@ -2,11 +2,6 @@
   Polymer({
     is: 'user-login',
     properties: {
-      name: {
-        type: String,
-        value: ' ',
-        notify: true,
-      },
       _failed: {
         type: Boolean,
         value: false,
