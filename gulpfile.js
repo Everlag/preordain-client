@@ -169,7 +169,11 @@ gulp.task('babel', function () {
 gulp.task('clean', del.bind(null, ['.tmp', 'dist']));
 
 // Watch Files For Changes & Reload
-gulp.task('serve', ['styles', 'elements', 'images', 'babel'], function () {
+gulp.task('serve', function () {
+  
+  // Run everything to clean up and ready up before we start watching.
+  runSequence('clean', 'styles', 'elements', 'images', 'babel');
+
   browserSync({
     notify: false,
     logPrefix: 'PSK',
@@ -197,9 +201,35 @@ gulp.task('serve', ['styles', 'elements', 'images', 'babel'], function () {
   gulp.watch(['app/**/*.html'], reload);
   gulp.watch(['app/styles/**/*.css'], ['styles', reload]);
   gulp.watch(['app/elements/**/*.css'], ['elements', reload]);
-  gulp.watch(['app/{scripts,elements}/**/*.js'], ['babel', 'jshint', reload]);
+  gulp.watch(['app/{scripts,elements}/**/*.js'], ['script-reload']);
   gulp.watch(['app/images/**/*'], reload);
 });
+
+// Cleanly reload tasks
+gulp.task('script-reload', ['jshint', 'babel'], reload);
+
+// Build and serve the output from the dist build
+gulp.task('serve:dist', ['default'], function () {
+  browserSync({
+    notify: false,
+    logPrefix: 'PSK',
+    snippetOptions: {
+      rule: {
+        match: '<span id="browser-sync-binding"></span>',
+        fn: function (snippet) {
+          return snippet;
+        }
+      }
+    },
+    // Run as an https by uncommenting 'https: true'
+    // Note: this uses an unsigned certificate which on first access
+    //       will present a certificate warning in the browser.
+    // https: true,
+    server: 'dist',
+    middleware: []
+  });
+});
+
 
 // Build and serve the output from the dist build
 gulp.task('serve:dist', ['default'], function () {
