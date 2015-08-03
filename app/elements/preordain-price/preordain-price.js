@@ -6,7 +6,7 @@
     // 'display-price' event whose detail is a single price measured in cents.
     is: 'preordain-price',
     properties: {
-      // Result
+      // Raw Result
       price: {
         type: Number,
         value: NaN,
@@ -16,6 +16,10 @@
       showUsd: {
         type: Boolean,
         value: false,
+      },
+      multiplier: { // Display value coefficient, optional.
+        type: Number,
+        value: 1,
       },
       // Clean transitions
       hasPrice: {
@@ -28,6 +32,17 @@
         value: true,
         computed: '_noPrice(price)'
       },
+      // Computed display settings
+      negative: {
+        type: Boolean,
+        value: false,
+        computed: 'isNegative(price)'
+      },
+      displayPrice: {
+        type: Number,
+        value: NaN,
+        computed: 'abs(price)'
+      }
     },
     attached: function(){
       // Listen for any price events inside of the entire element.
@@ -35,7 +50,10 @@
       this.addEventListener('stale-price', this.stalePrice);
     },
     gotPrice: function(e){
+      // Convert from cents.
       this.price = e.detail / 100;
+      // Apply multiplier and round to two decimal places.
+      this.price = Truncate(this.multiplier * this.price, 2)
     },
     stalePrice: function(){
       // We are holding onto an invalid price!
@@ -47,7 +65,13 @@
     },
     _noPrice: function(price){
       return !(this._hasPrice(price));
-    }
+    },
+    isNegative: function(price) {
+      return price < 0;
+    },
+    abs: function(price) {
+      return Math.abs(price);
+    },
 
 
   });

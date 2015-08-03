@@ -1,0 +1,32 @@
+<!-- We use a custom element for templating our trades -->
+<link rel="import" href="misc-user-trade/misc-user-trade.html">
+
+
+<dom-module id="user-trades">
+
+  <style>
+    :host{
+      display: block;
+    }
+
+    misc-user-trade{
+      padding-bottom: 1em;
+    }
+
+  </style>
+
+  <template>
+
+    <div class="vertical layout">
+        <template is="dom-repeat" items="[[_trades]]">
+            <div>
+              <misc-user-trade items="[[item]]"></misc-user-trade>
+            </div>
+        </template>
+    </div>
+
+  </template>
+
+</dom-module>
+
+<script src="user-trades.js"></script>

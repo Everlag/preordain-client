@@ -20,6 +20,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   // Set up some flags so we lazily load components as we need.
   app.setViewed = false;
   app.cardViewed = false;
+  app.tradesViewed = false;
 
   // Listen for template bound event to know when bindings
   // have resolved and content has been stamped to the page

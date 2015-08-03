@@ -22,6 +22,11 @@ const suffixes = {
 // Valid price sources
 const sources = {'mkm': 'mkm', 'mtgprice': 'mtgprice', 'default':'mtgprice'};
 
+const userDefaults = {
+	'collection': 'Inventory', // The default collection
+							   // every user is signed up with.
+};
+
 // Card price URL builders
 function buildCardURL(cardName) {
 	return `${remote.cardText}${cardName}.json`;
@@ -118,6 +123,14 @@ function buildLoginURL(name) {
 	return buildUserURL(content);
 }
 
+function buildTradesURL(name, coll, pub) {
+	let content = `${name}/Collections/${coll}/Get`;
+	// Appending 'Public' to the end of this endpoint lets us switch
+	// authentication on or off.
+	if (pub) content = content.concat('Public');
+	return buildUserURL(content);
+}
+
 // Fires an ajax request.
 function ajaxJSON(method, url, body,
 	success, failure) {
@@ -189,4 +202,52 @@ function officialToDisplaySet(s) {
 	.replace('Magic: The Gathering-', '') // Commander, hypen
 	.replace(/  +/g, ' ') // Extraneous internal whitespace
 	.trim(); // Extraneous external whitespace
+}
+
+// Build trades from an array of individual trade items.
+//
+// A trade has items which have identical comments as well as
+// dates that differ by no more than a year.
+//
+// The returned trades are sorted by time and individual items in trades
+// are sorted by decreasing quantity.
+//
+// Normalization of set names to our internal format is performed.
+const millisPerHour = 1000 * 3600;
+function buildTrades(tradeItems) {
+
+	// Copy the items so we don't mutate the passed array
+	let drain = tradeItems.slice();
+	
+	// Add native dates to each trade item
+	drain.forEach((i)=>{
+		i.Time = new Date(i.LastUpdate); // Precompute date
+		i.Set = officialToDisplaySet(i.Set); // Normalize
+	});
+
+	let trades = [];
+
+	while (drain.length > 0){
+		let seed = drain[0];
+		let seedDate = seed.Time;
+
+		// Filter trade items into the trade.
+		let trade = drain.filter((i)=>{
+			let itemDate = i.Time;
+			let dateDiff = Math.abs(itemDate - seedDate) / millisPerHour;
+			return i.Comment === seed.Comment && dateDiff <= 24;
+		});
+
+		trades.push(trade);
+
+		// Filter trade items out of the drain.
+		drain = drain.filter((i)=> trade.indexOf(i) === -1);
+	}
+
+	// Decreasing quantity for trade items
+	trades.forEach((t)=> t.sort((a, b)=> b.Quantity - a.Quantity));
+
+	// Latest to oldest for trades.
+	return trades.sort((a, b)=> a[0].Time - b[0].Time).reverse();
+
 }

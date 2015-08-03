@@ -1,0 +1,47 @@
+<dom-module id="misc-user-trade">
+
+  <style>
+    :host{
+      display: block;
+    }
+
+    mtg-set-symbol{
+      width: 2em;
+      height: 2em;
+    }
+
+    preordain-price{
+      display: inline;
+    }
+
+  </style>
+
+  <template>
+
+    <paper-material elevation="1" class="vertical layout">
+        <template is="dom-repeat" items="[[items]]">
+            <div class="horizontal layout center">
+              <div class="set">
+                <mtg-set-symbol set="[[item.Set]]"></mtg-set-symbol>
+              </div>
+              <div class="name">[[item.Name]]</div>
+              <div class="pricing">
+                <span>[[item.Quantity]]</span>
+                &times;
+                <preordain-price>
+                  <price-latest name="[[item.Name]]" set="[[item.Set]]"></price-latest>
+                </preordain-price>
+                &#61;
+                <preordain-price multiplier="[[item.Quantity]]">
+                  <price-latest name="[[item.Name]]" set="[[item.Set]]"></price-latest>
+                </preordain-price>
+              </div>
+            </div>
+        </template>
+    </paper-material>
+
+  </template>
+
+</dom-module>
+
+<script src="misc-user-trade.js"></script>
