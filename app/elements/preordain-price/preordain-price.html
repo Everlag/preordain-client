@@ -27,6 +27,9 @@
     #sign{
       margin-right: -0.2em;
     }
+    #alignmentPadding{
+      margin-left: 0.3em;
+    }
 
   </style>
 
@@ -37,6 +40,9 @@
    <span>
     <template is="dom-if" if="{{negative}}">
       <span id="sign">-</span>
+    </template>
+    <template is="dom-if" if="{{!negative}}">
+      <span id="alignmentPadding"></span>
     </template>
     <span>$</span>
     <template is="dom-if" if="{{noPrice}}">
