@@ -21,6 +21,13 @@
     preordain-price{
       display: inline;
     }
+
+    /*Spacing between trades*/
+    tbody::after{
+      content: '';
+      margin-bottom: 1.5em;
+      display: block;
+    }
   </style>
 
   <template>
@@ -65,9 +72,6 @@
                 </template>
               </td>
             </tr>
-
-            <!-- Spacing between trades -->
-            <tr><td>&nbsp;</td></tr>
           </tbody>
         </template>
     </table>

@@ -302,7 +302,7 @@ function getCommentLines(comment, limit) {
 		if ((i - lastWrap) > limit) wrapNextWord = true;
 
 		if (wrapNextWord && breaks.has(c)) {
-			lines.push(comment.substring(lastWrap, i));
+			lines.push(comment.substring(lastWrap, i).trim());
 
 			wrapNextWord = false;
 			lastWrap = i;
@@ -312,7 +312,10 @@ function getCommentLines(comment, limit) {
 	// Push the remainder of the comment if it wasn't perfectly divisible
 	// by the limit.
 	if (lastWrap < comment.length) {
-		lines.push(comment.substring(lastWrap, comment.length));
+		// Ensure we aren't just appending whitespace or a line ending.
+		let remainder = comment.substring(lastWrap, comment.length).trim();
+
+		if (!breaks.has(remainder)) lines.push(remainder);
 	}
 	return lines;
 
