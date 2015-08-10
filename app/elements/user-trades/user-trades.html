@@ -13,17 +13,71 @@
       padding-bottom: 1em;
     }
 
+    mtg-set-symbol{
+      width: 2em;
+      height: 2em;
+    }
+
+    preordain-price{
+      display: inline;
+    }
+
+    /*
+    Padding to align with negative numbers
+    */
+    span[positive]{
+      padding-left: 0.3em;
+    }
+
   </style>
 
   <template>
 
-    <div class="vertical layout">
+    <!--
+     Every trade should line up for readability, using a table makes this
+     possible.
+    -->
+    <table>
         <template is="dom-repeat" items="[[_trades]]">
-            <div>
-              <misc-user-trade items="[[item]]"></misc-user-trade>
-            </div>
+
+            <!-- Info, colspan>=number of other cells -->
+            <tr>
+              <td colspan="10">
+                <span class="paper-font-headline">[[item.TimeString]]</span>
+              </td>
+            </tr>
+
+            <template is="dom-repeat" items="[[item]]">
+              <!-- Content -->
+              <tr>
+                <td><mtg-set-symbol set="[[item.Set]]"></mtg-set-symbol></td>
+                <td>[[item.Name]]</td>
+                <td class="tablePadding"></td>
+                <td>
+                  <preordain-price multiplier="[[item.Quantity]]">
+                    <price-latest name="[[item.Name]]" set="[[item.Set]]"></price-latest>
+                  </preordain-price>
+
+                </td>
+              </tr>
+              <!-- <misc-user-trade items="[[item]]"></misc-user-trade> -->
+            </template>
+
+            <!-- Comment -->
+            <tr>
+              <td colspan="10">
+                <template is="dom-repeat" items="[[item.CommentLines]]">
+                  
+                  <div class="paper-font-caption">[[item]]</div>
+
+                </template>
+              </td>
+            </tr>
+
+            <!-- Spacing between trades -->
+            <tr><td>&nbsp;</td></tr>
         </template>
-    </div>
+    </table>
 
   </template>
 

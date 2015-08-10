@@ -14,12 +14,16 @@
       display: inline;
     }
 
+    .tablePadding{
+      min-width: 1em;
+    }
+
   </style>
 
   <template>
 
     <paper-material elevation="1" class="vertical layout">
-        <template is="dom-repeat" items="[[items]]">
+        <!-- <template is="dom-repeat" items="[[items]]">
             <div class="horizontal layout center">
               <div class="set">
                 <mtg-set-symbol set="[[item.Set]]"></mtg-set-symbol>
@@ -37,7 +41,69 @@
                 </preordain-price>
               </div>
             </div>
-        </template>
+        </template> -->
+        <table>
+          <template is="dom-repeat" items="[[items]]">
+            <tr>
+              <td><mtg-set-symbol set="[[item.Set]]"></mtg-set-symbol></td>
+              <td>[[item.Name]]</td>
+              <td class="tablePadding"></td>
+              <td>
+                
+                <span>[[item.Quantity]]</span>
+                &times;
+                <preordain-price>
+                  <price-latest name="[[item.Name]]" set="[[item.Set]]"></price-latest>
+                </preordain-price>
+                &#61;
+                <preordain-price multiplier="[[item.Quantity]]">
+                  <price-latest name="[[item.Name]]" set="[[item.Set]]"></price-latest>
+                </preordain-price>
+
+              </td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+             <!--  <div class="set">
+                <mtg-set-symbol set="[[item.Set]]"></mtg-set-symbol>
+              </div>
+              <div class="name">[[item.Name]]</div>
+              <div class="pricing">
+                <span>[[item.Quantity]]</span>
+                &times;
+                <preordain-price>
+                  <price-latest name="[[item.Name]]" set="[[item.Set]]"></price-latest>
+                </preordain-price>
+                &#61;
+                <preordain-price multiplier="[[item.Quantity]]">
+                  <price-latest name="[[item.Name]]" set="[[item.Set]]"></price-latest>
+                </preordain-price>
+              </div> -->
+            </tr>
+          </template>
+        </table>
+        <!-- <template is="dom-repeat" items="[[items]]">
+            <div class="horizontal layout center">
+              <div class="set">
+                <mtg-set-symbol set="[[item.Set]]"></mtg-set-symbol>
+              </div>
+              <div class="name">[[item.Name]]</div>
+              <div class="pricing">
+                <span>[[item.Quantity]]</span>
+                &times;
+                <preordain-price>
+                  <price-latest name="[[item.Name]]" set="[[item.Set]]"></price-latest>
+                </preordain-price>
+                &#61;
+                <preordain-price multiplier="[[item.Quantity]]">
+                  <price-latest name="[[item.Name]]" set="[[item.Set]]"></price-latest>
+                </preordain-price>
+              </div>
+            </div>
+        </template> -->
     </paper-material>
 
   </template>

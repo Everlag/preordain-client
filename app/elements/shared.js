@@ -251,3 +251,93 @@ function buildTrades(tradeItems) {
 	return trades.sort((a, b)=> a[0].Time - b[0].Time).reverse();
 
 }
+
+// Adds metadata to each trade item to assist with usability.
+//
+// Assumes each trade has been built with buildTrades.
+function addTradesUX(trades) {
+
+	let now = new Date();
+
+	trades.forEach((t)=>{
+
+		// Add a nice date string.
+		let difference = Math.abs(now - t[0].Time);
+		t.TimeString = getTimeString(difference, t[0].Time);
+		
+		// Form the comment into lines based on reasonable line breaks.
+		let Comment = t[0].Comment;
+		let breaks = new Set(['.', '!', '?']);
+		let lastBreak = 0;
+		let CommentLines = [];
+		if (Comment.length > 80) {
+			for (var i = 0; i < Comment.length; i++) {
+				// We prefer to break on punctuation
+				if (breaks.has(Comment[i])){
+					let line = Comment.substring(lastBreak, i + 1);
+					CommentLines.push(line.trim());
+					lastBreak = i + 1;
+					i++; // Move past the next character
+				}
+			}
+		}else{
+			CommentLines = [Comment];
+		}
+		t.CommentLines = CommentLines;
+
+		t.forEach((i)=>{
+			// Positive or negative Quantity for layout
+			if (i.Quantity >= 0) {
+				i.Positive = true;
+			}else{
+				i.Positive = false;
+			}
+		});
+	});
+
+	console.log(trades);
+
+	return trades;
+}
+
+// Computes a clean string that presents the user
+// with a reasonable concept of how long it has been since an action
+// has taken place.
+//
+// difference is the millisecond difference between the action and now
+// while Time is a Date object for the action.
+function getTimeString(difference, Time) {
+	let weekDiff = difference / (millisPerHour * 24 * 7);
+
+	let duration;
+	let suffix = '';
+
+	// Anything beyond 2 weeks becomes the date.
+	//
+	// This is the early exit that we'll hit for the majority of
+	// cases.
+	if (weekDiff >= 2) {
+		return Time.toDateString();
+	}
+
+	let hourDiff = difference / millisPerHour;
+	if (hourDiff < 1) {
+		// Anything less than an hours is minutes
+		duration = Truncate(difference / (millisPerHour / 60), 0);
+		if (duration > 1) suffix = 's';
+		return `${duration} Minute${suffix}`;
+	}
+
+	if (hourDiff <= 24) {
+		// Anything less than a day is hours
+		duration = Truncate(hourDiff, 0);
+		if (duration > 1) suffix = 's';
+		return `${duration} Hour${suffix}`;
+	}
+	
+	// Anything above a day is measured in days
+	duration = Truncate(difference / (millisPerHour * 24), 0);
+	if (duration > 1) suffix = 's';
+	return `${duration} Day${suffix}`;
+
+}

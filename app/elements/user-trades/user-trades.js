@@ -47,8 +47,10 @@
         this._failure();
       }
 
-      // Compute trades from the bulk history.
-      this._trades = buildTrades(Historical);
+      // Compute individual trades from the bulk history then 
+      // add metadata that assists with layout and UX
+      this._trades = addTradesUX(buildTrades(Historical));
+      console.log(this._trades);
     },
     _failure: function(){
       console.log('we messed up');
