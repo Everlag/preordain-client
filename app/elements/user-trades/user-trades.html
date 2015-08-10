@@ -21,14 +21,6 @@
     preordain-price{
       display: inline;
     }
-
-    /*
-    Padding to align with negative numbers
-    */
-    span[positive]{
-      padding-left: 0.3em;
-    }
-
   </style>
 
   <template>
@@ -39,7 +31,7 @@
     -->
     <table>
         <template is="dom-repeat" items="[[_trades]]">
-
+          <tbody>
             <!-- Info, colspan>=number of other cells -->
             <tr>
               <td colspan="10">
@@ -76,6 +68,7 @@
 
             <!-- Spacing between trades -->
             <tr><td>&nbsp;</td></tr>
+          </tbody>
         </template>
     </table>
 

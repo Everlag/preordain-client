@@ -265,25 +265,8 @@ function addTradesUX(trades) {
 		let difference = Math.abs(now - t[0].Time);
 		t.TimeString = getTimeString(difference, t[0].Time);
 		
-		// Form the comment into lines based on reasonable line breaks.
-		let Comment = t[0].Comment;
-		let breaks = new Set(['.', '!', '?']);
-		let lastBreak = 0;
-		let CommentLines = [];
-		if (Comment.length > 80) {
-			for (var i = 0; i < Comment.length; i++) {
-				// We prefer to break on punctuation
-				if (breaks.has(Comment[i])){
-					let line = Comment.substring(lastBreak, i + 1);
-					CommentLines.push(line.trim());
-					lastBreak = i + 1;
-					i++; // Move past the next character
-				}
-			}
-		}else{
-			CommentLines = [Comment];
-		}
-		t.CommentLines = CommentLines;
+		// Wrap the comment at ~50 character lines
+		t.CommentLines = getCommentLines(t[0].Comment, 60);
 
 		t.forEach((i)=>{
 			// Positive or negative Quantity for layout
@@ -298,6 +281,41 @@ function addTradesUX(trades) {
 	console.log(trades);
 
 	return trades;
+}
+
+// Computes an array of lines from a single comment.
+//
+// Aims to wrap lines on word endings around the 'limit'th character
+function getCommentLines(comment, limit) {
+
+	// The easy exit
+	if (comment.length <= limit) return [comment];
+
+	// Cleanly wrap the comment at the ~limit
+	let breaks = new Set(['.', '!', '?', ' ']);
+	let lines = [];
+
+	let wrapNextWord = false;
+	let lastWrap = 0;
+	let i = 0;
+	for (let c of comment){
+		if ((i - lastWrap) > limit) wrapNextWord = true;
+
+		if (wrapNextWord && breaks.has(c)) {
+			lines.push(comment.substring(lastWrap, i));
+
+			wrapNextWord = false;
+			lastWrap = i;
+		}
+		i++;
+	}
+	// Push the remainder of the comment if it wasn't perfectly divisible
+	// by the limit.
+	if (lastWrap < comment.length) {
+		lines.push(comment.substring(lastWrap, comment.length));
+	}
+	return lines;
+
 }
 
 // Computes a clean string that presents the user
