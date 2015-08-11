@@ -87,7 +87,6 @@
       if (found < this.cards.length) return;
 
       this.price = computed;
-      console.log(this.cards, this.price);
       // Let whoever is holding onto this price know
       // that it has been computed.
       this.fire('display-price', this.price);
