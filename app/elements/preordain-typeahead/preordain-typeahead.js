@@ -51,7 +51,8 @@
       this.loadTypeahead();
 
       // Set up the event listeners a single time.
-      $('#visibleInput').on('typeahead:selected typeahead:autocompleted',
+      $(this.$.visibleInput)
+      .on('typeahead:selected typeahead:autocompleted',
         (e, selection)=> this._fireResult(selection.name));
 
     },
@@ -93,7 +94,7 @@
 
       names.initialize();
 
-      $('#visibleInput').typeahead({
+      $(this.$.visibleInput).typeahead({
         hint: true,
         minLength: 1,
       }, {
