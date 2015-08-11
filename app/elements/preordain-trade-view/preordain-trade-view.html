@@ -5,6 +5,10 @@
       display: block;
     }
 
+    #history{
+      min-width: 400px;
+    }
+
     #holster{
       position: relative;
     }
@@ -16,7 +20,6 @@
   </style>
 
   <template>
-
 
     <!-- This requires a very large display to prevent the trade table from getting overlapped! -->
     <iron-media-query query="(min-width: 768px)" query-matches="{{_big}}"></iron-media-query>
@@ -32,7 +35,9 @@
           <div id="fixed">
             <div class="horizontal layout flex">
               <div class="flex"></div>
-              <div class="flex-2">I'm an input!</div>
+              <div class="flex-2">
+                <user-trade-input></user-trade-input>
+              </div>
               <div class="flex"></div>
             </div>
           </div>
