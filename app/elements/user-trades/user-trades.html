@@ -23,6 +23,20 @@
       display: block;
     }
 
+    /*A little extra space by reducing the size of names*/
+    .itemName{
+      font-size: 0.9em;
+    }
+
+    /*Spacing between summation and rest of trade contents*/
+    .summation > td{
+      padding-top: 0.0em;
+    }
+
+    .bordertop{
+      border-top: thin solid black;
+    }
+
     /*Spacing between trades*/
     tbody::after{
       content: '';
@@ -64,7 +78,7 @@
               <!-- Content -->
               <tr>
                 <td><mtg-set-symbol set="[[item.Set]]"></mtg-set-symbol></td>
-                <td>[[item.Name]]</td>
+                <td class="itemName">[[item.Name]]</td>
                 <td class="tablePadding"></td>
                 <td>
                   <preordain-price multiplier="[[item.Quantity]]">
@@ -83,20 +97,20 @@
               <!-- <misc-user-trade items="[[item]]"></misc-user-trade> -->
             </template>
 
-            <tr>
+            <tr class="summation">
               <!-- Set -->
               <td></td>
               <!-- Name -->
-              <td></td>
+              <td>Sum</td>
               <!-- Padding -->
               <td></td>
               <!-- Actual prices! -->
-              <td>
+              <td class="bordertop">
                 <preordain-price>
                   <user-trade-summed cards="[[item]]" use-date></user-trade-summed>
                 </preordain-price>
               </td>
-              <td>
+              <td class="bordertop">
                 <preordain-price>
                   <user-trade-summed cards="[[item]]"></user-trade-summed>
                 </preordain-price>
