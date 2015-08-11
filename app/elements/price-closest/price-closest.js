@@ -16,6 +16,11 @@
         value: ' ',
         notify: true,
       },
+      closest: {
+        type: Number,
+        value: 0,
+        notify: true,
+      },
       // Result
       price: {
         type: Number,
