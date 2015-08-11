@@ -1,0 +1,26 @@
+<dom-module id="user-trade-summed">
+
+  <style>
+    :host {
+      display: none;
+    }
+  </style>
+
+  <template>
+
+    <template is="dom-repeat" items="[[cards]]">
+
+      <mtg-card-price name='[[item.Name]]'
+                      set="{{item.Set}}"
+                       closest="{{item.TimeInt}}"
+                on-price="gotPrice"
+                closest-match="[[useDate]]"
+                latest-specific="[[!useDate]]"></mtg-card-price>
+
+    </template>
+
+  </template>
+
+</dom-module>
+
+<script src="user-trade-summed.js"></script>

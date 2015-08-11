@@ -222,6 +222,8 @@ function buildTrades(tradeItems) {
 	// Add native dates to each trade item
 	drain.forEach((i)=>{
 		i.Time = new Date(i.LastUpdate); // Precompute date
+		// Precompute the server's epoch timestamp.
+		i.TimeInt = Truncate(i.Time / 1000, 0);
 		i.Set = officialToDisplaySet(i.Set); // Normalize
 	});
 
