@@ -31,6 +31,11 @@
     // Leverages the misc-typeahead-line for single line easy templating.
     is: 'preordain-typeahead',
     properties: {
+      // Display options
+      placeholder: {
+        type: String,
+        value: 'Card or Set',
+      },
       // Typeahead options
       url: { // Where we fetch remotely from, defaults to global value
              // Set to an empty string to force hardOptions only.
