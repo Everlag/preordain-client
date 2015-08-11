@@ -5,14 +5,13 @@
       display: block;
     }
 
-    #relative{
+    #holster{
       position: relative;
     }
 
-    #fixedHolster{
+    #fixed{
       position: fixed;
-      width: 100%;
-      margin-top: 20%;
+      width: 40%;
     }
   </style>
 
@@ -22,18 +21,20 @@
     <!-- This requires a very large display to prevent the trade table from getting overlapped! -->
     <iron-media-query query="(min-width: 768px)" query-matches="{{_big}}"></iron-media-query>
 
-    <div id="relative" class="horizontal layout">
+    <div id="holster" class="horizontal layout">
 
-      <user-trades name="[[name]]"></user-trades>
+      <user-trades id="history" name="[[name]]"></user-trades>
       
       <!-- On a large display we will display user-trade-input
       beside the user-trades -->
       <template is="dom-if" if="[[_big]]">
-        <div id="fixedHolster">
-          <div class="horizontal layout flex">
-            <div class="flex"></div>
-            <div class="flex-2 ">I'm an input!</div>
-            <div class="flex"></div>
+        <div class="flex">
+          <div id="fixed">
+            <div class="horizontal layout flex">
+              <div class="flex"></div>
+              <div class="flex-2">I'm an input!</div>
+              <div class="flex"></div>
+            </div>
           </div>
         </div>
       </template>
