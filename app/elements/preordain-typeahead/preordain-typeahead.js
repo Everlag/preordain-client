@@ -14,12 +14,14 @@
     return freshUrl;
   }
 
-  function getSuggestion(datum){
+  function getSuggestion(datum, showPrices){
     // Perform some minor normalization for quoted names.
     //
     // Yes, those are actually two different versions of quotes
     let value = datum.name.replace('"', '&quot;').replace('"', '&quot;');
-    return `<misc-typeahead-line suggestion="${value}"></misc-typeahead-line>`;
+    let pricesOption = '';
+    if (showPrices) pricesOption = 'show-prices';
+    return `<misc-typeahead-line suggestion="${value}" ${pricesOption}></misc-typeahead-line>`;
   }
 
   Polymer({
@@ -47,6 +49,10 @@
         value: ()=> [],
       },
       showSets: { // Whether or not to include sets in hardcoded options
+        type: Boolean,
+        value: false,
+      },
+      showPrices: { // Whether or not to show prices per card
         type: Boolean,
         value: false,
       },
@@ -105,6 +111,15 @@
 
       names.initialize();
 
+      // We need to pass the state of 'showPrices'
+      // into the suggestion builder so we wrap it for
+      // typeahead consumption
+      let wrappedSuggestion = (d)=> getSuggestion(d, this.showPrices);
+      console.log(wrappedSuggestion);
+      console.log(wrappedSuggestion({name:'apples'}, false));
+      console.log(wrappedSuggestion({name:'apples'}, true));
+      console.log(wrappedSuggestion({name:'apples'}, 'ruh roh'));
+
       $(this.$.visibleInput).typeahead({
         hint: true,
         minLength: 1,
@@ -114,7 +129,7 @@
         source: names.ttAdapter(),
         limit: 5,
         templates:{
-          suggestion: getSuggestion
+          suggestion: wrappedSuggestion
         }
       });
 

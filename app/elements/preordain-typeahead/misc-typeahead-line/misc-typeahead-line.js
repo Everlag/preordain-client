@@ -21,10 +21,14 @@
         type: Boolean,
         value: false,
       },
-      _notSet: {
+      showPrices: { // Optional flag
+        type: Boolean,
+        value: false,
+      },
+      _showPrices: { // Internal state
         type: Boolean,
         value: true,
-        computed: '_isNotSet(_set)',
+        computed: '_doShowPrices(_set, showPrices)',
       }
     },
     attached: function(){
@@ -32,8 +36,8 @@
       this._set = displaySets.has(this.suggestion);
 
     },
-    _isNotSet: function(isSet){
-      return !isSet;
+    _doShowPrices: function(isSet, showPrices){
+      return !isSet && showPrices;
     }
 
 
