@@ -46,6 +46,10 @@
         type: Array,
         value: ()=> [],
       },
+      showSets: { // Whether or not to include sets in hardcoded options
+        type: Boolean,
+        value: false,
+      },
       _small: {
         type: Boolean,
         value: false,
@@ -83,7 +87,9 @@
       // Spread operator is borked in this babel release, getting an
       // 'Array.from is not a function' error, falling back to es5
       let preloaded = this.hardOptions.concat();
-      displaySets.forEach((s)=> preloaded.push(s));
+      if (this.showSets) {
+        displaySets.forEach((s)=> preloaded.push(s));
+      }
       // Make sure we are sorted by length with lowest first
       preloaded.sort((a, b)=> a.length - b.length);
 
