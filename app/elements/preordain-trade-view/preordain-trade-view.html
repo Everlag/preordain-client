@@ -1,0 +1,55 @@
+<dom-module id="preordain-trade-view">
+
+  <style>
+    :host {
+      display: block;
+    }
+
+    #relative{
+      position: relative;
+    }
+
+    #fixedHolster{
+      position: fixed;
+      width: 100%;
+      margin-top: 20%;
+    }
+  </style>
+
+  <template>
+
+
+    <!-- This requires a very large display to prevent the trade table from getting overlapped! -->
+    <iron-media-query query="(min-width: 768px)" query-matches="{{_big}}"></iron-media-query>
+
+    <div id="relative" class="horizontal layout">
+
+      <user-trades name="[[name]]"></user-trades>
+      
+      <!-- On a large display we will display user-trade-input
+      beside the user-trades -->
+      <template is="dom-if" if="[[_big]]">
+        <div id="fixedHolster">
+          <div class="horizontal layout flex">
+            <div class="flex"></div>
+            <div class="flex-2 ">I'm an input!</div>
+            <div class="flex"></div>
+          </div>
+        </div>
+      </template>
+
+    </div>
+
+  </template>
+
+  <style>
+
+    div[horizontal]{
+       @apply(--layout-horizontal);
+    }
+
+  </style>
+
+</dom-module>
+
+<script src="preordain-trade-view.js"></script>
