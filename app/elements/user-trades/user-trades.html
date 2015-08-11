@@ -52,6 +52,18 @@
               </td>
             </tr>
 
+            <tr>
+              <!-- Set -->
+             <th></th> 
+              <!-- Name -->
+             <th></th>
+             <!-- Padding -->
+             <th></th>
+             <!-- Actual headers! -->
+             <th>Then</th>
+             <th>Now</th>
+           </tr>
+
             <template is="dom-repeat" items="[[item]]">
               <!-- Content -->
               <tr>
@@ -60,13 +72,40 @@
                 <td class="tablePadding"></td>
                 <td>
                   <preordain-price multiplier="[[item.Quantity]]">
+                    <price-closest name="[[item.Name]]"
+                                   set="[[item.Set]]"
+                                   closest="[[item.TimeInt]]"
+                    ></price-closest>
+                  </preordain-price>
+                </td>
+                <td>
+                  <preordain-price multiplier="[[item.Quantity]]">
                     <price-latest name="[[item.Name]]" set="[[item.Set]]"></price-latest>
                   </preordain-price>
-
                 </td>
               </tr>
               <!-- <misc-user-trade items="[[item]]"></misc-user-trade> -->
             </template>
+
+            <tr>
+              <!-- Set -->
+              <td></td>
+              <!-- Name -->
+              <td></td>
+              <!-- Padding -->
+              <td></td>
+              <!-- Actual prices! -->
+              <td>
+                <preordain-price>
+                  <user-trade-summed cards="[[item]]" use-date></user-trade-summed>
+                </preordain-price>
+              </td>
+              <td>
+                <preordain-price>
+                  <user-trade-summed cards="[[item]]"></user-trade-summed>
+                </preordain-price>
+              </td>
+            </tr>
 
             <!-- Comment -->
             <tr>
