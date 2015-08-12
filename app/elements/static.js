@@ -226,7 +226,10 @@ setList.forEach((s)=>{
   let display = officialToDisplaySet(s);
   displaySets.add(display)
   displayToOfficialSets[display] = s;
-  displaySetReleases[display] = setReleases[s];
+
+  // Avoid adding unknown set releases
+  let release = setReleases[s];
+  if (release !== undefined) displaySetReleases[display] = release;
 });
 
 // Base64 encoded placeholder image.
