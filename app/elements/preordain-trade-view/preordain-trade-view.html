@@ -15,7 +15,6 @@
 
     #fixed{
       position: fixed;
-      width: 40%;
     }
   </style>
 
@@ -31,14 +30,10 @@
       <!-- On a large display we will display user-trade-input
       beside the user-trades -->
       <template is="dom-if" if="[[_big]]">
-        <div class="flex">
+        <div>
           <div id="fixed">
-            <div class="horizontal layout flex">
-              <div class="flex"></div>
-              <div class="flex-8">
-                <user-trade-input></user-trade-input>
-              </div>
-              <div class="flex"></div>
+            <div>
+              <user-trade-input></user-trade-input>
             </div>
           </div>
         </div>
