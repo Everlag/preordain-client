@@ -40,7 +40,7 @@
 
   Polymer({
     // A view of all price data relevant for a specific card.
-    is: 'preordain-card-prices',
+    is: 'preordain-printing-selector',
     properties: {
       name: {
         type: String,
@@ -52,11 +52,27 @@
         value: ' ',
         notify: true,
       },
-      _selected: { // Which set are dealing with
+      selected: { // Which set are dealing with
         type: String,
         value: ' ',
+        notify: true,
       },
+      _printings: {
+        type: Array,
+        value: ()=> [],
+      }
     },
+    newData: function({detail:{Printings}}) {
+      // Grab all the valid printings for this card.
+      this._printings = Printings.filter((p)=> displaySets.has(p));
+
+      // Choose one to display
+      this.selected = selectSet(this._printings, this.set);
+
+      // Clear any existing preferences.
+      this.set = ' ';
+    },
+
 
   });
 })();

@@ -1,0 +1,38 @@
+<dom-module id="preordain-printing-selector">
+
+  <style>
+    :host {
+      display: block;
+    }
+
+    mtg-set-symbol{
+      height: 1.7em;
+      width: 1.7em;
+      padding-right: 0.2em;
+    }
+  </style>
+
+  <template>
+
+    <mtg-card-data name="[[name]]" on-data="newData"></mtg-card-data>
+
+    <paper-radio-group selected="{{selected}}">
+      <template is="dom-repeat" items="{{_printings}}">
+        <paper-radio-button name="{{item}}">
+          <span>{{item}}</span>
+          <div class="horizontal layout">
+            <mtg-set-symbol set="{{item}}"></mtg-set-symbol>
+            <preordain-price>
+              <price-latest name="[[name]]" set="[[item]]"></price-latest>
+            </preordain-price>
+          </div>
+        </paper-radio-button>
+      </template>
+    </paper-radio-group>
+
+  </template>
+
+
+</dom-module>
+
+<script src="preordain-printing-selector.js"></script>
