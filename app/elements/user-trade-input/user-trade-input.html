@@ -10,6 +10,16 @@
       padding: 1.7em;
     }
 
+    /*
+    Only apply the overflow limits
+    when a card is selected, otherwise bad things happen
+    to the typeahead
+    */
+    #padding[card-selected]{
+      max-height: 50vh;
+      overflow: auto;
+    }
+
     #setSelector{
       font-size: 0.9em;
     }
@@ -18,7 +28,7 @@
   <template>
 
     <paper-material elevation="2">
-      <div id="padding">
+      <div id="padding" card-selected$="{{_cardSelected}}">
         <preordain-typeahead placeholder="Card"
         on-completed="_cardChosen"
         ></preordain-typeahead>
