@@ -12,10 +12,18 @@
         value: ' ',
         computed: '_getSetSymbol(set)',
       },
+      _foil: {
+        type: String,
+        value: ' ',
+        computed: '_isFoil(set)',
+      }
     },
     _getSetSymbol: function(name){
       return buildSetSymbolURL(name);
     },
+    _isFoil: function(name) {
+      return name.indexOf('Foil') !== -1;
+    }
 
   });
 })();

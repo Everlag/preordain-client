@@ -9,11 +9,25 @@
       width: 100%;
       height: 100%;
     }
+
+    iron-icon[foil]{
+      /*Invert the colors*/
+      filter: invert(1);
+      -webkit-filter: invert(1);
+      -moz-filter: invert(1);
+      -o-filter: invert(1);
+      -ms-filter: invert(1);
+      /*Force the browser to use the gpu*/
+      -webkit-transform: translate3d(0, 0, 0);
+      -moz-transform: translate3d(0, 0, 0);
+      transform: translate3d(0, 0, 0);
+    }
   </style>
 
   <template>
 
-      <iron-icon src="{{_symbolURL}}" title="[[set]]"></iron-icon>
+      <iron-icon title="[[set]]" foil$="{{_foil}}"
+      src="{{_symbolURL}}"></iron-icon>
 
   </template>
 
