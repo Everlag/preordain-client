@@ -286,6 +286,83 @@ function addTradesUX(trades) {
 	return trades;
 }
 
+// Inserts every set release that has happened within the
+// the bounds into an array where they sit inline with trades
+//
+// Trades are distinctly marked with the 'isTrade' property
+//
+// This does mutate the provided array and its items.
+//
+// Assumes each trade has gone through the buildTrades and
+// addTradesUX pipeline
+function decorateTrades(trades) {
+
+	// Label each trade as a trade
+	trades.forEach((t)=> t.isTrade = true);
+
+	// Sort the trades earliest to latest
+	trades.sort((a, b)=> a.TimeInt - b.TimeInt);
+	let oldest = trades[0].TimeInt;
+	let latest = trades[trades.length - 1].TimeInt;
+
+	// Get the sets formatted as trades but filter out those
+	// that don't fall between the earliest and latest trades
+	let sets = [];
+	for (let set in displaySetReleases){
+		let TimeInt = displaySetReleases[set];
+		if (TimeInt > latest || TimeInt < oldest) continue;
+
+		sets.push({
+				Name: set,
+				TimeInt: TimeInt,
+				isTrade: false,
+			});
+	}
+
+	// Add the valid sets to the trades
+	let decorated = trades.concat(sets);
+
+	// Sort by increasing TimeInt then reverse
+	decorated.sort((a, b)=> a.TimeInt - b.TimeInt);
+	decorated.reverse();
+
+	// Clump any sets discovered into an array
+	// so that it may display horizontally
+	//
+	// We clump up to 3 sets at a time.
+	let clumped = []; // All the sets and trades
+	let clump = []; // Some sets
+	decorated.forEach((d)=>{
+		clump.isTrade = false;
+
+		// Simply push anything in the clump
+		// and then the trades
+		if (d.isTrade){
+		if (clump.length > 0) clumped.push(clump);
+		// We can clear the clump in any case
+		clump = [];
+		clumped.push(d);
+		return;
+		}
+
+		// Add to any reasonably sized clump.
+		if (clump.length <= 2){
+		clump.push(d);
+		return;
+		}
+
+		// Clear the current clump if it is full
+		clumped.push(clump);
+		// Then add this set
+		clump = [d];
+
+	});
+	// We never have sets beyond the end of trades
+	// so we need not worry about emptying the clump.
+
+	return clumped;
+}
+
 // Computes an array of lines from a single comment.
 //
 // Aims to wrap lines on word endings around the 'limit'th character

@@ -8,9 +8,9 @@
         notify: true,
         observer: '_nameChanged',
       },
-      _trades: { // History broken into individual trades
+      _decorated: { // The trades intersped with set releases
         type: Array,
-        value: ()=> [],
+        value: ()=> [], 
       }
     },
     _nameChanged: function(){
@@ -49,7 +49,9 @@
 
       // Compute individual trades from the bulk history then 
       // add metadata that assists with layout and UX
-      this._trades = addTradesUX(buildTrades(Historical));
+      let trades = addTradesUX(buildTrades(Historical));
+      
+      this._decorated = decorateTrades(trades);
     },
     _failure: function(){
       console.log('we messed up');

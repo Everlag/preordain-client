@@ -53,81 +53,109 @@
      possible.
     -->
     <table>
-        <template is="dom-repeat" items="[[_trades]]">
-          <tbody>
-            <!-- Info, colspan>=number of other cells -->
-            <tr>
-              <td colspan="10">
-                <span class="paper-font-headline">[[item.TimeString]]</span>
-              </td>
-            </tr>
+        <template is="dom-repeat" items="[[_decorated]]">
 
-            <tr>
-              <!-- Set -->
-             <th></th> 
-              <!-- Name -->
-             <th></th>
-             <!-- Padding -->
-             <th></th>
-             <!-- Actual headers! -->
-             <th>Then</th>
-             <th>Now</th>
-           </tr>
+          <!-- Display the set releases -->
+          <template is="dom-if" if="[[!item.isTrade]]">
 
-            <template is="dom-repeat" items="[[item]]">
-              <!-- Content -->
+            <tbody>
+              
               <tr>
-                <td><mtg-set-symbol set="[[item.Set]]"></mtg-set-symbol></td>
-                <td class="itemName">[[item.Name]]</td>
-                <td class="tablePadding"></td>
-                <td>
-                  <preordain-price multiplier="[[item.Quantity]]">
-                    <price-closest name="[[item.Name]]"
-                                   set="[[item.Set]]"
-                                   closest="[[item.TimeInt]]"
-                    ></price-closest>
+                <td colspan="10">
+                  <div class="horizontal layout flex center">
+                    <div class="flex"></div>
+                    <template is="dom-repeat" items="[[item]]">
+                      <mtg-set-symbol set="[[item.Name]]"></mtg-set-symbol>
+                    </template>
+                    <div class="flex"></div>
+                  </div>
+                </td>
+              </tr>
+
+            </tbody>
+
+
+          </template>
+
+          <!-- Display the trades -->
+          <template is="dom-if" if="[[item.isTrade]]">
+
+            <tbody>
+              <!-- Info, colspan>=number of other cells -->
+              <tr>
+                <td colspan="10">
+                  <span class="paper-font-headline">[[item.TimeString]]</span>
+                </td>
+              </tr>
+
+              <tr>
+                <!-- Set -->
+               <th></th> 
+                <!-- Name -->
+               <th></th>
+               <!-- Padding -->
+               <th></th>
+               <!-- Actual headers! -->
+               <th>Then</th>
+               <th>Now</th>
+             </tr>
+
+              <template is="dom-repeat" items="[[item]]">
+                <!-- Content -->
+                <tr>
+                  <td><mtg-set-symbol set="[[item.Set]]"></mtg-set-symbol></td>
+                  <td class="itemName">[[item.Name]]</td>
+                  <td class="tablePadding"></td>
+                  <td>
+                    <preordain-price multiplier="[[item.Quantity]]">
+                      <price-closest name="[[item.Name]]"
+                                     set="[[item.Set]]"
+                                     closest="[[item.TimeInt]]"
+                      ></price-closest>
+                    </preordain-price>
+                  </td>
+                  <td>
+                    <preordain-price multiplier="[[item.Quantity]]">
+                      <price-latest name="[[item.Name]]" set="[[item.Set]]"></price-latest>
+                    </preordain-price>
+                  </td>
+                </tr>
+                <!-- <misc-user-trade items="[[item]]"></misc-user-trade> -->
+              </template>
+
+              <tr class="summation">
+                <!-- Set -->
+                <td></td>
+                <!-- Name -->
+                <td>Sum</td>
+                <!-- Padding -->
+                <td></td>
+                <!-- Actual prices! -->
+                <td class="bordertop">
+                  <preordain-price>
+                    <user-trade-summed cards="[[item]]" use-date></user-trade-summed>
                   </preordain-price>
                 </td>
-                <td>
-                  <preordain-price multiplier="[[item.Quantity]]">
-                    <price-latest name="[[item.Name]]" set="[[item.Set]]"></price-latest>
+                <td class="bordertop">
+                  <preordain-price>
+                    <user-trade-summed cards="[[item]]"></user-trade-summed>
                   </preordain-price>
                 </td>
               </tr>
-              <!-- <misc-user-trade items="[[item]]"></misc-user-trade> -->
-            </template>
 
-            <tr class="summation">
-              <!-- Set -->
-              <td></td>
-              <!-- Name -->
-              <td>Sum</td>
-              <!-- Padding -->
-              <td></td>
-              <!-- Actual prices! -->
-              <td class="bordertop">
-                <preordain-price>
-                  <user-trade-summed cards="[[item]]" use-date></user-trade-summed>
-                </preordain-price>
-              </td>
-              <td class="bordertop">
-                <preordain-price>
-                  <user-trade-summed cards="[[item]]"></user-trade-summed>
-                </preordain-price>
-              </td>
-            </tr>
+              <!-- Comment -->
+              <tr>
+                <td colspan="10">
+                  <template is="dom-repeat" items="[[item.CommentLines]]">
+                    
+                    <div class="paper-font-caption">[[item]]</div>
 
-            <!-- Comment -->
-            <tr>
-              <td colspan="10">
-                <template is="dom-repeat" items="[[item.CommentLines]]">
-                  
-                  <div class="paper-font-caption">[[item]]</div>
+                  </template>
+                </td>
+              </tr>
+            </tbody>
 
-                </template>
-              </td>
-            </tr>
-          </tbody>
+          </template>
         </template>
     </table>
 
