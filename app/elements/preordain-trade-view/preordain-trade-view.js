@@ -15,7 +15,6 @@
     },
     _nameChanged: function(){
       
-      console.log('aha', this.name);
     },
   });
 })();

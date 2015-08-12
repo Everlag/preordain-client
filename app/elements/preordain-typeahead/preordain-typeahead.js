@@ -115,10 +115,6 @@
       // into the suggestion builder so we wrap it for
       // typeahead consumption
       let wrappedSuggestion = (d)=> getSuggestion(d, this.showPrices);
-      console.log(wrappedSuggestion);
-      console.log(wrappedSuggestion({name:'apples'}, false));
-      console.log(wrappedSuggestion({name:'apples'}, true));
-      console.log(wrappedSuggestion({name:'apples'}, 'ruh roh'));
 
       $(this.$.visibleInput).typeahead({
         hint: true,

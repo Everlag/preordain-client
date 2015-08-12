@@ -54,15 +54,15 @@
       let price = e.detail / 100;
 
       // Apply multiplier and round to two decimal places initially.
-      price = Truncate(this.multiplier * price, 2)
+      price = Truncate(this.multiplier * price, 2);
     
       // Round to once decimal place if the price is longer than 3 digits
       if (String(price).length > 4){
-        price = Truncate(price, 1)
+        price = Truncate(price, 1);
       }
       // Round out the decimals if the price is still overly long
       if (String(price).length > 4){
-        price = Truncate(price, 0)
+        price = Truncate(price, 0);
       }
 
       this.price = price;

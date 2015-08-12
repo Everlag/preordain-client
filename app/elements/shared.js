@@ -280,8 +280,6 @@ function addTradesUX(trades) {
 		});
 	});
 
-	console.log(trades);
-
 	return trades;
 }
 

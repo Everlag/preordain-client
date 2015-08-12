@@ -22,7 +22,6 @@
     },
     _seedChanged: function(){
 
-      console.log('ahaha!', this.seed);
     },
     _cardChosen: function({detail: {choice} }) {
       this._workingCard = choice;
