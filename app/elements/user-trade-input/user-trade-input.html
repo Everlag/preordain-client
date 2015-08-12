@@ -1,0 +1,30 @@
+<dom-module id="user-trade-input">
+
+  <style>
+    :host {
+      display: block;
+      max-width: 20em;
+    }
+
+    #padding{
+      padding: 1.7em;
+    }
+  </style>
+
+  <template>
+
+    <paper-material elevation="2">
+      <div id="padding">
+        <preordain-typeahead placeholder="Card"
+        on-completed="_cardChosen"
+        ></preordain-typeahead>
+
+        <div>[[_workingCard]]</div>
+      </div>
+    </paper-material>
+
+  </template>
+
+</dom-module>
+
+<script src="user-trade-input.js"></script>
