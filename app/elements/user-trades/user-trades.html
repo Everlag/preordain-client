@@ -38,13 +38,21 @@
       border-top: thin solid black;
     }
 
+    /*We have to specify this manually because tables*/
+    .tradeHeader{
+      display: flex;
+    }
+
+    paper-button{
+      background-color: var(--primary-background-color);
+    }
+
     /*Spacing between trades*/
     tbody::after{
       content: '';
       margin-bottom: 1.5em;
       display: block;
     }
-
   </style>
 
   <template>
@@ -85,7 +93,15 @@
               <!-- Info, colspan>=number of other cells -->
               <tr>
                 <td colspan="10">
-                  <span class="paper-font-headline">[[item.TimeString]]</span>
+                  <span class="flex tradeHeader">
+                    
+                    <span class="paper-font-headline">[[item.TimeString]]</span>
+                    <span class="flex"></span>
+                    <template is="dom-if" if="[[item.Appendable]]">
+                      <paper-button>Add</paper-button>
+                    </template>
+
+                  </span>
                 </td>
               </tr>
 

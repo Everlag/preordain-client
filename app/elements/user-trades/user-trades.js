@@ -8,10 +8,16 @@
         notify: true,
         observer: '_nameChanged',
       },
+      Selected: { // The TimeInt of the selected trade, if any
+        type: Number,
+        value: 1438202973,
+        notify: true,
+        observer: '_nameChanged',
+      },
       _decorated: { // The trades intersped with set releases
         type: Array,
         value: ()=> [], 
-      }
+      },
     },
     _nameChanged: function(){
       // We acquire public data if a name was specified.
@@ -52,9 +58,14 @@
       let trades = addTradesUX(buildTrades(Historical));
       
       this._decorated = decorateTrades(trades);
+      console.log(this._decorated);
     },
     _failure: function(){
       console.log('we messed up');
+    },
+    _isSelected: function(TimeInt) {
+      if (this.Selected === TimeInt) return true;
+      return false;
     }
 
   });

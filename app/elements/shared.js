@@ -267,9 +267,12 @@ function addTradesUX(trades) {
 		let difference = Math.abs(now - t[0].Time);
 		t.TimeString = getTimeString(difference, t[0].Time);
 
+		// Determine if we can append to this trade
+		t.Appendable = (difference / millisPerHour) <= 24;
+
 		// Add a convenient date int
 		t.TimeInt = t[0].TimeInt;
-		
+
 		// Wrap the comment at ~50 character lines
 		t.CommentLines = getCommentLines(t[0].Comment, 60);
 
