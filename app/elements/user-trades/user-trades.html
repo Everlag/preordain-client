@@ -43,8 +43,24 @@
       display: flex;
     }
 
+    /*Default edit button color*/
     paper-button{
       background-color: var(--primary-background-color);
+    }
+
+    /*Currently chosen trade*/
+    paper-button[editing]{
+      background-color: var(--accent-color);
+      color: var(--secondary-text-color);
+    }
+
+    /*Able to be edited*/
+    .buttonContent::after{
+      content: 'Add';
+    }
+    /*Editing but not hovered*/
+    .buttonContent[editing]::after{
+      content: 'Adding';  
     }
 
     /*Spacing between trades*/
@@ -98,7 +114,15 @@
                     <span class="paper-font-headline">[[item.TimeString]]</span>
                     <span class="flex"></span>
                     <template is="dom-if" if="[[item.Appendable]]">
-                      <paper-button>Add</paper-button>
+
+                      <paper-button disabled="{{_isSelected(item.TimeInt, Selected)}}"
+                                    on-tap="_selectTrade"
+                                    editing$="{{_isSelected(item.TimeInt, Selected)}}"
+                                    data-timeint$="[[item.TimeInt]]">
+                        <span class="buttonContent"
+                              editing$="{{_isSelected(item.TimeInt, Selected)}}"
+                        ></span>
+                      </paper-button>
                     </template>
 
                   </span>

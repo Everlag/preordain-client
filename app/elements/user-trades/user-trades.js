@@ -10,9 +10,8 @@
       },
       Selected: { // The TimeInt of the selected trade, if any
         type: Number,
-        value: 1438202973,
+        value: 0,
         notify: true,
-        observer: '_nameChanged',
       },
       _decorated: { // The trades intersped with set releases
         type: Array,
@@ -66,6 +65,33 @@
     _isSelected: function(TimeInt) {
       if (this.Selected === TimeInt) return true;
       return false;
+    },
+    _selectTrade: function(e) {
+      // We know at least on element in the event path has the
+      // data-timeint attribute so we look in the path
+      // until we find it.
+      let TimeInt = 0;
+      for (var i = 0; i < e.path.length; i++) {
+        let t = e.path[i].dataset.timeint;
+        if (!t) continue;
+        TimeInt = t;
+        break;
+      }
+
+      // Ignore the event if we didn't find a valid time
+      // to select
+      if (!TimeInt) return;
+
+      // Set the selected so we can label the trade as such
+      this.Selected = Number.parseInt(TimeInt);
+
+      // Fire an event with the trade as the details
+      console.log(this._decorated);
+      let trade = this._decorated.filter((t)=>{
+        return t.TimeInt === this.Selected;
+      })[0];
+
+      this.fire('selected', trade);
     }
 
   });
