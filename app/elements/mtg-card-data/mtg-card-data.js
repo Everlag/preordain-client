@@ -21,10 +21,15 @@
       this.ajax = this.$.ajax;
     },
     _nameChanged: function(){
+      // Avoid fetching blank names
+      if (this.name.trim().length === 0) return;
       // Rebuild the url
       this._url = buildCardURL(this.name);
     },
     hresponse: function(){
+
+      if (this.name.trim().length === 0) return;
+
       this.data = this.ajax.lastResponse;
 
       // Filter and convert printings so we only display
