@@ -131,6 +131,12 @@ function buildTradesURL(name, coll, pub) {
 	return buildUserURL(content);
 }
 
+// Adds an item to a trade
+function buildAddItemURL(name, coll) {
+	let content = `${name}/Collections/${coll}/Trades`;
+	return buildUserURL(content);
+}
+
 // Fires an ajax request.
 function ajaxJSON(method, url, body,
 	success, failure) {
