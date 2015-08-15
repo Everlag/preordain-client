@@ -113,16 +113,24 @@
                     
                     <span class="paper-font-headline">[[item.TimeString]]</span>
                     <span class="flex"></span>
-                    <template is="dom-if" if="[[item.Appendable]]">
+                    <!--
+                    Only show appending buttons if this is
+                    a private user's, ie the logged in user's, trade history
+                    -->
+                    <template is="dom-if" if="[[!isPublic]]">
+                      
+                      <template is="dom-if" if="[[item.Appendable]]">
 
-                      <paper-button disabled="{{_isSelected(item.TimeInt, Selected)}}"
-                                    on-tap="_selectTrade"
-                                    editing$="{{_isSelected(item.TimeInt, Selected)}}"
-                                    data-timeint$="[[item.TimeInt]]">
-                        <span class="buttonContent"
-                              editing$="{{_isSelected(item.TimeInt, Selected)}}"
-                        ></span>
-                      </paper-button>
+                        <paper-button disabled="{{_isSelected(item.TimeInt, Selected)}}"
+                                      on-tap="_selectTrade"
+                                      editing$="{{_isSelected(item.TimeInt, Selected)}}"
+                                      data-timeint$="[[item.TimeInt]]">
+                          <span class="buttonContent"
+                                editing$="{{_isSelected(item.TimeInt, Selected)}}"
+                          ></span>
+                        </paper-button>
+                      </template>
+
                     </template>
 
                   </span>
