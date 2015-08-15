@@ -25,7 +25,8 @@
 
     <div id="holster" class="horizontal layout">
 
-      <user-trades id="history" name="[[name]]" on-selected="_tradeSelected"></user-trades>
+      <user-trades id="history" name="[[name]]" is-public$="[[_public]]"
+      on-selected="_tradeSelected"></user-trades>
       
       <!-- On a large display we will display user-trade-input
       beside the user-trades -->
@@ -33,7 +34,9 @@
         <div hidden$="[[!_selected]]">
           <div id="fixed">
             <div>
-              <user-trade-input on-done="_tradeDone"></user-trade-input>
+              <user-trade-input comment="[[_selectedComment]]"
+                                time="[[_selectedTime]]"
+              on-done="_tradeDone"></user-trade-input>
             </div>
           </div>
         </div>

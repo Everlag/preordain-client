@@ -13,6 +13,10 @@
         value: 0,
         notify: true,
       },
+      isPublic: { // Whether or not this is a public collection
+        type: Boolean,
+        value: false,
+      },
       _decorated: { // The trades intersped with set releases
         type: Array,
         value: ()=> [], 
@@ -31,7 +35,7 @@
         payload = JSON.stringify({'sessionKey': mutable.session});
         method = 'POST';
       }
-
+      
       let url = buildTradesURL(effectiveName,
         userDefaults.collection, pub);
       

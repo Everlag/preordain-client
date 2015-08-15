@@ -16,7 +16,7 @@
     to the typeahead
     */
     #padding[card-selected]{
-      max-height: 50vh;
+      max-height: 70vh;
       min-height: 15em;
       overflow: auto;
     }
@@ -30,21 +30,33 @@
 
     <paper-material elevation="2">
       <div id="padding" card-selected$="{{_cardSelected}}">
+
         <preordain-typeahead placeholder="Card"
         on-completed="_cardChosen"
         ></preordain-typeahead>
 
-        <preordain-printing-selector
-        id="setSelector"
-        name="[[_workingCard]]" set="{{set}}"
-        selected="{{_selected}}"
-        ></preordain-printing-selector>
+        <!-- Progressive disclosure, baby -->
+        <template is="dom-if" if="[[_cardSelected]]">
+          <preordain-printing-selector
+          id="setSelector"
+          name="[[_workingCard]]" set="{{set}}"
+          selected="{{_workingSet}}"
+          ></preordain-printing-selector>
+        </template>
 
-        <paper-input type="number" placeholder="Quantity"></paper-input>
+        <template is="dom-if" if="[[_setSelected]]">
+          <paper-input type="number" placeholder="Quantity"
+          value="{{_workingQuantity}}"
+          ></paper-input>
+        </template>
 
-        <paper-button raised>Add</paper-button>
-
-        <div>[[_workingCard]]</div>
+        <div class="flex horizontal layout">
+          <template is="dom-if" if="[[_quantitySelected]]">
+            <paper-button raised>Add</paper-button>
+          </template>
+          <div class="flex"></div>
+          <paper-button on-tap="_done">Done</paper-button>
+        </div>
       </div>
     </paper-material>
 

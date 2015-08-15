@@ -46,6 +46,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     });
 
     page('/trades/:name?', function (data) {
+      // Default to our stored username
+      // if the provided one is invalid
+      if (!data.params.name) {
+        data.params.name = mutable.name;
+      }
       app.tradesParams = data.params;
       app.tradesViewed = true;
       app.route = 'trades';
