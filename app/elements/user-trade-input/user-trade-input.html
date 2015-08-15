@@ -52,8 +52,18 @@
 
         <div class="flex horizontal layout">
           <template is="dom-if" if="[[_quantitySelected]]">
-            <paper-button raised>Add</paper-button>
+            <paper-button raised on-tap="_submit">Add</paper-button>
           </template>
+          <div class="flex"></div>
+          <!-- The status of the submission -->
+          <div class="horizontal layout center">
+            <template is="dom-if" if="[[_succeeded]]">
+              
+            </template>
+            <template is="dom-if" if="[[_failed]]">
+              
+            </template>
+          </div>
           <div class="flex"></div>
           <paper-button on-tap="_done">Done</paper-button>
         </div>

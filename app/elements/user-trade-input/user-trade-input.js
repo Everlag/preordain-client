@@ -55,8 +55,34 @@
     _submit: function() {
       // Submits the current details to the 
       // trade with the
-       
+      let card = {
+        // The card's chosen facets
+        'Name': this._workingCard,
+        'Set': this._workingSet,
+        'Quantity': this._workingQuantity,
+        // Constant facets of the updated trade
+        'Comment': this.comment,
+        'LastUpdate': this.time,
+        // Hardcoded for now
+        'Quality': 'NM',
+        'Lang': 'EN',
+      };
+      let payload = {
+        'sessionKey': mutable.sessionKey,
+        'trade': [card],
+      };
+      let method = 'POST';
+      let url = buildAddItemURL(mutable.name, userDefaults.collection);
+      ajaxJSON(method, url, payload,
+        (result)=> this._success,
+        (result)=> this._failure);
     },
+    _success: function(){
+
+    },
+    _failure: function(){
+      
+    }
     // Announce we're done adding cards
     _done: function() {
       this.fire('done');
