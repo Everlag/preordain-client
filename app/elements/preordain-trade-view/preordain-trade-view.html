@@ -25,15 +25,15 @@
 
     <div id="holster" class="horizontal layout">
 
-      <user-trades id="history" name="[[name]]"></user-trades>
+      <user-trades id="history" name="[[name]]" on-selected="_tradeSelected"></user-trades>
       
       <!-- On a large display we will display user-trade-input
       beside the user-trades -->
       <template is="dom-if" if="[[_big]]">
-        <div>
+        <div hidden$="[[!_selected]]">
           <div id="fixed">
             <div>
-              <user-trade-input></user-trade-input>
+              <user-trade-input on-done="_tradeDone"></user-trade-input>
             </div>
           </div>
         </div>
