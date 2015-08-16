@@ -23,22 +23,18 @@
       },
     },
     _nameChanged: function(){
-      // We acquire public data if a name was specified.
-      // Otherwise, we fetch private data for the logged in user.
-      let pub = (this.name !== undefined);
-
       let effectiveName = this.name;
       let payload = null;
       let method = 'GET';
-      if (!pub){
+      if (!this.isPublic){
         effectiveName = mutable.name;
         payload = JSON.stringify({'sessionKey': mutable.session});
         method = 'POST';
       }
-      
+
       let url = buildTradesURL(effectiveName,
-        userDefaults.collection, pub);
-      
+        userDefaults.collection, this.isPublic);
+
       ajaxJSON(method, url, payload,
         (result)=> this._success(result),
         (result)=> this._failure());
