@@ -22,10 +22,19 @@
         value: ()=> [], 
       },
     },
+    attached: function(){
+      this._nameChanged();
+    },
     _nameChanged: function(){
+
+      if (!this.name || this.isPublic === undefined) {
+        console.log('exiting early', this.name, this.isPublic)
+        return;
+      }
       let effectiveName = this.name;
       let payload = null;
       let method = 'GET';
+
       if (!this.isPublic){
         effectiveName = mutable.name;
         payload = JSON.stringify({'sessionKey': mutable.session});
