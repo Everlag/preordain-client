@@ -101,6 +101,11 @@
       })[0];
 
       this.fire('selected', trade);
+    },
+    refresh: function(){
+      // Asking for the data to be reacquired with
+      // any potential updates and redrawn
+      this._nameChanged();
     }
 
   });

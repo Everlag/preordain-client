@@ -109,6 +109,7 @@
     },
     _success: function(){
       console.log('added!');
+      this.fire('card-added');
     },
     _failure: function(){
       console.log('failed!');

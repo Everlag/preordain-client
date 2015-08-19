@@ -54,6 +54,10 @@
       // selected
       this.$.history.Selected = 0;
       this._selected = false;
+    },
+    _refreshTrades: function(){
+      // Refresh the current trade history.
+      this.$.history.refresh();
     }
 
   });
