@@ -9,6 +9,11 @@
     :host {
       display: block;
     }
+
+    #completeContainer{
+      position: relative;
+      min-height: 294px;
+    }
   </style>
 
   <template>
@@ -17,12 +22,19 @@
 
   <div id="completeContainer"></div>
 
-  <style type="text/css">
-    #completeContainer{
-      position: relative;
-      min-height: 294px;
+  </template>
+
+  <style>
+
+    div[horizontal]{
+       @apply(--layout-horizontal);
     }
 
+  </style>
+
+</dom-module>
+
+<style type="text/css">
     .rickshaw_annotation_timeline{
       position: initial !important;
       height: 0px !important;
@@ -64,17 +76,5 @@
         font-size: 1em;
     }
   </style>
-
-  </template>
-
-  <style>
-
-    div[horizontal]{
-       @apply(--layout-horizontal);
-    }
-
-  </style>
-
-</dom-module>
 
 <script src="price-graph.js"></script>
