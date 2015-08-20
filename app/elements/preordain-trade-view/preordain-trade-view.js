@@ -52,6 +52,9 @@
       this._selectedTime = first.LastUpdate;
       this._selectedComment = first.Comment;
       this._selected = true;
+
+      // Clear any potential newTrade state
+      this.$.tradeInput.newTrade = false;
     },
     // The currently viewed trade is done
     _tradeDone: function() {

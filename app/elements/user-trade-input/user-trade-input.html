@@ -36,11 +36,11 @@
           ></paper-input>
         </template>
 
-        <template is="dom-if" if="[[_showTypeahead]]">
-          <preordain-typeahead placeholder="Card"
+        <div hidden$="[[!_showTypeahead]]">
+          <preordain-typeahead id="cardInput" placeholder="Card"
           on-completed="_cardChosen"
           ></preordain-typeahead>
-        </template>
+        </div>
 
         <!-- Progressive disclosure, baby -->
         <template is="dom-if" if="[[_cardSelected]]">

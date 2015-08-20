@@ -10,10 +10,11 @@
       time: {
         type: String,
         value: 0,
+        observer: '_timeChanged',
       },
       newTrade: { // If this is a new trade.
         type: Boolean,
-        value: true,
+        value: false,
       },
       _workingCard: {
         type: String,
@@ -48,8 +49,10 @@
         computed: '_isValidQuantity(_workingQuantity)',
       }
     },
-    _seedChanged: function(){
-
+    _timeChanged: function(){
+      // If the time changes, then our
+      // internal states gets reset
+      this._clearInternalState();
     },
     _doShowTypeahead: function(newTrade, comment){
       // Show the typeahead on new trades only
@@ -129,10 +132,13 @@
       ajaxJSON(method, url, payload,
         (result)=> this._success(),
         (result)=> this._failure());
-    },
-    _success: function(){
+
       // Remove this from being a newTrade
       if (this.newTrade) this.newTrade = false;
+
+      this._clearInternalState();
+    },
+    _success: function(){
       console.log('added!');
       this.fire('card-added');
     },
@@ -142,6 +148,19 @@
     // Announce we're done adding cards
     _done: function() {
       this.fire('done');
+    },
+    // Clears out the internal state so
+    // progressive disclosure functions correctly
+    _clearInternalState: function(){
+      this._workingCard = ' ';
+      this._workingSet = ' ';
+      this._workingQuantity = 0;
+      this._clearTypeahead();
+    },
+    // Cleanly clears the typeahead
+    _clearTypeahead: function(){
+      // Clear the value
+      this.$.cardInput.setValue('');
     }
 
   });
