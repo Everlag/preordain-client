@@ -8,7 +8,7 @@
         notify: true,
         observer: '_nameChanged',
       },
-      Selected: { // The TimeInt of the selected trade, if any
+      selected: { // The TimeInt of the selected trade, if any
         type: Number,
         value: 0,
         notify: true,
@@ -72,7 +72,7 @@
       console.log('we messed up');
     },
     _isSelected: function(TimeInt) {
-      if (this.Selected === TimeInt) return true;
+      if (this.selected === TimeInt) return true;
       return false;
     },
     _selectTrade: function(e) {
@@ -92,12 +92,12 @@
       if (!TimeInt) return;
 
       // Set the selected so we can label the trade as such
-      this.Selected = Number.parseInt(TimeInt);
+      this.selected = Number.parseInt(TimeInt);
 
       // Fire an event with the trade as the details
       console.log(this._decorated);
       let trade = this._decorated.filter((t)=>{
-        return t.TimeInt === this.Selected;
+        return t.TimeInt === this.selected;
       })[0];
 
       this.fire('selected', trade);

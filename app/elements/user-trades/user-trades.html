@@ -121,12 +121,12 @@
                       
                       <template is="dom-if" if="[[item.Appendable]]">
 
-                        <paper-button disabled="{{_isSelected(item.TimeInt, Selected)}}"
+                        <paper-button disabled="{{_isSelected(item.TimeInt, selected)}}"
                                       on-tap="_selectTrade"
-                                      editing$="{{_isSelected(item.TimeInt, Selected)}}"
+                                      editing$="{{_isSelected(item.TimeInt, selected)}}"
                                       data-timeint$="[[item.TimeInt]]">
                           <span class="buttonContent"
-                                editing$="{{_isSelected(item.TimeInt, Selected)}}"
+                                editing$="{{_isSelected(item.TimeInt, selected)}}"
                           ></span>
                         </paper-button>
                       </template>
