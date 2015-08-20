@@ -13,6 +13,12 @@
       position: relative;
     }
 
+    #addButton{
+      position: fixed;
+      right: 30%;
+      bottom: 1em;
+    }
+
     #fixed{
       position: fixed;
     }
@@ -27,6 +33,9 @@
 
       <user-trades id="history" name="[[name]]" is-public$="[[_public]]"
       on-selected="_tradeSelected"></user-trades>
+
+      <paper-fab id="addButton" on-tap="_addTrade" icon="add"></paper-fab>
+
 
       <!-- On a large display we will display user-trade-input
       beside the user-trades -->

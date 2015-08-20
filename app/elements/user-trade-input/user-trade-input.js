@@ -11,6 +11,10 @@
         type: String,
         value: 0,
       },
+      newTrade: { // If this is a new trade.
+        type: Boolean,
+        value: true,
+      },
       _workingCard: {
         type: String,
         value: ' ',
@@ -22,6 +26,11 @@
       _workingQuantity: {
         type: String,
         value: 0,
+      },
+      _showTypeahead: {
+        type: Boolean,
+        value: true,
+        computed: '_doShowTypeahead(newTrade, comment)'
       },
       _cardSelected: {
         type: Boolean,
@@ -41,6 +50,20 @@
     },
     _seedChanged: function(){
 
+    },
+    _doShowTypeahead: function(newTrade, comment){
+      // Show the typeahead on new trades only
+      // if a comment has been made
+      if (newTrade) {
+        if (comment.trim().length > 0) {
+          return true;
+        }else{
+          return false;
+        }
+      }
+
+      // If not a new trade then we always want to show the typeahead
+      return true;
     },
     _cardChosen: function({detail: {choice} }) {
       this._workingCard = choice;
@@ -108,6 +131,8 @@
         (result)=> this._failure());
     },
     _success: function(){
+      // Remove this from being a newTrade
+      if (this.newTrade) this.newTrade = false;
       console.log('added!');
       this.fire('card-added');
     },

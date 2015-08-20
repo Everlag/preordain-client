@@ -31,9 +31,16 @@
     <paper-material elevation="2">
       <div id="padding" card-selected$="{{_cardSelected}}">
 
-        <preordain-typeahead placeholder="Card"
-        on-completed="_cardChosen"
-        ></preordain-typeahead>
+        <template is="dom-if" if="[[newTrade]]">
+          <paper-input label="Comment" value="{{comment}}"
+          ></paper-input>
+        </template>
+
+        <template is="dom-if" if="[[_showTypeahead]]">
+          <preordain-typeahead placeholder="Card"
+          on-completed="_cardChosen"
+          ></preordain-typeahead>
+        </template>
 
         <!-- Progressive disclosure, baby -->
         <template is="dom-if" if="[[_cardSelected]]">
