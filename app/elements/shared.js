@@ -210,6 +210,86 @@ function officialToDisplaySet(s) {
 	.trim(); // Extraneous external whitespace
 }
 
+// Computes an array of lines from a single comment.
+//
+// Aims to wrap lines on word endings around the 'limit'th character
+function getCommentLines(comment, limit) {
+
+	// The easy exit
+	if (comment.length <= limit) return [comment];
+
+	// Cleanly wrap the comment at the ~limit
+	let breaks = new Set(['.', '!', '?', ' ']);
+	let lines = [];
+
+	let wrapNextWord = false;
+	let lastWrap = 0;
+	let i = 0;
+	for (let c of comment){
+		if ((i - lastWrap) > limit) wrapNextWord = true;
+
+		if (wrapNextWord && breaks.has(c)) {
+			lines.push(comment.substring(lastWrap, i).trim());
+
+			wrapNextWord = false;
+			lastWrap = i;
+		}
+		i++;
+	}
+	// Push the remainder of the comment if it wasn't perfectly divisible
+	// by the limit.
+	if (lastWrap < comment.length) {
+		// Ensure we aren't just appending whitespace or a line ending.
+		let remainder = comment.substring(lastWrap, comment.length).trim();
+
+		if (!breaks.has(remainder)) lines.push(remainder);
+	}
+	return lines;
+
+}
+
+// Computes a clean string that presents the user
+// with a reasonable concept of how long it has been since an action
+// has taken place.
+//
+// difference is the millisecond difference between the action and now
+// while Time is a Date object for the action.
+function getTimeString(difference, Time) {
+	let weekDiff = difference / (millisPerHour * 24 * 7);
+
+	let duration;
+	let suffix = '';
+
+	// Anything beyond 2 weeks becomes the date.
+	//
+	// This is the early exit that we'll hit for the majority of
+	// cases.
+	if (weekDiff >= 2) {
+		return Time.toDateString();
+	}
+
+	let hourDiff = difference / millisPerHour;
+	if (hourDiff < 1) {
+		// Anything less than an hours is minutes
+		duration = Truncate(difference / (millisPerHour / 60), 0);
+		if (duration > 1) suffix = 's';
+		return `${duration} Minute${suffix}`;
+	}
+
+	if (hourDiff <= 24) {
+		// Anything less than a day is hours
+		duration = Truncate(hourDiff, 0);
+		if (duration > 1) suffix = 's';
+		return `${duration} Hour${suffix}`;
+	}
+	
+	// Anything above a day is measured in days
+	duration = Truncate(difference / (millisPerHour * 24), 0);
+	if (duration > 1) suffix = 's';
+	return `${duration} Day${suffix}`;
+
+}
+
 // Build trades from an array of individual trade items.
 //
 // A trade has items which have identical comments as well as
@@ -370,84 +450,4 @@ function decorateTrades(trades) {
 	// so we need not worry about emptying the clump.
 
 	return clumped;
-}
-
-// Computes an array of lines from a single comment.
-//
-// Aims to wrap lines on word endings around the 'limit'th character
-function getCommentLines(comment, limit) {
-
-	// The easy exit
-	if (comment.length <= limit) return [comment];
-
-	// Cleanly wrap the comment at the ~limit
-	let breaks = new Set(['.', '!', '?', ' ']);
-	let lines = [];
-
-	let wrapNextWord = false;
-	let lastWrap = 0;
-	let i = 0;
-	for (let c of comment){
-		if ((i - lastWrap) > limit) wrapNextWord = true;
-
-		if (wrapNextWord && breaks.has(c)) {
-			lines.push(comment.substring(lastWrap, i).trim());
-
-			wrapNextWord = false;
-			lastWrap = i;
-		}
-		i++;
-	}
-	// Push the remainder of the comment if it wasn't perfectly divisible
-	// by the limit.
-	if (lastWrap < comment.length) {
-		// Ensure we aren't just appending whitespace or a line ending.
-		let remainder = comment.substring(lastWrap, comment.length).trim();
-
-		if (!breaks.has(remainder)) lines.push(remainder);
-	}
-	return lines;
-
-}
-
-// Computes a clean string that presents the user
-// with a reasonable concept of how long it has been since an action
-// has taken place.
-//
-// difference is the millisecond difference between the action and now
-// while Time is a Date object for the action.
-function getTimeString(difference, Time) {
-	let weekDiff = difference / (millisPerHour * 24 * 7);
-
-	let duration;
-	let suffix = '';
-
-	// Anything beyond 2 weeks becomes the date.
-	//
-	// This is the early exit that we'll hit for the majority of
-	// cases.
-	if (weekDiff >= 2) {
-		return Time.toDateString();
-	}
-
-	let hourDiff = difference / millisPerHour;
-	if (hourDiff < 1) {
-		// Anything less than an hours is minutes
-		duration = Truncate(difference / (millisPerHour / 60), 0);
-		if (duration > 1) suffix = 's';
-		return `${duration} Minute${suffix}`;
-	}
-
-	if (hourDiff <= 24) {
-		// Anything less than a day is hours
-		duration = Truncate(hourDiff, 0);
-		if (duration > 1) suffix = 's';
-		return `${duration} Hour${suffix}`;
-	}
-	
-	// Anything above a day is measured in days
-	duration = Truncate(difference / (millisPerHour * 24), 0);
-	if (duration > 1) suffix = 's';
-	return `${duration} Day${suffix}`;
-
 }

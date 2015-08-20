@@ -28,7 +28,6 @@
     _nameChanged: function(){
 
       if (!this.name || this.isPublic === undefined) {
-        console.log('exiting early', this.name, this.isPublic)
         return;
       }
       let effectiveName = this.name;
@@ -66,7 +65,6 @@
       let trades = addTradesUX(buildTrades(Historical));
       
       this._decorated = decorateTrades(trades);
-      console.log(this._decorated);
     },
     _failure: function(){
       console.log('we messed up');
@@ -95,7 +93,6 @@
       this.selected = Number.parseInt(TimeInt);
 
       // Fire an event with the trade as the details
-      console.log(this._decorated);
       let trade = this._decorated.filter((t)=>{
         return t.TimeInt === this.selected;
       })[0];

@@ -68,10 +68,10 @@
       //
       // Any time which can be unserialized into a correct
       // Date object is correct for us
-      let now = new Date()
+      let now = new Date();
       this._selectedTime = now.toJSON();
       this._selectedComment = '';
-      this._selectedTimeInt = Truncate(now / 1000, 0)
+      this._selectedTimeInt = Truncate(now / 1000, 0);
       this.$.tradeInput.newTrade = true;
       this._selected = true;
     },
