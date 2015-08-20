@@ -24,6 +24,11 @@
         type: Boolean,
         value: false,
       },
+      _selectedTimeInt: { // The currently selected time integer
+        type: Number,
+        value: 0,
+        notify: true
+      },
       _selectedComment: {
         type: String,
         value: ' ',
@@ -52,11 +57,20 @@
     _tradeDone: function() {
       // Set the user-trades to not display any trade as
       // selected
-      this.$.history.Selected = 0;
+      this._selectedTimeInt = 0;
       this._selected = false;
     },
     _addTrade: function(){
-
+      // A new trade means we select a new time
+      //
+      // Any time which can be unserialized into a correct
+      // Date object is correct for us
+      let now = new Date()
+      this._selectedTime = now.toJSON();
+      this._selectedComment = '';
+      this._selectedTimeInt = Truncate(now / 1000, 0)
+      this.$.tradeInput.newTrade = true;
+      this._selected = true;
     },
     _refreshTrades: function(){
       // Refresh the current trade history.

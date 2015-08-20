@@ -32,6 +32,7 @@
     <div id="holster" class="horizontal layout">
 
       <user-trades id="history" name="[[name]]" is-public$="[[_public]]"
+      selected="{{_selectedTimeInt}}"
       on-selected="_tradeSelected"></user-trades>
 
       <paper-fab id="addButton" on-tap="_addTrade" icon="add"></paper-fab>
@@ -39,18 +40,17 @@
 
       <!-- On a large display we will display user-trade-input
       beside the user-trades -->
-      <template is="dom-if" if="[[_big]]">
-        <div hidden$="[[!_selected]]">
-          <div id="fixed">
-            <div>
-              <user-trade-input comment="[[_selectedComment]]"
-                                time="[[_selectedTime]]"
-              on-done="_tradeDone"
-              on-card-added="_refreshTrades"></user-trade-input>
-            </div>
+      <div hidden$="[[!_selected]]">
+        <div id="fixed">
+          <div>
+            <user-trade-input id="tradeInput"
+                              comment="[[_selectedComment]]"
+                              time="[[_selectedTime]]"
+            on-done="_tradeDone"
+            on-card-added="_refreshTrades"></user-trade-input>
           </div>
         </div>
-      </template>
+      </div>
 
     </div>
 
