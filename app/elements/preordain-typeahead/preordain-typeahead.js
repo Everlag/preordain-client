@@ -145,6 +145,10 @@
         'choice':selection,
         'isSet': displaySets.has(selection),
       });
+    },
+    // Cleanly sets the value of the typeahead
+    setValue: function(v) {
+      $(this.$.visibleInput).typeahead('val', v);
     }
 
 
