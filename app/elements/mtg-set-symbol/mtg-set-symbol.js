@@ -19,6 +19,8 @@
       }
     },
     _getSetSymbol: function(name){
+      // Ignore invalid names!
+      if (name === undefined || name.trim().length === 0) return;
       return buildSetSymbolURL(name);
     },
     _isFoil: function(name) {
