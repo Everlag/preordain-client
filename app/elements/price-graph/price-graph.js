@@ -43,10 +43,7 @@
       sets.forEach((set)=>{
         // Ensure we display only supported sets.
         if (!displaySets.has(set)) return;
-        let display = document.createElement('mtg-set-symbol');
-        display.set = set;
-
-        this._setAnnotations.push([setReleases[set], set, display]);
+        this._setAnnotations.push([setReleases[set], set]);
       });
 
       // Sort the annotations by ascending time
@@ -76,7 +73,24 @@
       this._clear();
       let [chart, slider, timeline] = this._refill();
 
-      setupGraph(chart, slider, timeline, this._setAnnotations, this._prices);
+      // Grab the earliest price we have for the card
+      let earliestTime = this._prices
+                        .reduce((a, b)=>{
+                          if (a.Time > b.Time) return b;
+                          return a;
+                        });
+      // Only find annotations we'll actually use
+      // and add the symbol elements onto them
+      let goodAnnotations = this._setAnnotations
+      .filter((a)=> a[0] > earliestTime.Time)
+      .map((a)=>{
+        let display = document.createElement('mtg-set-symbol');
+        display.set = a[1];
+        return a.concat(display);
+      });
+
+
+      setupGraph(chart, slider, timeline, goodAnnotations, this._prices);
     }
   });
 
