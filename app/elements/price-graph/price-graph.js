@@ -43,12 +43,14 @@
       sets.forEach((set)=>{
         // Ensure we display only supported sets.
         if (!displaySets.has(set)) return;
-
-        let display = document.createElement('iron-icon');
-        display.src = buildSetSymbolURL(set);
+        let display = document.createElement('mtg-set-symbol');
+        display.set = set;
 
         this._setAnnotations.push([setReleases[set], set, display]);
       });
+
+      // Sort the annotations by ascending time
+      this._setAnnotations.sort((a, b)=> a[0] - b[0]);
     },
     _clear: function(){ // Clean out the old cruft
       let c = this.$.completeContainer;
