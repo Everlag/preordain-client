@@ -35,7 +35,9 @@
       selected="{{_selectedTimeInt}}"
       on-selected="_tradeSelected"></user-trades>
 
-      <paper-fab id="addButton" on-tap="_addTrade" icon="add"></paper-fab>
+      <paper-fab id="addButton" on-tap="_addTrade" icon="add"
+      hidden$="[[_public]]"
+      ></paper-fab>
 
 
       <!-- On a large display we will display user-trade-input
