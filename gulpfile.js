@@ -21,6 +21,10 @@ var path = require('path');
 var fs = require('fs');
 var glob = require('glob');
 
+// Debugging!
+var compress = require('compression');
+var gutil = require('gulp-util');
+
 var AUTOPREFIXER_BROWSERS = [
   'ie >= 10',
   'ie_mob >= 10',
@@ -81,7 +85,7 @@ gulp.task('images', function () {
 // Copy All Files At The Root Level (app)
 gulp.task('copy', function () {
   var app = gulp.src([
-    'app/*',
+    'app/*/!(*.js)',
     '!app/test',
     '!app/precache.json'
   ], {
@@ -117,9 +121,9 @@ gulp.task('html', function () {
   return gulp.src(['app/**/*.html', '!app/{elements,test}/**/*.html'])
     // Replace path for vulcanized assets
     .pipe($.if('*.html', $.replace('elements/elements.html', 'elements/elements.vulcanized.html')))
-    .pipe(assets)
+    // .pipe(assets)
     // Concatenate And Minify JavaScript
-    // .pipe($.if('*.js', $.uglify({preserveComments: 'some'})))
+    // .pipe($.if('*.js', $.uglify({preserveComments: 'some'}).on('error', gutil.log)))
     // Concatenate And Minify Styles
     // In case you are still using useref build blocks
     .pipe($.if('*.css', $.cssmin()))
@@ -226,30 +230,7 @@ gulp.task('serve:dist', ['default'], function () {
     //       will present a certificate warning in the browser.
     // https: true,
     server: 'dist',
-    middleware: []
-  });
-});
-
-
-// Build and serve the output from the dist build
-gulp.task('serve:dist', ['default'], function () {
-  browserSync({
-    notify: false,
-    logPrefix: 'PSK',
-    snippetOptions: {
-      rule: {
-        match: '<span id="browser-sync-binding"></span>',
-        fn: function (snippet) {
-          return snippet;
-        }
-      }
-    },
-    // Run as an https by uncommenting 'https: true'
-    // Note: this uses an unsigned certificate which on first access
-    //       will present a certificate warning in the browser.
-    // https: true,
-    server: 'dist',
-    middleware: []
+    middleware: [compress()]
   });
 });
 
