@@ -1,15 +1,36 @@
+<!--
+Our spinner css
+
+The orange coloring fits quite nicely with our
+orange accent color
+-->
+<link rel="stylesheet" type="text/css" href="../../bower_components/css-spinners/css/spinner/circles.css
+">
+
 <dom-module id="preordain-status">
 
   <style>
     :host {
       display: block;
+
+      @apply(--layout-horizontal);
+      @apply(--layout-center-justified);
     }
 
   </style>
 
   <template>
 
-    <div>[[status]]</div>
+    <template is="dom-if" if="[[_isLoading]]">
+      <div class="circles-loader"></div>
+    </template>
+
+    <template is="dom-if" if="[[_isError]]">
+      <div class="vertical layout center">
+        <iron-icon icon="error-outline"></iron-icon>
+        <div>[[error]]</div>
+      </div>
+    </template>
 
   </template>
 

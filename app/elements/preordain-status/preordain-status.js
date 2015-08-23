@@ -29,10 +29,36 @@
       error: {
         type: String,
         value: ' ',
-      }
+      },
+      _isError: {
+        type: Boolean,
+        value: false,
+      },
+      _isLoading: {
+        type: Boolean,
+        value: false,
+      },
     },
     _statusChanged: function(status){
       if (!statuses.has(status)) throw 'invalid status';
+
+      // Typically the rest of this would be done
+      // as a bunch of computed properties but
+      // they are all modified by name so this seems sane
+      // and cleaner
+
+      // If we encountered an error we show it off
+      if (status === error) {
+        this._isError = true;
+      }else{
+        this._isError = false;
+      }
+
+      if (status === loading) {
+        this._isLoading = true;
+      }else{
+        this._isLoading = false;
+      }
 
       // If we're done, hide so we take up no space in the layout.
       if (status === done) {
