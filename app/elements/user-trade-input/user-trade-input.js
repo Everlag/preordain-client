@@ -47,7 +47,11 @@
         type: Boolean,
         value: false,
         computed: '_isValidQuantity(_workingQuantity)',
-      }
+      },
+      _status: { // Loading status of trades
+        type: String,
+        value: 'done',
+      },
     },
     _timeChanged: function(){
       // If the time changes, then our
@@ -137,13 +141,20 @@
       if (this.newTrade) this.newTrade = false;
 
       this._clearInternalState();
+
+      // Show the spinner
+      this._status = 'loading';
     },
     _success: function(){
       console.log('added!');
       this.fire('card-added');
+
+      // Hide the spinner
+      this._status = 'done';
     },
     _failure: function(){
-      console.log('failed!');
+      // Show an error
+      this._status = 'error';
     },
     // Announce we're done adding cards
     _done: function() {
