@@ -21,6 +21,10 @@
         type: Array,
         value: ()=> [], 
       },
+      _status: { // Loading status of trades
+        type: String,
+        value: 'done',
+      },
     },
     attached: function(){
       this._nameChanged();
@@ -47,6 +51,9 @@
         (result)=> this._success(result),
         (result)=> this._failure());
 
+      // Set the spinner to spin
+      this._status = 'loading';
+
     },
     _success: function(result) {
       let Historical = [];
@@ -65,9 +72,13 @@
       let trades = addTradesUX(buildTrades(Historical));
       
       this._decorated = decorateTrades(trades);
+
+      // Kill the spinner
+      this._status = 'done';
     },
     _failure: function(){
-      console.log('we messed up');
+      // Display an error message
+      this._status = 'error';
     },
     _isSelected: function(TimeInt) {
       if (this.selected === TimeInt) return true;
