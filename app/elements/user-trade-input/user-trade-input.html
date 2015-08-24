@@ -33,6 +33,8 @@
 
         <template is="dom-if" if="[[newTrade]]">
           <paper-input label="Comment" value="{{comment}}"
+          char-counter maxlength="140"
+          no-label-float
           ></paper-input>
         </template>
 
