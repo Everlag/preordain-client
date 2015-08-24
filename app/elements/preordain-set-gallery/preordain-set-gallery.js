@@ -24,7 +24,11 @@
       _galleryReady: {
         type: Boolean,
         value: false,
-      }
+      },
+      _status: { // Loading status of trades
+        type: String,
+        value: 'done',
+      },
     },
     attached: function() {
       // We deal with gallery hiding until
@@ -51,6 +55,9 @@
       this.imagesLoaded = 0;
 
       this._prices = prices;
+
+      // Finish the spinner
+      this._status = 'done';
     },
     _arePricesReady: function(prices){
       if (prices !== null && prices.length > 0) return true;
@@ -60,6 +67,12 @@
     _facetChanged: function(){
       // Ensure we are dealing only with valid set names
       if (!displaySets.has(this.name)) throw 'invalid set name';
+
+      // Start the spinner
+      this._status = 'loading';
+
+      // The prices aren't good to go yet
+      this._prices = [];
     },
     _imageLoaded: function(){
       this.imagesLoaded++;

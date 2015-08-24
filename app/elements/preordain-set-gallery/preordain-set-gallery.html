@@ -67,6 +67,8 @@
 
   <price-complete name="{{name}}" on-prices-down="pricesDown"></price-complete>
 
+  <preordain-status status="[[_status]]"></preordain-status>
+
   <!-- A gallery of every card in the set over $1 -->
   <div class="vertical layout center">
     <template is="dom-if" if="{{_pricesReady}}">
