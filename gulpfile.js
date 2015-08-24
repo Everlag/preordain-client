@@ -192,7 +192,7 @@ gulp.task('serve', function () {
     // Run as an https by uncommenting 'https: true'
     // Note: this uses an unsigned certificate which on first access
     //       will present a certificate warning in the browser.
-    // https: true,
+    https: true,
     server: {
       baseDir: ['.tmp', 'dist', 'app'],
       middleware: [],
