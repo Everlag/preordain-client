@@ -198,6 +198,15 @@ function validPassword(password) {
 	return password.length >= 10 && password.length < 255;
 }
 
+// Returns whether or not a provided email is validly formatted.
+//
+// A valid email respects RFC 2822. It might be fake, or not used,
+// or used by someone else. This function just wants a reasonable email!
+function validEmail(email) {
+	var re = /^([a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)$/i;
+    return re.test(email);
+}
+
 // Converts a given official set name to a more pleasant display name.
 function officialToDisplaySet(s) {
 	return s
