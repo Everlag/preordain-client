@@ -136,6 +136,18 @@ function buildTradesURL(name, coll, pub) {
 	return buildUserURL(content);
 }
 
+// Fetches collection list
+function buildCollectionsURL(name) {
+	let content = `${name}/Collections/${coll}/Get`;
+	return buildUserURL(content);
+}
+
+// Adds a collection
+function buildAddCollectionURL(name, coll) {
+	let content = `${name}/Collections/${coll}/Create`;
+	return buildUserURL(content);
+}
+
 // Adds an item to a trade
 function buildAddItemURL(name, coll) {
 	let content = `${name}/Collections/${coll}/Trades`;

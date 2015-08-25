@@ -47,7 +47,7 @@
       let url = buildSignupURL(this.input.username.value);
 
       ajaxJSON( 'POST', url, payload,
-        (result)=> this._success(result),
+        (result)=> this._addedUser(result),
         (result)=> this._failure());
 
       // Start the spinner
@@ -103,12 +103,16 @@
     _selectPassword: function(){
       this.input.password.inputElement.select();
     },
-    _success: function(result){
+    _addedUser: function(result) {
       // Set the global state to represent our result
       mutable.name = this.input.username.value;
       mutable.session = result.split('"').join('');
       console.log(mutable);
 
+      // Add a new collection
+      this._addDefaultCollection(mutable.name, mutable.session);
+    },
+    _success: function(){
       // End the spinner
       this._status = 'done';
 
@@ -136,6 +140,20 @@
       // Turn the captcha spinner off
       this._captchaStatus = 'done';
     },
+    _addDefaultCollection: function(name, sessionKey) {
+      let payload = JSON.stringify({
+        'sessionKey': sessionKey,
+      });
+      let method = 'POST';
+
+      let url = buildAddCollectionURL(name,
+        userDefaults.collection);
+
+      ajaxJSON( 'POST', url, payload,
+        (result)=> this._success(),
+        (result)=> this._failure());
+
+    }
 
   });
 })();
