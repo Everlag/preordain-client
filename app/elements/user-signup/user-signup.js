@@ -111,6 +111,9 @@
 
       // End the spinner
       this._status = 'done';
+
+      // Navigate to the trade list
+      page('/trades');
     },
     _failure: function(){
       // Clear the recaptcha and any response it had
