@@ -1,0 +1,104 @@
+<dom-module id="user-signup">
+
+  <style>
+    :host{
+      display: block;
+    }
+
+    iron-icon{
+      margin: 0px;
+      width: 2em;
+      height: 2em;
+    }
+
+    #forgot{
+      text-transform: none;
+    }
+
+    preordain-status{
+      margin-bottom: 1.5em;
+    }
+  </style>
+
+  <template>
+
+    <iron-a11y-keys target="{{input.username}}" keys="enter"
+    on-keys-pressed="_selectEmail"></iron-a11y-keys>
+
+    <iron-a11y-keys target="{{input.email}}" keys="enter"
+    on-keys-pressed="_selectPassword"></iron-a11y-keys>
+
+    <iron-a11y-keys target="{{input.password}}" keys="enter"
+    on-keys-pressed="_submit"></iron-a11y-keys>
+
+    <div class="vertical layout">
+      <div class="horizontal layout">
+        <iron-icon icon="icons:account-circle" class="self-center"></iron-icon>
+        
+        <paper-input
+        id="username" class="flex"
+        placeholder="username"
+        error-message="enter a valid username"
+        ></paper-input>
+      </div>
+
+      <div class="horizontal layout">
+        <iron-icon icon="communication:email" class="self-center"></iron-icon>
+        
+        <paper-input
+        id="email" class="flex"
+        placeholder="email"
+        error-message="enter a valid email"
+        ></paper-input>
+      </div>
+
+
+      <div class="horizontal layout">
+        <iron-icon icon="icons:lock" class="self-center"></iron-icon>
+        
+        <paper-input type="password"
+        id="password" class="flex"
+        placeholder="password"
+        error-message="enter a valid password"
+        ></paper-input>
+      </div>
+
+      <div>
+        <div class="paper-font-subhead">Are you a robot?</div>
+        <!-- Fancy spinner so they aren't left confused if it takes awhile -->
+        <div class="horizontal layout">
+          <preordain-status status="[[_captchaStatus]]"></preordain-status>
+          <div class="flex"></div>
+        </div>
+        <re-captcha
+        id="recaptcha"
+        sitekey="[[_captchaKey]]"
+        on-captcha-rendered="_captchaLoaded"
+        ></re-captcha>
+      </div>
+
+      <div class="horizontal layout">
+        <paper-button on-tap="_forgot"
+        id="forgot">Forgot your password?</paper-button>
+        <div class="flex"></div>
+        <!-- Status indicator -->
+        <preordain-status status="[[_status]]"></preordain-status>
+        <div class="flex"></div>
+        <paper-button on-tap="_submit" 
+        id="submitter"
+        raised>Sign up</paper-button>
+      </div>
+    </div>
+
+    <div id="incorrect" class="horizontal layout">
+      <div class="flex"></div>
+      <template is="dom-if" if="{{_failed}}">
+        <div>Username taken</div>
+      </template>
+    </div>
+
+    </template>
+
+</dom-module>
+
+<script src="user-signup.js"></script>

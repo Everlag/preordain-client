@@ -123,6 +123,11 @@ function buildLoginURL(name) {
 	return buildUserURL(content);
 }
 
+function buildSignupURL(name) {
+	let content = `${name}`;
+	return buildUserURL(content);
+}
+
 function buildTradesURL(name, coll, pub) {
 	let content = `${name}/Collections/${coll}/Get`;
 	// Appending 'Public' to the end of this endpoint lets us switch

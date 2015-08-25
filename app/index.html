@@ -164,6 +164,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
               </paper-material>
             </section>
 
+            <section data-route="signup">
+              <paper-material elevation="1">
+                <user-signup></user-signup>
+              </paper-material>
+            </section>
+
+
             <section data-route="trades">
               <template is="dom-if" if="[[tradesViewed]]">
                 <preordain-trade-view name="[[tradesParams.name]]"></preordain-trade-view>

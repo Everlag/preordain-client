@@ -45,6 +45,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       app.route = 'login';
     });
 
+    page('/signup', function () {
+      app.route = 'signup';
+    });
+
     page('/trades/:name?', function (data) {
       // Default to our stored username
       // if the provided one is invalid
