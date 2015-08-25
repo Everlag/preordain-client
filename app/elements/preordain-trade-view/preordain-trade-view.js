@@ -38,6 +38,11 @@
         type: String,
         value: 0,
         notify: true,
+      },
+      _pulsate: {
+        // Whether or not to pulsate the add button
+        type: Boolean,
+        value: false
       }
     },
     _nameChanged: function(){
@@ -74,10 +79,18 @@
       this._selectedTimeInt = Truncate(now / 1000, 0);
       this.$.tradeInput.newTrade = true;
       this._selected = true;
+
+      // Stop pulsating!
+      this._pulsate = false;
     },
     _refreshTrades: function(){
       // Refresh the current trade history.
       this.$.history.refresh();
+    },
+    _newUser: function() {
+      // Point the user to a new
+      // trade by pulsating the add button
+      this._pulsate = true;
     }
 
   });

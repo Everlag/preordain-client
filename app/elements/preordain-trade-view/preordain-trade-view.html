@@ -22,6 +22,43 @@
     #fixed{
       position: fixed;
     }
+
+    /* Pulsation for new user! */    
+    @-webkit-keyframes pulse_animation {
+      0% { -webkit-transform: scale(1); transform: scale(1); }
+      30% { -webkit-transform: scale(1); transform: scale(1); }
+      40% { -webkit-transform: scale(1.1); transform: scale(1.1); }
+      50% { -webkit-transform: scale(1); transform: scale(1); }
+      60% { -webkit-transform: scale(1); transform: scale(1); }
+      70% { -webkit-transform: scale(1.07); transform: scale(1.07); }
+      80% { -webkit-transform: scale(1); transform: scale(1); }
+      100% { -webkit-transform: scale(1); transform: scale(1); }
+    }
+
+    @keyframes pulse_animation {
+      0% { -webkit-transform: scale(1); transform: scale(1); }
+      30% { -webkit-transform: scale(1); transform: scale(1); }
+      40% { -webkit-transform: scale(1.1); transform: scale(1.1); }
+      50% { -webkit-transform: scale(1); transform: scale(1); }
+      60% { -webkit-transform: scale(1); transform: scale(1); }
+      70% { -webkit-transform: scale(1.07); transform: scale(1.07); }
+      80% { -webkit-transform: scale(1); transform: scale(1); }
+      100% { -webkit-transform: scale(1); transform: scale(1); }
+    }
+
+    #addButton[pulse] {
+      -webkit-animation-name: 'pulse_animation';
+              animation-name: 'pulse_animation';
+      -webkit-animation-duration: 2000ms;
+              animation-duration: 2000ms;
+      -webkit-transform-origin:70% 70%;
+          -ms-transform-origin:70% 70%;
+              transform-origin:70% 70%;
+      -webkit-animation-iteration-count: infinite;
+              animation-iteration-count: infinite;
+      -webkit-animation-timing-function: linear;
+              animation-timing-function: linear;
+    }
   </style>
 
   <template>
@@ -33,9 +70,10 @@
 
       <user-trades id="history" name="[[name]]" is-public$="[[_public]]"
       selected="{{_selectedTimeInt}}"
-      on-selected="_tradeSelected"></user-trades>
+      on-selected="_tradeSelected"
+      on-new-user="_newUser"></user-trades>
 
-      <paper-fab id="addButton" on-tap="_addTrade" icon="add"
+      <paper-fab id="addButton" pulse$="[[_pulsate]]" on-tap="_addTrade" icon="add"
       hidden$="[[_public]]"
       ></paper-fab>
 
