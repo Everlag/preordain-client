@@ -50,6 +50,9 @@
         raised="{{_failed}}"
         id="forgot">Forgot your password?</paper-button>
         <div class="flex"></div>
+        <!-- Status indicator -->
+        <preordain-status status="[[_status]]"></preordain-status>
+        <div class="flex"></div>
         <paper-button on-tap="_submit" 
         id="submitter"
         raised>Sign In</paper-button>

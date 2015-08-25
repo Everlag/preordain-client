@@ -5,6 +5,10 @@
       _failed: {
         type: Boolean,
         value: false,
+      },
+      _status: {
+        type: String,
+        value: 'done',
       }
     },
     ready: function() {
@@ -33,6 +37,9 @@
       ajaxJSON( 'POST', url, payload,
         (result)=> this._success(result),
         (result)=> this._failure());
+
+      // Start the spinner
+      this._status = 'loading';
 
     },
     _validate: function(){ // Validates current state of the login form.
@@ -70,6 +77,9 @@
       mutable.name = this.input.username.value;
       mutable.session = result.split('"').join('');
       console.log(mutable);
+
+      // End the spinner
+      this._status = 'done';
     },
     _failure: function(){
       // Clear the password field
@@ -79,6 +89,8 @@
 
       // Shake the button for a moment
       indicateBadness(this.$.submitter);
+
+      this._status = 'error';
     },
     _forgot: function(){ // Send them over to /reset
       // We can't use the wonderful string templating features
