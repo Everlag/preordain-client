@@ -25,6 +25,10 @@
         type: String,
         value: 'done',
       },
+      _newUser: {
+        type: Boolean,
+        value: false,
+      }
     },
     attached: function(){
       this._nameChanged();
@@ -65,6 +69,17 @@
         /* jshint ignore:end */
       }catch(e){
         this._failure();
+      }
+
+      // Special case of a brand new user
+      // they have no history but make them feel welcome!
+      if (Historical === null) {
+        this._newUser = true;
+        this._status = 'done';
+
+        // Let the parent know about this!
+        this.fire('new-user');
+        return;
       }
 
       // Compute individual trades from the bulk history then 
