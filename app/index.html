@@ -159,15 +159,19 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             </section>
 
             <section data-route="login">
-              <paper-material elevation="1">
-                <user-login></user-login>
-              </paper-material>
+              <template is="dom-if" if="[[loginViewed]]">
+                <paper-material elevation="1">
+                  <user-login></user-login>
+                </paper-material>
+              </template>
             </section>
 
             <section data-route="signup">
-              <paper-material elevation="1">
-                <user-signup></user-signup>
-              </paper-material>
+              <template is="dom-if" if="[[signupViewed]]">
+                <paper-material elevation="1">
+                  <user-signup></user-signup>
+                </paper-material>
+              </template>
             </section>
 
             <section data-route="trades">
@@ -177,9 +181,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             </section>
 
             <section data-route="reset">
-              <paper-material elevation="1">
-                <user-reset name="[[resetParams.name]]"></user-reset>
-              </paper-material>
+              <template is="dom-if" if="[[resetViewed]]">
+                <paper-material elevation="1">
+                  <user-reset name="[[resetParams.name]]"></user-reset>
+                </paper-material>
+              </template>
             </section>
 
             <section data-route="users">

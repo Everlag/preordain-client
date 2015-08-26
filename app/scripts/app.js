@@ -18,9 +18,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   var app = document.querySelector('#app');
 
   // Set up some flags so we lazily load components as we need.
+  //
+  // It would be preferable to keep these in a app.viewed
+  // object but auto-binding templates disallow that.
   app.setViewed = false;
   app.cardViewed = false;
   app.tradesViewed = false;
+  app.loginViewed = false;
+  app.signupViewed = false;
+  app.resetViewed = false;
 
   // Listen for template bound event to know when bindings
   // have resolved and content has been stamped to the page

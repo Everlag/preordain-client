@@ -43,10 +43,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     page('/login', function () {
       app.route = 'login';
+      app.loginViewed = true;
     });
 
     page('/signup', function () {
       app.route = 'signup';
+      app.signupViewed = true;
     });
 
     page('/trades/:name?', function (data) {
@@ -63,6 +65,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     page('/reset/:name?', function (data) {
       app.resetParams = data.params;
       app.route = 'reset';
+      app.resetViewed = true;
     });
 
     page('/card/:name/:set?', function (data) {
