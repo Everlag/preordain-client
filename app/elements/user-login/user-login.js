@@ -80,6 +80,9 @@
 
       // End the spinner
       this._status = 'done';
+
+      // Navigate to the trade list
+      page('/trades');
     },
     _failure: function(){
       // Clear the password field
