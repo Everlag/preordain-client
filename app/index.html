@@ -170,7 +170,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
               </paper-material>
             </section>
 
-
             <section data-route="trades">
               <template is="dom-if" if="[[tradesViewed]]">
                 <preordain-trade-view name="[[tradesParams.name]]"></preordain-trade-view>
@@ -178,7 +177,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             </section>
 
             <section data-route="reset">
-              hello <span>{{resetParams.name}}</span>, you should reset your password!
+              <paper-material elevation="1">
+                <user-reset name="[[resetParams.name]]"></user-reset>
+              </paper-material>
             </section>
 
             <section data-route="users">

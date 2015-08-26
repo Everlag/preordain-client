@@ -128,6 +128,18 @@ function buildSignupURL(name) {
 	return buildUserURL(content);
 }
 
+// Requests a reset token
+function buildResetRequestURL(name) {
+	let content = `${name}/PasswordResetRequest`;
+	return buildUserURL(content);
+}
+
+// Actually performs the reset request
+function buildResetURL(name) {
+	let content = `${name}/PasswordReset`;
+	return buildUserURL(content);
+}
+
 function buildTradesURL(name, coll, pub) {
 	let content = `${name}/Collections/${coll}/Get`;
 	// Appending 'Public' to the end of this endpoint lets us switch

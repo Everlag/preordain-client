@@ -1,0 +1,117 @@
+<dom-module id="user-reset">
+
+  <style>
+    :host{
+      display: block;
+    }
+
+    iron-icon{
+      margin: 0px;
+      width: 2em;
+      height: 2em;
+    }
+
+    preordain-status{
+      margin-bottom: 1.5em;
+    }
+  </style>
+
+  <template>
+
+    <!-- Submit token request assuming captcha filled in -->
+    <iron-a11y-keys target="{{input.username}}" keys="enter"
+    on-keys-pressed="_submitRequest"></iron-a11y-keys>
+
+    <!-- Submit token -->
+    <iron-a11y-keys target="{{input.password}}" keys="enter"
+    on-keys-pressed="_submitToken"></iron-a11y-keys>
+
+    <div class="horizontal layout">
+      <div class="vertical layout">
+
+        <div class="paper-font-title">Step 1. Get a reset token</div>
+
+        <div class="horizontal layout">
+          <iron-icon icon="icons:account-circle" class="self-center"></iron-icon>
+          
+          <paper-input
+          id="username" class="flex"
+          value="{{name}}"
+          placeholder="username"
+          error-message="enter a valid username"
+          ></paper-input>
+        </div>
+
+        <div>
+          <div class="paper-font-subhead">Are you a robot?</div>
+          <!-- Fancy spinner so they aren't left confused if it takes awhile -->
+          <div class="horizontal layout">
+            <preordain-status status="[[_captchaStatus]]"></preordain-status>
+            <div class="flex"></div>
+          </div>
+          <re-captcha
+          id="recaptcha"
+          sitekey="[[_captchaKey]]"
+          on-captcha-rendered="_captchaLoaded"
+          ></re-captcha>
+        </div>
+
+        <div class="horizontal layout">
+          <div class="flex"></div>
+          <!-- Status indicator -->
+          <preordain-status status="[[_requestStatus]]"></preordain-status>
+          <template is="dom-if" if="[[_requestComplete]]">
+            <div>Check your email</div>
+          </template>
+          <div class="flex"></div>
+          <paper-button on-tap="_submitRequest" 
+          id="requestSubmitter"
+          raised>Request token</paper-button>
+        </div>
+      </div>
+
+      <div class="flex"></div>
+
+      <div class="vertical layout">
+        <div class="paper-font-title">Step 2. Change your password</div>
+
+        <div class="horizontal layout">
+          <iron-icon icon="icons:verified-user" class="self-center"></iron-icon>
+          
+          <paper-input
+          id="token" class="flex"
+          placeholder="reset code"
+          error-message="enter a valid code"
+          ></paper-input>
+        </div>
+
+        <div class="horizontal layout">
+          <iron-icon icon="icons:lock" class="self-center"></iron-icon>
+          
+          <paper-input
+          id="password" class="flex"
+          placeholder="new password"
+          error-message="enter a valid password"
+          ></paper-input>
+        </div>
+
+
+        <div class="horizontal layout">
+          <div class="flex"></div>
+          <!-- Status indicator -->
+          <preordain-status status="[[_resetStatus]]"></preordain-status>
+          <div class="flex"></div>
+          <paper-button on-tap="_submitReset" 
+          id="resetSubmitter"
+          raised>Change password</paper-button>
+        </div>
+
+      </div>
+    </div>
+
+
+  </template>
+
+</dom-module>
+
+<script src="user-reset.js"></script>
