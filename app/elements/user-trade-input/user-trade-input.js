@@ -53,6 +53,14 @@
         value: 'done',
       },
     },
+    ready: function() {
+      this.input = {
+        comment: this.$.comment,
+        typeahead: this.$.cardInput,
+        quantity: this.$.quantity,
+        submitter: this.$.submitter,
+      };
+    },
     _timeChanged: function(){
       // If the time changes, then our
       // internal states gets reset
@@ -73,7 +81,11 @@
       return true;
     },
     _cardChosen: function({detail: {choice} }) {
+      // Set our internal state
       this._workingCard = choice;
+
+      // Select the quantity input
+      this._selectQuantityInput();
     },
     _isValidSelection: function(card) {
       if (card.trim().length > 0) return true;
@@ -172,7 +184,14 @@
     _clearTypeahead: function(){
       // Clear the value
       this.$.cardInput.setValue('');
-    }
+    },
+    _selectTypeahead: function() {
+      this.input.typeahead.selectInput();
+    },
+    _selectQuantityInput: function() {
+      this.input.quantity.inputElement.select();
+    },
+
 
   });
 })();
