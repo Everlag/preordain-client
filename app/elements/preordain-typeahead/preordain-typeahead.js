@@ -149,6 +149,9 @@
     // Cleanly sets the value of the typeahead
     setValue: function(v) {
       $(this.$.visibleInput).typeahead('val', v);
+    },
+    selectInput: function() {
+      this.$.visibleInput.focus();
     }
 
 
