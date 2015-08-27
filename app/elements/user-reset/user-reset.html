@@ -14,9 +14,24 @@
     preordain-status{
       margin-bottom: 1.5em;
     }
+
+    #steps{
+      @apply(--layout-vertical);
+    }
+
+    /*
+    Default to vertical
+    Switch to horizontal on a large display
+    */
+    #steps[big]{
+      @apply(--layout-horizontal);
+    }
+
   </style>
 
   <template>
+
+    <iron-media-query query="(max-width: 880px)" query-matches="{{_small}}"></iron-media-query>
 
     <!-- Submit token request assuming captcha filled in -->
     <iron-a11y-keys target="{{input.username}}" keys="enter"
@@ -26,7 +41,7 @@
     <iron-a11y-keys target="{{input.password}}" keys="enter"
     on-keys-pressed="_submitToken"></iron-a11y-keys>
 
-    <div class="horizontal layout">
+    <div id="steps" big$="[[!_small]]">
       <div class="vertical layout">
 
         <div class="paper-font-title">Step 1. Get a reset token</div>

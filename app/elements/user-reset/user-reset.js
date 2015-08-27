@@ -29,6 +29,10 @@
       _captchaStatus: { // Our captcha loading
         type: String,
         value: 'loading',
+      },
+      _small: { // Layout determined by screen size
+        type: Boolean,
+        value: false,
       }
     },
     ready: function() {
