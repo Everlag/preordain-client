@@ -27,11 +27,17 @@
       @apply(--layout-horizontal);
     }
 
+    /*Some spacing*/
+    #stepSeparator{
+      min-height: 1em;
+      min-width: 1em;
+    }
+
   </style>
 
   <template>
 
-    <iron-media-query query="(max-width: 880px)" query-matches="{{_small}}"></iron-media-query>
+    <iron-media-query query="(max-width: 900px)" query-matches="{{_small}}"></iron-media-query>
 
     <!-- Submit token request assuming captcha filled in -->
     <iron-a11y-keys target="{{input.username}}" keys="enter"
@@ -85,7 +91,7 @@
         </div>
       </div>
 
-      <div class="flex"></div>
+      <div id="stepSeparator"></div>
 
       <div class="vertical layout">
         <div class="paper-font-title">Step 2. Change your password</div>
@@ -122,6 +128,8 @@
         </div>
 
       </div>
+
+      <div class="flex"></div>
     </div>
 
 
