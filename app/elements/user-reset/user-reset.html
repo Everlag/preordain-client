@@ -43,9 +43,14 @@
     <iron-a11y-keys target="{{input.username}}" keys="enter"
     on-keys-pressed="_submitRequest"></iron-a11y-keys>
 
-    <!-- Submit token -->
+    <!-- Token to new password -->
+    <iron-a11y-keys target="{{input.token}}" keys="enter"
+    on-keys-pressed="_selectPassword"></iron-a11y-keys>
+
+    <!-- New password to submission -->
     <iron-a11y-keys target="{{input.password}}" keys="enter"
-    on-keys-pressed="_submitToken"></iron-a11y-keys>
+    on-keys-pressed="_submitReset"></iron-a11y-keys>
+
 
     <div id="steps" big$="[[!_small]]">
       <div class="vertical layout">
