@@ -66,7 +66,16 @@
     <!-- This requires a very large display to prevent the trade table from getting overlapped! -->
     <iron-media-query query="(min-width: 768px)" query-matches="{{_big}}"></iron-media-query>
 
-    <div id="holster" class="horizontal layout">
+    <!-- On a small display we display user-trade-input by itself -->
+    <div class="flex horizontal layout center-justified" hidden$="[[!_mobileSelected]]">
+      <user-trade-input id="tradeInputMobile" class="flex"
+                        comment="[[_selectedComment]]"
+                        time="[[_selectedTime]]"
+      on-done="_tradeDone"
+      on-card-added="_refreshTrades"></user-trade-input>
+    </div>    
+
+    <div id="holster" class="horizontal layout" hidden$="[[_mobileSelected]]">
 
       <user-trades id="history" name="[[name]]" is-public$="[[_public]]"
       selected="{{_selectedTimeInt}}"
@@ -80,10 +89,10 @@
 
       <!-- On a large display we will display user-trade-input
       beside the user-trades -->
-      <div hidden$="[[!_selected]]">
+      <div hidden$="[[!_fixedSelected]]">
         <div id="fixed">
           <div>
-            <user-trade-input id="tradeInput"
+            <user-trade-input id="tradeInputFixed"
                               comment="[[_selectedComment]]"
                               time="[[_selectedTime]]"
             on-done="_tradeDone"

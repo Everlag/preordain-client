@@ -20,7 +20,11 @@
         type: Boolean,
         value: false,
       },
-      _selected: { // If a trade is selected
+      _mobileSelected: {
+        type: Boolean,
+        value: false,
+      },
+      _fixedSelected: {
         type: Boolean,
         value: false,
       },
@@ -56,17 +60,19 @@
       let first = detail[0];
       this._selectedTime = first.LastUpdate;
       this._selectedComment = first.Comment;
-      this._selected = true;
-
-      // Clear any potential newTrade state
-      this.$.tradeInput.newTrade = false;
+      this._showTradeInput(false);
     },
     // The currently viewed trade is done
     _tradeDone: function() {
       // Set the user-trades to not display any trade as
       // selected
       this._selectedTimeInt = 0;
-      this._selected = false;
+      this._fixedSelected = false;
+      this._mobileSelected = false;
+
+      // Clear any existing comment.
+      this._selectedComment = '';
+
     },
     _addTrade: function(){
       // A new trade means we select a new time
@@ -77,11 +83,27 @@
       this._selectedTime = now.toJSON();
       this._selectedComment = '';
       this._selectedTimeInt = Truncate(now / 1000, 0);
-      this.$.tradeInput.newTrade = true;
-      this._selected = true;
+      this._showTradeInput(true);
 
       // Stop pulsating!
       this._pulsate = false;
+    },
+    _showTradeInput: function(newTrade = false){
+      let input;
+
+      // Show the correct input based on screen size
+      if (this._big) {
+        input = this.$.tradeInputFixed;
+        this._mobileSelected = false;
+        this._fixedSelected = true;
+      }else{
+        input = this.$.tradeInputMobile;
+        this._fixedSelected = false;
+        this._mobileSelected = true;
+      }
+
+      // A new trade or not
+      input.newTrade = newTrade;     
     },
     _refreshTrades: function(){
       // Refresh the current trade history.
