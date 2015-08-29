@@ -19,6 +19,10 @@
       bottom: 1em;
     }
 
+    #topInputHolster{
+      padding-bottom: 1em;
+    }
+
     #fixed{
       position: fixed;
     }
@@ -67,7 +71,7 @@
     <iron-media-query query="(min-width: 768px)" query-matches="{{_big}}"></iron-media-query>
 
     <!-- On a small display we display user-trade-input by itself -->
-    <div class="flex horizontal layout center-justified" hidden$="[[!_mobileSelected]]">
+    <div class="flex horizontal layout center-justified" hidden$="[[!_mobileSelected]]" id="topInputHolster">
       <user-trade-input id="tradeInputMobile" class="flex"
                         comment="[[_selectedComment]]"
                         time="[[_selectedTime]]"
@@ -75,7 +79,7 @@
       on-card-added="_refreshTrades"></user-trade-input>
     </div>    
 
-    <div id="holster" class="horizontal layout" hidden$="[[_mobileSelected]]">
+    <div id="holster" class="horizontal layout">
 
       <user-trades id="history" name="[[name]]" is-public$="[[_public]]"
       selected="{{_selectedTimeInt}}"
