@@ -61,6 +61,16 @@
         submitter: this.$.submitter,
       };
     },
+    // Selects the first valid input for the element
+    selectFirstInput: function() {
+      if (this.newTrade) {
+        // Select the comment
+        this._selectCommentInput();
+      }else{
+        // Select the card typeahead
+        this._selectTypeahead();
+      }
+    },
     _timeChanged: function(){
       // If the time changes, then our
       // internal states gets reset
@@ -161,6 +171,10 @@
       console.log('added!');
       this.fire('card-added');
 
+      // Select the first valid field
+      // so no clicking or tapping is required!
+      this.selectFirstInput();
+
       // Hide the spinner
       this._status = 'done';
     },
@@ -187,6 +201,9 @@
     },
     _selectTypeahead: function() {
       this.input.typeahead.selectInput();
+    },
+    _selectCommentInput: function() {
+      this.input.comment.inputElement.select();
     },
     _selectQuantityInput: function() {
       this.input.quantity.inputElement.select();

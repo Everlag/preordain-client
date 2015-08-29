@@ -104,6 +104,10 @@
 
       // A new trade or not
       input.newTrade = newTrade;     
+
+      // Switch the user's context to the
+      // first valid field.
+      input.selectFirstInput();
     },
     _refreshTrades: function(){
       // Refresh the current trade history.
