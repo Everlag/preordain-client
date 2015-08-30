@@ -25,21 +25,21 @@ const priceSuffixes = {
 let urlBuilders = {};
 
 {
-	urlBuilders.buildImageURL = function buildImageURL (imageName) {
+	urlBuilders.ImageURL = function buildImageURL (imageName) {
 		return `${remote.cardImage}${imageName}.jpg`;
 	};
 
 	// Card price URL builders
-	urlBuilders.buildCardURL = function buildCardURL(cardName) {
+	urlBuilders.CardURL = function buildCardURL(cardName) {
 		return `${remote.cardText}${cardName}.json`;
 	};
 
-	urlBuilders.buildSymbolURL = function buildSymbolURL (symbolName) {
+	urlBuilders.SymbolURL = function buildSymbolURL (symbolName) {
 		let cleaned = symbolName.toLocaleLowerCase().replace('/', '');
 		return `${remote.cardSymbol}${cleaned}.svg`;
 	};
 
-	urlBuilders.buildSetSymbolURL = function buildSetSymbolURL (setName){
+	urlBuilders.SetSymbolURL = function buildSetSymbolURL (setName){
 		// Convert to official then normalize to server representation.
 		let cleaned = displayToOfficialSets[setName]
 		.replace('/', '')
@@ -49,84 +49,84 @@ let urlBuilders = {};
 		return `${remote.cardSymbol}${cleaned}.svg`;
 	};
 
-	urlBuilders.buildCardPriceURL = function buildCardPriceURL (content, suffix, source) {
+	urlBuilders.CardPriceURL = function buildCardPriceURL (content, suffix, source) {
 		if (!(source in sources)) {
 			throw `unknown price source ${source}`;
 		}
 		return `${remote.cardPrice}/${content}/${suffix}?source=${source}`;
 	};
 
-	urlBuilders.buildLatestHighestURL = function buildLatestHighestURL (name, source) {
+	urlBuilders.LatestHighestURL = function buildLatestHighestURL (name, source) {
 		return buildCardPriceURL(name, priceSuffixes.LatestHighestSuffix, source);
 	};
 
-	urlBuilders.buildLatestLowestURL = function buildLatestLowestURL (name, source) {
+	urlBuilders.LatestLowestURL = function buildLatestLowestURL (name, source) {
 		return buildCardPriceURL(name,
 			priceSuffixes.LatestLowestSuffix,
 			source);
 	};
 
-	urlBuilders.buildLatestSpecificURL = function buildLatestSpecificURL (name, set, source) {
+	urlBuilders.LatestSpecificURL = function buildLatestSpecificURL (name, set, source) {
 		let content = `${name}/${set}`;
 		return buildCardPriceURL(content,
 			priceSuffixes.LatestSpecificSuffix,
 			source);
 	};
 
-	urlBuilders.buildWeeksMedianURL = function buildWeeksMedianURL (name, set, source) {
+	urlBuilders.WeeksMedianURL = function buildWeeksMedianURL (name, set, source) {
 		let content = `${name}/${set}`;
 		return buildCardPriceURL(content, priceSuffixes.WeeksMedianSuffix, source);
 	};
 
-	urlBuilders.buildClosestURL = function buildClosestURL (name, set, closest, source) {
+	urlBuilders.ClosestURL = function buildClosestURL (name, set, closest, source) {
 		let content = `${name}/${set}/${closest}`;
 		return buildCardPriceURL(content, priceSuffixes.ClosestSuffix, source);
 	};
 
 	// Set price URL builders
-	urlBuilders.buildSetPriceURL = function buildSetPriceURL(setName, suffix, source) {
+	urlBuilders.SetPriceURL = function buildSetPriceURL(setName, suffix, source) {
 		if (!(source in sources)) {
 			throw `unknown price source ${source}`;
 		}
 		return `${remote.setPrice}/${setName}/${suffix}?source=${source}`;
 	};
 
-	urlBuilders.buildCompleteLatestURL = function buildCompleteLatestURL(name, source){
+	urlBuilders.CompleteLatestURL = function buildCompleteLatestURL(name, source){
 		return buildSetPriceURL(name, priceSuffixes.LatestSpecificSuffix, source);
 	};
 
-	urlBuilders.buildExpectedValueURL = function buildExpectedValueURL(name, source){
+	urlBuilders.ExpectedValueURL = function buildExpectedValueURL(name, source){
 		return buildSetPriceURL(name, priceSuffixes.ExpectedValue, source);
 	};
 
 	// User endpoint URL builders
-	urlBuilders.buildUserURL = function buildUserURL(content) {
+	urlBuilders.UserURL = function buildUserURL(content) {
 		return `${remote.users}/${content}`;
 	};
 
-	urlBuilders.buildLoginURL = function buildLoginURL(name) {
+	urlBuilders.LoginURL = function buildLoginURL(name) {
 		let content = `${name}/Login`;
 		return buildUserURL(content);
 	};
 
-	urlBuilders.buildSignupURL = function buildSignupURL(name) {
+	urlBuilders.SignupURL = function buildSignupURL(name) {
 		let content = `${name}`;
 		return buildUserURL(content);
 	};
 
 	// Requests a reset token
-	urlBuilders.buildResetRequestURL = function buildResetRequestURL(name) {
+	urlBuilders.ResetRequestURL = function buildResetRequestURL(name) {
 		let content = `${name}/PasswordResetRequest`;
 		return buildUserURL(content);
 	};
 
 	// Actually performs the reset request
-	urlBuilders.buildResetURL = function buildResetURL(name) {
+	urlBuilders.ResetURL = function buildResetURL(name) {
 		let content = `${name}/PasswordReset`;
 		return buildUserURL(content);
 	};
 
-	urlBuilders.buildTradesURL = function buildTradesURL(name, coll, pub) {
+	urlBuilders.TradesURL = function buildTradesURL(name, coll, pub) {
 		let content = `${name}/Collections/${coll}/Get`;
 		// Appending 'Public' to the end of this endpoint lets us switch
 		// authentication on or off.
@@ -135,19 +135,19 @@ let urlBuilders = {};
 	};
 
 	// Fetches collection list
-	urlBuilders.buildCollectionsURL = function buildCollectionsURL(name) {
+	urlBuilders.CollectionsURL = function buildCollectionsURL(name) {
 		let content = `${name}/Collections/${coll}/Get`;
 		return buildUserURL(content);
 	};
 
 	// Adds a collection
-	urlBuilders.buildAddCollectionURL = function buildAddCollectionURL(name, coll) {
+	urlBuilders.AddCollectionURL = function buildAddCollectionURL(name, coll) {
 		let content = `${name}/Collections/${coll}/Create`;
 		return buildUserURL(content);
 	};
 
 	// Adds an item to a trade
-	urlBuilders.buildAddItemURL = function buildAddItemURL(name, coll) {
+	urlBuilders.AddItemURL = function buildAddItemURL(name, coll) {
 		let content = `${name}/Collections/${coll}/Trades`;
 		return buildUserURL(content);
 	};
