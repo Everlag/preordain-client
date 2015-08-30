@@ -10,7 +10,7 @@ const remote = {
 };
 
 // Store all the suffixes here.
-const suffixes = {
+const priceSuffixes = {
 	LatestHighestSuffix: 'LatestHighest',
 	LatestLowestSuffix: 'LatestLowest',
 	LatestSpecificSuffix: 'Latest',
@@ -75,26 +75,30 @@ function buildCardPriceURL (content, suffix, source) {
 }
 
 function buildLatestHighestURL (name, source) {
-	return buildCardPriceURL(name, suffixes.LatestHighestSuffix, source);
+	return buildCardPriceURL(name, priceSuffixes.LatestHighestSuffix, source);
 }
 
 function buildLatestLowestURL (name, source) {
-	return buildCardPriceURL(name, suffixes.LatestLowestSuffix, source);
+	return buildCardPriceURL(name,
+		priceSuffixes.LatestLowestSuffix,
+		source);
 }
 
 function buildLatestSpecificURL (name, set, source) {
 	let content = `${name}/${set}`;
-	return buildCardPriceURL(content, suffixes.LatestSpecificSuffix, source);
+	return buildCardPriceURL(content,
+		priceSuffixes.LatestSpecificSuffix,
+		source);
 }
 
 function buildWeeksMedianURL (name, set, source) {
 	let content = `${name}/${set}`;
-	return buildCardPriceURL(content, suffixes.WeeksMedianSuffix, source);
+	return buildCardPriceURL(content, priceSuffixes.WeeksMedianSuffix, source);
 }
 
 function buildClosestURL (name, set, closest, source) {
 	let content = `${name}/${set}/${closest}`;
-	return buildCardPriceURL(content, suffixes.ClosestSuffix, source);
+	return buildCardPriceURL(content, priceSuffixes.ClosestSuffix, source);
 }
 
 // Set price URL builders
@@ -106,11 +110,11 @@ function buildSetPriceURL(setName, suffix, source) {
 }
 
 function buildCompleteLatestURL(name, source){
-	return buildSetPriceURL(name, suffixes.LatestSpecificSuffix, source);
+	return buildSetPriceURL(name, priceSuffixes.LatestSpecificSuffix, source);
 }
 
 function buildExpectedValueURL(name, source){
-	return buildSetPriceURL(name, suffixes.ExpectedValue, source);
+	return buildSetPriceURL(name, priceSuffixes.ExpectedValue, source);
 }
 
 // User endpoint URL builders
