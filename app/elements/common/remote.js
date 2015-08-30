@@ -57,30 +57,33 @@ let urlBuilders = {};
 	};
 
 	urlBuilders.LatestHighestURL = (name, source) => {
-		return buildCardPriceURL(name, priceSuffixes.LatestHighestSuffix, source);
+		return urlBuilders.CardPriceURL(name,
+			priceSuffixes.LatestHighestSuffix, source);
 	};
 
 	urlBuilders.LatestLowestURL = (name, source) => {
-		return buildCardPriceURL(name,
+		return urlBuilders.CardPriceURL(name,
 			priceSuffixes.LatestLowestSuffix,
 			source);
 	};
 
 	urlBuilders.LatestSpecificURL = (name, set, source) => {
 		let content = `${name}/${set}`;
-		return buildCardPriceURL(content,
+		return urlBuilders.CardPriceURL(content,
 			priceSuffixes.LatestSpecificSuffix,
 			source);
 	};
 
 	urlBuilders.WeeksMedianURL = (name, set, source) => {
 		let content = `${name}/${set}`;
-		return buildCardPriceURL(content, priceSuffixes.WeeksMedianSuffix, source);
+		return urlBuilders.CardPriceURL(content,
+			priceSuffixes.WeeksMedianSuffix, source);
 	};
 
 	urlBuilders.ClosestURL =  (name, set, closest, source) => {
 		let content = `${name}/${set}/${closest}`;
-		return buildCardPriceURL(content, priceSuffixes.ClosestSuffix, source);
+		return urlBuilders.CardPriceURL(content,
+			priceSuffixes.ClosestSuffix, source);
 	};
 
 	// Set price URL builders
@@ -92,11 +95,12 @@ let urlBuilders = {};
 	};
 
 	urlBuilders.CompleteLatestURL = (name, source) => {
-		return buildSetPriceURL(name, priceSuffixes.LatestSpecificSuffix, source);
+		return urlBuilders.SetPriceURL(name,
+			priceSuffixes.LatestSpecificSuffix, source);
 	};
 
 	urlBuilders.ExpectedValueURL = (name, source) => {
-		return buildSetPriceURL(name, priceSuffixes.ExpectedValue, source);
+		return urlBuilders.SetPriceURL(name, priceSuffixes.ExpectedValue, source);
 	};
 
 	// User endpoint URL builders
@@ -106,24 +110,24 @@ let urlBuilders = {};
 
 	urlBuilders.LoginURL = (name) => {
 		let content = `${name}/Login`;
-		return buildUserURL(content);
+		return urlBuilders.UserURL(content);
 	};
 
 	urlBuilders.SignupURL = (name) => {
 		let content = `${name}`;
-		return buildUserURL(content);
+		return urlBuilders.UserURL(content);
 	};
 
 	// Requests a reset token
 	urlBuilders.ResetRequestURL = (name) => {
 		let content = `${name}/PasswordResetRequest`;
-		return buildUserURL(content);
+		return urlBuilders.UserURL(content);
 	};
 
 	// Actually performs the reset request
 	urlBuilders.ResetURL = (name) => {
 		let content = `${name}/PasswordReset`;
-		return buildUserURL(content);
+		return urlBuilders.UserURL(content);
 	};
 
 	urlBuilders.TradesURL = (name, coll, pub) => {
@@ -131,24 +135,24 @@ let urlBuilders = {};
 		// Appending 'Public' to the end of this endpoint lets us switch
 		// authentication on or off.
 		if (pub) content = content.concat('Public');
-		return buildUserURL(content);
+		return urlBuilders.UserURL(content);
 	};
 
 	// Fetches collection list
 	urlBuilders.CollectionsURL = (name) => {
 		let content = `${name}/Collections/${coll}/Get`;
-		return buildUserURL(content);
+		return urlBuilders.UserURL(content);
 	};
 
 	// Adds a collection
 	urlBuilders.AddCollectionURL = (name, coll) => {
 		let content = `${name}/Collections/${coll}/Create`;
-		return buildUserURL(content);
+		return urlBuilders.UserURL(content);
 	};
 
 	// Adds an item to a trade
 	urlBuilders.AddItemURL = (name, coll) => {
 		let content = `${name}/Collections/${coll}/Trades`;
-		return buildUserURL(content);
+		return urlBuilders.UserURL(content);
 	};
 }
