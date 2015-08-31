@@ -43,6 +43,7 @@ let urlBuilders = {};
         // Convert to official then normalize to server representation.
         let cleaned = displayToOfficialSets[setName]
         .replace('/', '')
+        .replace('"Timeshifted"', '')
         .replace('Foil', '')
         .trim();
         
