@@ -34,7 +34,8 @@
 
       let url = urlBuilders.LoginURL(this.input.username.value);
 
-      remoteComms.ajaxJSON( 'POST', url, payload,
+      remoteComms.login(this.input.username.value,
+        this.input.password.value,
         (result)=> this._success(result),
         (result)=> this._failure());
 

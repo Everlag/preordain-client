@@ -36,17 +36,11 @@
         indicateBadness(this.$.submitter);
         return;
       }
-
-      // Form the payload
-      let payload = JSON.stringify({
-        'email': this.input.email.value,
-        'password': this.input.password.value,
-        'recaptchaResponseField': this.input.recaptcha.response,
-      });
-
-      let url = urlBuilders.SignupURL(this.input.username.value);
-
-      remoteComms.ajaxJSON( 'POST', url, payload,
+      
+      remoteComms.signup(this.input.username.value,
+        this.input.email.value,
+        this.input.password.value,
+        this.input.recaptcha.response,
         (result)=> this._addedUser(result),
         (result)=> this._failure());
 
@@ -141,15 +135,8 @@
       this._captchaStatus = 'done';
     },
     _addDefaultCollection: function(name, sessionKey) {
-      let payload = JSON.stringify({
-        'sessionKey': sessionKey,
-      });
-      let method = 'POST';
 
-      let url = urlBuilders.AddCollectionURL(name,
-        userDefaults.collection);
-
-      remoteComms.ajaxJSON( 'POST', url, payload,
+      remoteComms.addCollection(name, sessionKey,
         (result)=> this._success(),
         (result)=> this._failure());
 

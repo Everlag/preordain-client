@@ -38,22 +38,15 @@
       if (!this.name || this.isPublic === undefined) {
         return;
       }
-      let effectiveName = this.name;
-      let payload = null;
-      let method = 'GET';
 
+      // Figure out which name we want to use!
+      let effectiveName = this.name;
       if (!this.isPublic){
         effectiveName = mutable.name;
-        payload = JSON.stringify({'sessionKey': mutable.session});
-        method = 'POST';
       }
 
-      let url = urlBuilders.TradesURL(effectiveName,
-        userDefaults.collection, this.isPublic);
-
-      remoteComms.ajaxJSON(method, url, payload,
-        (result)=> this._success(result),
-        (result)=> this._failure());
+      remoteComms.getTrades(effectiveName, mutable.session, this.isPublic,
+        (result)=> this._success(result), ()=> this._failure());
 
       // Set the spinner to spin
       this._status = 'loading';

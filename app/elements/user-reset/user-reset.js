@@ -55,16 +55,10 @@
         return;
       }
 
-      // Form the payload
-      let payload = JSON.stringify({
-        'recaptchaResponseField': this.input.recaptcha.response,
-      });
-
-      let url = urlBuilders.ResetRequestURL(this.name);
-
       // Perform the request, we don't actually care if it fails
       // as the server says yes everytime.
-      remoteComms.ajaxJSON( 'POST', url, payload,
+      remoteComms.requestReset(this.name,
+        this.input.recaptcha.response,
         (result)=> this._requestDone(),
         (result)=> this._requestDone());
 
@@ -89,7 +83,9 @@
 
       let url = urlBuilders.ResetURL(this.name);
 
-      remoteComms.ajaxJSON( 'POST', url, payload,
+      remoteComms.submitReset(this.input.username.value,
+        this.input.password.value,
+        this.input.token.value,
         (result)=> this._resetSuccess(result),
         (result)=> this._resetFailure());
 

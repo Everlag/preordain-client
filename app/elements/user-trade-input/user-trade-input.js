@@ -106,25 +106,6 @@
     },
     _submit: function() {
 
-      /* Example trade submission
-      https://beta.perfectlag.me/api/Users/everlag/Collections/Inventory/Trades
-
-      {
-        "sessionKey":"validSession",
-        "trade":
-        [
-          {"Name":"Evolving Wilds",
-          "Set":"Duel Decks: Ajani vs. Nicol Bolas",
-          "Quantity":1,
-          "Comment":"more sanity",
-          "LastUpdate":"2015-08-16T06:10:09.974Z",
-          "Quality":"NM",
-          "Lang":"EN"}
-        ]
-      }
-
-      */ 
-
       // Some conversions that need to be done.
 
       // The backend only accepts ISO formatted strings
@@ -149,13 +130,8 @@
         'Quality': 'NM',
         'Lang': 'EN',
       };
-      let payload = JSON.stringify({
-        'sessionKey': mutable.session,
-        'trade': [card],
-      });
-      let method = 'POST';
-      let url = urlBuilders.AddItemURL(mutable.name, userDefaults.collection);
-      remoteComms.ajaxJSON(method, url, payload,
+
+      remoteComms.addCard(mutable.name, mutable.session, card,
         (result)=> this._success(),
         (result)=> this._failure());
 
