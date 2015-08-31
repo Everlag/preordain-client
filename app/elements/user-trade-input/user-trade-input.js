@@ -155,7 +155,7 @@
       });
       let method = 'POST';
       let url = urlBuilders.AddItemURL(mutable.name, userDefaults.collection);
-      ajaxJSON(method, url, payload,
+      remoteComms.ajaxJSON(method, url, payload,
         (result)=> this._success(),
         (result)=> this._failure());
 

@@ -1,8 +1,11 @@
 // Actual communication
 
-// Fires an ajax request.
-function ajaxJSON(method, url, body,
-    success, failure) {
+let remoteComms = {};
+
+{
+
+  // Fires an ajax request.
+  remoteComms.ajaxJSON = (method, url, body, success, failure) => {
 
     var request = new XMLHttpRequest();
 
@@ -21,4 +24,6 @@ function ajaxJSON(method, url, body,
     };
 
     request.send(body);
+  };
+
 }

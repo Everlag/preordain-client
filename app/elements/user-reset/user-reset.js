@@ -64,7 +64,7 @@
 
       // Perform the request, we don't actually care if it fails
       // as the server says yes everytime.
-      ajaxJSON( 'POST', url, payload,
+      remoteComms.ajaxJSON( 'POST', url, payload,
         (result)=> this._requestDone(),
         (result)=> this._requestDone());
 
@@ -89,7 +89,7 @@
 
       let url = urlBuilders.ResetURL(this.name);
 
-      ajaxJSON( 'POST', url, payload,
+      remoteComms.ajaxJSON( 'POST', url, payload,
         (result)=> this._resetSuccess(result),
         (result)=> this._resetFailure());
 

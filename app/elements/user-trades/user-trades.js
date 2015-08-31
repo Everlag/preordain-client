@@ -51,7 +51,7 @@
       let url = urlBuilders.TradesURL(effectiveName,
         userDefaults.collection, this.isPublic);
 
-      ajaxJSON(method, url, payload,
+      remoteComms.ajaxJSON(method, url, payload,
         (result)=> this._success(result),
         (result)=> this._failure());
 

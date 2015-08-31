@@ -46,7 +46,7 @@
 
       let url = urlBuilders.SignupURL(this.input.username.value);
 
-      ajaxJSON( 'POST', url, payload,
+      remoteComms.ajaxJSON( 'POST', url, payload,
         (result)=> this._addedUser(result),
         (result)=> this._failure());
 
@@ -149,7 +149,7 @@
       let url = urlBuilders.AddCollectionURL(name,
         userDefaults.collection);
 
-      ajaxJSON( 'POST', url, payload,
+      remoteComms.ajaxJSON( 'POST', url, payload,
         (result)=> this._success(),
         (result)=> this._failure());
 
