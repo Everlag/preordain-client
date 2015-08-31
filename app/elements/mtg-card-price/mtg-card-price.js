@@ -89,19 +89,19 @@
       }
 
       if (this.latestHighest) {
-        this._url = buildLatestHighestURL(this.name, source);
+        this._url = urlBuilders.LatestHighestURL(this.name, source);
       }
       if (this.latestLowest) {
-        this._url = buildLatestLowestURL(this.name, source);
+        this._url = urlBuilders.LatestLowestURL(this.name, source);
       }
       if (this.latestSpecific) {
-        this._url = buildLatestSpecificURL(this.name, officialSetName, source);
+        this._url = urlBuilders.LatestSpecificURL(this.name, officialSetName, source);
       }
       if (this.weeksMedian) {
-        this._url = buildWeeksMedianURL(this.name, officialSetName, source);
+        this._url = urlBuilders.WeeksMedianURL(this.name, officialSetName, source);
       }
       if (this.closestMatch) {
-        this._url = buildClosestURL(this.name, officialSetName,
+        this._url = urlBuilders.ClosestURL(this.name, officialSetName,
           this.closest, source);
       }
 

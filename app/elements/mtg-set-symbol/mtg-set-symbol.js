@@ -21,7 +21,7 @@
     _getSetSymbol: function(name){
       // Ignore invalid names!
       if (name === undefined || name.trim().length === 0) return;
-      return buildSetSymbolURL(name);
+      return urlBuilders.SetSymbolURL(name);
     },
     _isFoil: function(name) {
       return name.indexOf('Foil') !== -1;

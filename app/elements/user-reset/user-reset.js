@@ -60,7 +60,7 @@
         'recaptchaResponseField': this.input.recaptcha.response,
       });
 
-      let url = buildResetRequestURL(this.name);
+      let url = urlBuilders.ResetRequestURL(this.name);
 
       // Perform the request, we don't actually care if it fails
       // as the server says yes everytime.
@@ -87,7 +87,7 @@
         'ResetRequestToken': this.input.token.value,
       });
 
-      let url = buildResetURL(this.name);
+      let url = urlBuilders.ResetURL(this.name);
 
       ajaxJSON( 'POST', url, payload,
         (result)=> this._resetSuccess(result),

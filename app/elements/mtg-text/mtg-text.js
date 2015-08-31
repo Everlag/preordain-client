@@ -30,7 +30,7 @@
           let [symbol, text] = section.split('}');
           if (symbol.length > 0) {
             let symbolElement = document.createElement('iron-icon');
-            symbolElement.src = buildSymbolURL(symbol);
+            symbolElement.src = urlBuilders.SymbolURL(symbol);
             cleaned.push(symbolElement);
           }
           if (text.length > 0) {

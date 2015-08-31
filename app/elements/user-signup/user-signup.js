@@ -44,7 +44,7 @@
         'recaptchaResponseField': this.input.recaptcha.response,
       });
 
-      let url = buildSignupURL(this.input.username.value);
+      let url = urlBuilders.SignupURL(this.input.username.value);
 
       ajaxJSON( 'POST', url, payload,
         (result)=> this._addedUser(result),
@@ -146,7 +146,7 @@
       });
       let method = 'POST';
 
-      let url = buildAddCollectionURL(name,
+      let url = urlBuilders.AddCollectionURL(name,
         userDefaults.collection);
 
       ajaxJSON( 'POST', url, payload,

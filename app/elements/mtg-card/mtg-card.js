@@ -101,7 +101,7 @@
 
       this.TextLines = this.Text.split('\n').map((t)=> t);
 
-      this.ImageLoc = new URL(buildImageURL(ImageName)).href;
+      this.ImageLoc = new URL(urlBuilders.ImageURL(ImageName)).href;
 
       if (this.Colors === null){
         this.ColorIdentity = 'artifact';

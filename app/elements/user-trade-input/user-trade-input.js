@@ -154,7 +154,7 @@
         'trade': [card],
       });
       let method = 'POST';
-      let url = buildAddItemURL(mutable.name, userDefaults.collection);
+      let url = urlBuilders.AddItemURL(mutable.name, userDefaults.collection);
       ajaxJSON(method, url, payload,
         (result)=> this._success(),
         (result)=> this._failure());

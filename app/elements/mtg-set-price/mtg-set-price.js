@@ -56,10 +56,10 @@
       let officialName = displayToOfficialSets[this.name];
 
       if (this.expectedValue) {
-        this._url = buildExpectedValueURL(officialName, source);
+        this._url = urlBuilders.ExpectedValueURL(officialName, source);
       }
       if (this.completeLatest) {
-        this._url = buildCompleteLatestURL(officialName, source);
+        this._url = urlBuilders.CompleteLatestURL(officialName, source);
       }
 
       if (this._url.length > 0) this.$.ajax.generateRequest();

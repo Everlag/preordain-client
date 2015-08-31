@@ -48,7 +48,7 @@
         method = 'POST';
       }
 
-      let url = buildTradesURL(effectiveName,
+      let url = urlBuilders.TradesURL(effectiveName,
         userDefaults.collection, this.isPublic);
 
       ajaxJSON(method, url, payload,

@@ -24,7 +24,7 @@
       // Avoid fetching blank names
       if (this.name.trim().length === 0) return;
       // Rebuild the url
-      this._url = buildCardURL(this.name);
+      this._url = urlBuilders.CardURL(this.name);
     },
     hresponse: function(){
 

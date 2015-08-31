@@ -32,7 +32,7 @@
         'password': this.input.password.value,
       });
 
-      let url = buildLoginURL(this.input.username.value);
+      let url = urlBuilders.LoginURL(this.input.username.value);
 
       ajaxJSON( 'POST', url, payload,
         (result)=> this._success(result),

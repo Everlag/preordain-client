@@ -47,7 +47,7 @@
 
       // Add some metadata to to each.
       prices.forEach(function(a){
-        a.ImageLoc = buildImageURL(cardToImageName(a.Name));
+        a.ImageLoc = urlBuilders.ImageURL(cardToImageName(a.Name));
         a.Price = a.Price / 100;
       });
       
