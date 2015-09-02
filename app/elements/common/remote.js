@@ -25,8 +25,22 @@ const priceSuffixes = {
 let urlBuilders = {};
 
 {
-    urlBuilders.ImageURL = (imageName) => {
-        return `${remote.cardImage}${imageName}.jpg`;
+    // Returns the URL of an image given the card's imageName
+    // and an optional setName
+    urlBuilders.ImageURL = (imageName, setName = '') => {
+        // Translate the setname to offial name
+        // and then to the proper set code if possible
+        let inner = '';
+
+        if (setName.trim().length > 0) {
+          // We make the assumption any set we get is an
+          // internal display set
+          let official = displayToOfficialSets[setName];
+          // We do not assume the set code is present
+          if (official in setToShort) inner = `${setToShort[official]}/`;
+        }
+
+        return `${remote.cardImage}${inner}${imageName}.jpg`;
     };
 
     // Card price URL builders
