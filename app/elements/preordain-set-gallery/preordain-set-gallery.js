@@ -46,8 +46,8 @@
       prices.sort((a, b)=> a.Price - b.Price).reverse();
 
       // Add some metadata to to each.
-      prices.forEach(function(a){
-        a.ImageLoc = urlBuilders.ImageURL(cardToImageName(a.Name));
+      prices.forEach((a)=>{
+        a.ImageLoc = urlBuilders.ImageURL(cardToImageName(a.Name), this.name);
         a.Price = a.Price / 100;
       });
       
