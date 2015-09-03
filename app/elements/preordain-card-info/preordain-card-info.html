@@ -12,6 +12,15 @@
     #bannings{
       min-height: 1em;
     }
+
+    #metaDivider{
+      min-width: 1em;
+    }
+
+    #meta{
+      margin-left: 0.4em;
+      margin-right: 0.4em;
+    }
   </style>
 
   <template>
@@ -60,7 +69,7 @@
       </template>
     </div>
 
-    <div class="horizontal layout">
+    <div id="meta" class="horizontal layout">
 
       <!-- Modern Play Info -->
       <template is="dom-if" if="{{_interestingModern}}">
@@ -82,7 +91,7 @@
         </div>
       </template>
 
-      <div class="flex"></div>
+      <div class="flex" id="metaDivider"></div>
 
       <!-- Commander Play Info -->
       <template is="dom-if" if="{{_interestingCommander}}">
