@@ -49,10 +49,19 @@
       this.addEventListener('display-price', this.gotPrice);
       this.addEventListener('stale-price', this.stalePrice);
     },
+    // Sets the current price to the number of provided cents
+    setPrice: function(price) {
+      price = price / 100;
+    
+      this._handlePrice(price);
+    },
     gotPrice: function(e){
       // Convert from cents.
       let price = e.detail / 100;
 
+      this._handlePrice(price);
+    },
+    _handlePrice: function(price) {
       // Apply multiplier and round to two decimal places initially.
       price = Truncate(this.multiplier * price, 2);
     
