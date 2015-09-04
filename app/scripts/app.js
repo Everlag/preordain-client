@@ -31,26 +31,26 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
   // Listen for template bound event to know when bindings
   // have resolved and content has been stamped to the page
-  app.addEventListener('dom-change', function() {
+  app.addEventListener('dom-change', () => {
     let loaded = new Date();
 
     console.log(`Our app is ready to rock, start time is ${loaded-started}ms`);
   });
 
   // See https://github.com/Polymer/polymer/issues/1381
-  window.addEventListener('WebComponentsReady', function() {
+  window.addEventListener('WebComponentsReady', () => {
     // imports are loaded and elements have been registered
   });
 
   // Close drawer after menu item is selected if drawerPanel is narrow
-  app.onMenuSelect = function() {
+  app.onMenuSelect = () => {
     var drawerPanel = document.querySelector('#paperDrawerPanel');
     if (drawerPanel.narrow) {
       drawerPanel.closeDrawer();
     }
   };
 
-  app.typeaheadCompleted = function(e){
+  app.typeaheadCompleted = (e) => {
     let name = e.detail.choice;
 
     // Perform some navigation
@@ -63,12 +63,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
   };
 
-  app.cardRequested = function({detail:{Name, Set}}){
+  app.cardRequested = ({detail:{Name, Set}}) => {
     // Navigate to the desired card-set combo
     page(`/card/${Name}/${Set}`);
   };
 
-  app.setRequested = function({detail:{Name}}) {
+  app.setRequested = ({detail:{Name}}) => {
     // Navigate to the desired set
     page(`/set/${Name}`);
   };
