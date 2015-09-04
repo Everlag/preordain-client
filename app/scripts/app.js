@@ -68,4 +68,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     page(`/card/${Name}/${Set}`);
   };
 
+  app.setRequested = function({detail:{Name}}) {
+    // Navigate to the desired set
+    page(`/set/${Name}`);
+  };
+
 })(document);

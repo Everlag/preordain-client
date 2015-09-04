@@ -26,7 +26,7 @@
       let data = {
         Name: e.model.item,
       };
-      
+
       this.fire('request-set', data);
     }
 
