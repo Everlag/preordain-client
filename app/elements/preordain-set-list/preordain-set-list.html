@@ -1,0 +1,76 @@
+<dom-module id="preordain-set-list">
+
+  <style>
+    :host {
+      display: block;
+    }
+
+    .fancyGrid { 
+      display: -ms-flexbox;
+      -ms-flex-wrap: wrap;
+      -ms-flex-direction: column;
+      -webkit-flex-flow: row wrap; 
+      flex-flow: row wrap; 
+      display: -webkit-box;
+      display: flex;
+    }
+    .fancyGrid .container { 
+      -webkit-box-flex: auto;
+      -ms-flex: auto;
+      flex: auto; 
+      padding-right: 0.05em;
+      width: 250px;
+      position: relative;
+      padding-bottom: 1em;
+    }
+    .fancyGrid .bottomButton{
+      position: absolute;
+      bottom: 15%;
+      right: 5%;
+    }
+    @media screen and (max-width: 640px) {
+      .fancyGrid .container{
+        max-width: 100%;
+      }
+    }
+
+
+
+    paper-button{
+      text-transform: none;
+      background: var(--primary-background-color);
+      color: var(--primary-text-color);
+      opacity: 0.65;
+      transition: opacity .25s ease-in-out;
+     -moz-transition: opacity .25s ease-in-out;
+     -webkit-transition: opacity .25s ease-in-out;
+    }
+    paper-button:hover{
+      opacit;y: 1
+    }
+
+  </style>
+
+  <template>
+
+  <!-- A gallery of every set with their most expensive card -->
+  <div class="vertical layout center">
+      <div class="fancyGrid">
+        <template is="dom-repeat" items="{{_sets}}">
+          <div class="container">
+              <preordain-set-summary name="[[item]]"></preordain-set-summary>
+
+              <!-- <div class="bottomButton">
+                <paper-button on-tap="requestSet">view</paper-button>
+              </div> -->
+
+            </div>
+        </template>
+      </div>
+  </div>
+  </template>
+
+
+</dom-module>
+
+<script src="preordain-set-list.js"></script>

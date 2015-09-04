@@ -1,0 +1,40 @@
+<dom-module id="preordain-set-summary">
+
+  <style>
+    :host {
+      display: block;
+
+      max-width: 100%;
+    }
+
+    #name{
+      max-width: 100%;
+    }
+
+    mtg-set-symbol{
+      width: 5em;
+      height: 5em;
+    }
+  </style>
+
+  <template>
+
+    <price-complete name="{{name}}" on-prices-down="pricesDown"></price-complete>
+
+    <div class="flex vertical layout">
+      <div class="horizontal layout center flex">
+        <mtg-set-symbol id="setSymbol" class="self-start" set="[[name]]"></mtg-set-symbol>
+        <div class="paper-font-title" id="name">[[name]]</div>
+      </div>
+      <mtg-card-art id="art" name="Mountain"></mtg-card-art>
+      <div class="paper-font-caption vertical layout center">
+        <div>[[_mostExpensive]]</div>
+      </div>
+    </div>
+
+  </template>
+
+
+</dom-module>
+
+<script src="preordain-set-summary.js"></script>

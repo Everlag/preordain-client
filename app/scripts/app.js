@@ -22,6 +22,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   // It would be preferable to keep these in a app.viewed
   // object but auto-binding templates disallow that.
   app.setViewed = false;
+  app.setsViewed = false;
   app.cardViewed = false;
   app.tradesViewed = false;
   app.loginViewed = false;

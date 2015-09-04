@@ -147,6 +147,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
               </template>
             </section>
 
+            <section data-route="sets">
+              <template is="dom-if" if="[[setsViewed]]">
+                <preordain-set-list></preordain-set-list>
+              </template>
+            </section>
+
             <section data-route="login">
               <template is="dom-if" if="[[loginViewed]]">
                 <paper-material elevation="1">

@@ -68,6 +68,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       app.setViewed = true;
     });
 
+    page('/sets', function (data) {
+      app.route = 'sets';
+      app.setsViewed = true;
+    });
+
     // add #! before urls
     page({
       hashbang: true
