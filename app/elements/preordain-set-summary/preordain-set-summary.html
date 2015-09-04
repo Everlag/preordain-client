@@ -11,6 +11,10 @@
       max-width: 100%;
     }
 
+    #cardName{
+      padding-right: 0.1em;
+    }
+
     mtg-set-symbol{
       width: 5em;
       height: 5em;
@@ -27,8 +31,9 @@
         <div class="paper-font-title" id="name">[[name]]</div>
       </div>
       <mtg-card-art id="art" name="Mountain"></mtg-card-art>
-      <div class="paper-font-caption vertical layout center">
-        <div>[[_mostExpensive]]</div>
+      <div class="paper-font-caption horizontal layout center-justified">
+        <div id="cardName">[[_mostExpensive]]</div>
+        <preordain-price class="paper-font-body1" id="price"></preordain-price>
       </div>
     </div>
 

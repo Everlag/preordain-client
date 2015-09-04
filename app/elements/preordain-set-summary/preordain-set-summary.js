@@ -22,12 +22,15 @@
       //
       // Sorting would be costly in large amounts
       if (e.detail.length === undefined) return;
-      let card = e.detail[0].Name;
+      let card = e.detail[0];
 
-      this._mostExpensive = card;
+      this._mostExpensive = card.Name;
 
-      let friendly = cardToImageName(card);
+      let friendly = cardToImageName(card.Name);
       this.$.art.imgSrc = urlBuilders.ImageURL(friendly, this.name);
+
+      // Set the price of the displayed card
+      this.$.price.setPrice(card.Price);
     }
 
   });
