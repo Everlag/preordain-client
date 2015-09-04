@@ -13,6 +13,7 @@ function cardToImageName(cardName){
 	return cardName
 	.replace(':', '')
 	.replace('AE', 'Æ')
+	.replace(/\(.*?\)/g, '')
 	.trim()
 	.toLocaleLowerCase();
 }
