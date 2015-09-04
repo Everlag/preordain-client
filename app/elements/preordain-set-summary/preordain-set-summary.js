@@ -21,6 +21,7 @@
       // prices are ordered most to least expensive
       //
       // Sorting would be costly in large amounts
+      if (e.detail.length === undefined) return;
       let card = e.detail[0].Name;
 
       this._mostExpensive = card;
