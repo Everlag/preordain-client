@@ -34,7 +34,9 @@
       }
     }
 
-
+    preordain-status{
+      padding-bottom: 1em;
+    }
 
     paper-button{
       text-transform: none;
@@ -53,10 +55,18 @@
 
   <template>
 
+  <iron-media-query query="(min-width: 768px)" query-matches="{{_big}}"></iron-media-query>
+
+  <!--
+    We have a reference element that we know cannot be on the same
+    vertical axis as the bottomStopper
+  -->
+  <span id="topSignage"></span>
+
   <!-- A gallery of every set with their most expensive card -->
   <div class="vertical layout center">
       <div class="fancyGrid">
-        <template is="dom-repeat" items="{{_sets}}">
+        <template is="dom-repeat" items="{{_displaySets}}">
           <div class="container">
               <preordain-set-summary name="[[item]]"></preordain-set-summary>
 
@@ -66,6 +76,11 @@
 
             </div>
         </template>
+      </div>
+      <!-- An element that indicates we are at the bottom of the content -->
+      <div id="bottomStopper" class="paper-font-headline vertical layout center">
+        <preordain-status status="loading"></preordain-status>
+        <div>Loading More!</div>
       </div>
   </div>
   </template>
