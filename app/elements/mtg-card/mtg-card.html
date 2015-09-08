@@ -18,6 +18,10 @@
       padding-left: 0em !important;
       padding-right: 0em !important;
     }
+
+    .textLine{
+      margin-top: 0.5em;
+    }
   </style>
 
   <template>
@@ -39,7 +43,7 @@
       
       <div class="self-start paper-font-body1" id="text">  
         <template is="dom-repeat" items="{{TextLines}}">
-            <mtg-text text="{{item}}"></mtg-text>
+            <mtg-text class="textLine" text="{{item}}"></mtg-text>
           </template>
       </div>
 
