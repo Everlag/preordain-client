@@ -39,11 +39,11 @@
 
       this._setAnnotations = [];
 
-      let sets = Object.keys(setReleases);
+      let sets = Object.keys(displaySetReleases);
       sets.forEach((set)=>{
         // Ensure we display only supported sets.
         if (!displaySets.has(set)) return;
-        this._setAnnotations.push([setReleases[set], set]);
+        this._setAnnotations.push([displaySetReleases[set], set]);
       });
 
       // Sort the annotations by ascending time
@@ -89,6 +89,8 @@
         return a.concat(display);
       });
 
+
+      console.log(this._setAnnotations);
 
       setupGraph(chart, slider, timeline, goodAnnotations, this._prices);
     }
