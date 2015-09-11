@@ -267,11 +267,11 @@
       let t2 = totalWidth;
       let t0 = 0;
 
-      let edown = new Event('mousedown', true, true);
+      let edown = new Event('mousedown', {'bubbles': true});
       edown.clientX = 0;
-      let emove = new Event('mousemove', true, true);
+      let emove = new Event('mousemove', {'bubbles': true});
       emove.clientX = 0.9 * w * (t1 - t0) / (t2 - t0) ;
-      let eup = new Event('mouseup', true, true);
+      let eup = new Event('mouseup', {'bubbles': true});
 
       let lHandle = sliderContainer.getElementsByClassName('left_handle')[0];
       lHandle.dispatchEvent(edown);
