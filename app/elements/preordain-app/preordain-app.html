@@ -82,7 +82,7 @@
             </section>
 
             <section data-route="card">
-              <template is="dom-if" if="[[cardViewed]]">
+              <template is="dom-if" if="[[viewed.card]]">
                 <preordain-card-view
                 name="[[cardParams.name]]"
                 set="[[cardParams.set]]"></preordain-card-view>
@@ -90,7 +90,7 @@
             </section>
 
             <section data-route="set">
-              <template is="dom-if" if="[[setViewed]]">
+              <template is="dom-if" if="[[viewed.set]]">
                 <preordain-set-view name="[[setParams.set]]"
                 on-request-card="cardRequested"
                 ></preordain-set-view>
@@ -98,7 +98,7 @@
             </section>
 
             <section data-route="sets">
-              <template is="dom-if" if="[[setsViewed]]">
+              <template is="dom-if" if="[[viewed.sets]]">
                 <preordain-set-list
                 on-request-set="setRequested"
                 ></preordain-set-list>
@@ -106,7 +106,7 @@
             </section>
 
             <section data-route="login">
-              <template is="dom-if" if="[[loginViewed]]">
+              <template is="dom-if" if="[[viewed.login]]">
                 <paper-material elevation="1">
                   <user-login></user-login>
                 </paper-material>
@@ -114,7 +114,7 @@
             </section>
 
             <section data-route="signup">
-              <template is="dom-if" if="[[signupViewed]]">
+              <template is="dom-if" if="[[viewed.signup]]">
                 <paper-material elevation="1">
                   <user-signup></user-signup>
                 </paper-material>
@@ -122,13 +122,13 @@
             </section>
 
             <section data-route="trades">
-              <template is="dom-if" if="[[tradesViewed]]">
+              <template is="dom-if" if="[[viewed.trades]]">
                 <preordain-trade-view name="[[tradesParams.name]]"></preordain-trade-view>
               </template>
             </section>
 
             <section data-route="reset">
-              <template is="dom-if" if="[[resetViewed]]">
+              <template is="dom-if" if="[[viewed.reset]]">
                 <paper-material elevation="1">
                   <user-reset name="[[resetParams.name]]"></user-reset>
                 </paper-material>

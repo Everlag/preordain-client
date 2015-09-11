@@ -24,12 +24,14 @@ let buildRoutes;
 
     page('/login', function () {
       app.route = 'login';
-      app.loginViewed = true;
+      app.viewed.login = true;
+      app.viewedChanged();
     });
 
     page('/signup', function () {
       app.route = 'signup';
-      app.signupViewed = true;
+      app.viewed.signup = true;
+      app.viewedChanged();
     });
 
     page('/trades/:name?', function (data) {
@@ -39,31 +41,36 @@ let buildRoutes;
         data.params.name = mutable.name;
       }
       app.tradesParams = data.params;
-      app.tradesViewed = true;
+      app.viewed.trades = true;
       app.route = 'trades';
+      app.viewedChanged();
     });
 
     page('/reset/:name?', function (data) {
       app.resetParams = data.params;
       app.route = 'reset';
-      app.resetViewed = true;
+      app.viewed.reset = true;
+      app.viewedChanged();
     });
 
     page('/card/:name/:set?', function (data) {
       app.cardParams = data.params;
       app.route = 'card';
-      app.cardViewed = true;
+      app.viewed.card = true;
+      app.viewedChanged();
     });
 
     page('/set/:set', function (data) {
       app.setParams = data.params;
       app.route = 'set';
-      app.setViewed = true;
+      app.viewed.set = true;
+      app.viewedChanged();
     });
 
     page('/sets', function (data) {
       app.route = 'sets';
-      app.setsViewed = true;
+      app.viewed.sets = true;
+      app.viewedChanged();
     });
 
     // add #! before urls

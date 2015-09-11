@@ -1,8 +1,5 @@
 (function () {
 
-  // Record when we initialize the app
-  let started = new Date();
-
   Polymer({
     // preorda.in the Custom Element!
     is: 'preordain-app',
@@ -38,33 +35,19 @@
         value: ()=> {},
       },
       // Lazy initialization of sections
-      cardViewed: {
-        type: Boolean,
-        value: false,
-      },
-      setViewed: {
-        type: Boolean,
-        value: false,
-      },
-      setsViewed: {
-        type: Boolean,
-        value: false,
-      },
-      loginViewed: {
-        type: Boolean,
-        value: false,
-      },
-      signupViewed: {
-        type: Boolean,
-        value: false,
-      },
-      tradesViewed: {
-        type: Boolean,
-        value: false,
-      },
-      resetViewed: {
-        type: Boolean,
-        value: false,
+      viewed: {
+        type: Object,
+        value: ()=> {
+          return {
+            'card': false,
+            'set': false,
+            'sets': false,
+            'login': false,
+            'signup': false,
+            'trades': false,
+            'reset': false,
+          };
+        },
       },
     },
     attached: function() {
@@ -75,6 +58,12 @@
       // Show off the startup time
       let loaded = new Date();
       console.log(`Our app is ready to rock, start time is ${loaded-started}ms`);
+    },
+    // Notifies that a location has changed
+    viewedChanged: function(){
+      console.log('aahah');
+      // Don't bother if its already been viewed
+      this.viewed = JSON.parse(JSON.stringify(this.viewed));
     },
     // Close drawer after menu item is selected if drawerPanel is narrow
     onMenuSelect: function(){
