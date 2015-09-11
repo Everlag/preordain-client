@@ -61,7 +61,6 @@
     },
     // Notifies that a location has changed
     viewedChanged: function(){
-      console.log('aahah');
       // Don't bother if its already been viewed
       this.viewed = JSON.parse(JSON.stringify(this.viewed));
     },

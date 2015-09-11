@@ -12,14 +12,7 @@ let buildRoutes;
     // All navigation goes through this. Thus, we use this to lazily
     // load sections as they are viewed
     page('/', function () {
-      // app.route = 'home';
-    });
-
-
-    page('/u/:name/:collection', function (data) {
-      app.params = data.params;
-      // app.route = 'user-info';
-      console.log(app.params);
+      app.route = 'home';
     });
 
     page('/login', function () {
