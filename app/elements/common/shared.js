@@ -21,3 +21,14 @@ function indicateBadness(element) {
 		element.classList.remove('shake-horizontal');
 	}, 200);
 }
+
+// Whether or not an element is in view
+//
+// Finicky but works, courtesy of:
+//  http://stackoverflow.com/a/22480938
+function inView(element) {
+	let elementTop    = element.getBoundingClientRect().top;
+	let elementBottom = element.getBoundingClientRect().bottom;
+
+	return elementTop >= 0 && elementBottom <= window.innerHeight;
+}

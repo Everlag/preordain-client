@@ -1,4 +1,13 @@
 (function () {
+
+  // Sets to add to display on a mobile
+  // where everything is vertical
+  let smallBatch = 5;
+  // Sets to display on a desktop with a lot
+  // of horizontal room 
+  let bigBatch = 20;
+  let batchSize = 10;
+
   Polymer({
     // A full set's gallery of cards with prices.
     //
@@ -12,30 +21,60 @@
         notify: true,
         observer: '_facetChanged',
       },
+      _displayPrices: {
+        type: Array,
+        value: ()=> [],
+      },
       _prices: {
         type: Array,
         value: ()=> [],
       },
-      _pricesReady: {
+      _big: {
         type: Boolean,
         value: false,
-        computed: '_arePricesReady(_prices)',
+        observer: '_batchChanged',
       },
-      _galleryReady: {
-        type: Boolean,
-        value: false,
-      },
-      _status: { // Loading status of trades
-        type: String,
-        value: 'done',
+      _batchSize: {
+        type: Number,
+        value: smallBatch,
       },
     },
-    attached: function() {
-      // We deal with gallery hiding until
-      // until a sufficient number of the images
-      // have been downloaded for layout to occur.
-      this.imagesToLoad = 0;
-      this.imagesLoaded = 0;
+    attached: function(){
+      // Set the inital timeout to check for
+      // being at the bottom 
+      this.async(this._inView, 300);
+    },
+    _inView: function(){
+
+      // Load up the next callback
+      this.async(this._inView, 300);
+
+      if (this.$.bottomStopper.hidden && this._prices.length === 0) {
+        return;
+      }
+
+      // Check if we can see the topmost reference element
+      let refViewed = inView(this.$.topSignage);
+      // Check if we can see the bottom element we append by
+      let atBottom = inView(this.$.bottomStopper);
+
+      // If we can see the bottom but not the top, then
+      // we have reached the bottom.
+      //
+      // When on another view, such as /card/:name,
+      // both are true, we want to avoid saying we reached
+      // the bottom in that sitatuon!
+      if (atBottom && !refViewed) this._bottomReached();
+
+      // Check if we're out of cards for now
+      if (this._prices.length === 0) {
+        // Hide the loading indicator
+        this.$.bottomStopper.hidden = true;
+      }else{
+        // Show the indicator
+        this.$.bottomStopper.hidden = false;
+      }
+
     },
     pricesDown: function(e){
       let prices = e.detail;
@@ -50,34 +89,35 @@
         a.ImageLoc = urlBuilders.ImageURL(cardToImageName(a.Name), this.name);
         a.Price = a.Price / 100;
       });
-      
-      this.imagesToLoad = (3 * prices.length) / 4;
-      this.imagesLoaded = 0;
 
       this._prices = prices;
 
-      // Finish the spinner
-      this._status = 'done';
-    },
-    _arePricesReady: function(prices){
-      if (prices !== null && prices.length > 0) return true;
+      // Set the inital batch size level
+      this._batchChanged();
 
-      return false;
+      // Populate the inital batch
+      this._bottomReached();
     },
     _facetChanged: function(){
       // Ensure we are dealing only with valid set names
       if (!displaySets.has(this.name)) throw 'invalid set name';
 
-      // Start the spinner
-      this._status = 'loading';
-
       // The prices aren't good to go yet
       this._prices = [];
+      this._displayPrices = [];
     },
-    _imageLoaded: function(){
-      this.imagesLoaded++;
-      if (this.imagesLoaded >= this.imagesToLoad){
-        this._galleryReady = true;
+    _bottomReached: function(){
+      // Pop off the next batch to add to the display sets
+      let additions = this._prices.splice(0, this._batchSize);
+
+      // Add the elements in an observable manner
+      additions.forEach((item)=> this.push('_displayPrices', item));
+    },
+    _batchChanged: function() {
+      if (this._big) {
+        this._batchSize = bigBatch;
+      }else{
+        this._batchSize = smallBatch;
       }
     },
     requestCard: function(e){

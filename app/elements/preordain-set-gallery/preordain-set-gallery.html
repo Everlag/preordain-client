@@ -46,7 +46,9 @@
       }
     }
 
-
+    preordain-status{
+      padding-bottom: 1em;
+    }
 
     paper-button{
       text-transform: none;
@@ -64,34 +66,43 @@
   </style>
 
   <template>
+  
+  <iron-media-query query="(min-width: 768px)" query-matches="{{_big}}"></iron-media-query>
 
   <price-complete name="{{name}}" on-prices-down="pricesDown"></price-complete>
 
-  <preordain-status status="[[_status]]"></preordain-status>
+  <!--
+    We have a reference element that we know cannot be on the same
+    vertical axis as the bottomStopper
+  -->
+  <span id="topSignage"></span>
 
-  <!-- A gallery of every card in the set over $1 -->
+  <!-- A gallery of every set with their most expensive card -->
   <div class="vertical layout center">
-    <template is="dom-if" if="{{_pricesReady}}">
-      <div class="fancyGrid" hidden$="{{!_galleryReady}}">
-        <template is="dom-repeat" items="{{_prices}}">
+      <div class="fancyGrid">
+        <template is="dom-repeat" items="{{_displayPrices}}">
             
-            <div class="container">
-              <div class="vertical layout fancyText">
-                <div class="name">{{item.Name}}</div>
-                <div class="flex"></div>
-                <span>$<span>{{item.Price}}</span></span>
-              </div>
-
-              <div class="bottomButton">
-                <paper-button on-tap="requestCard">view</paper-button>
-              </div>
-
-              <mtg-card-art onload="{{_imageLoaded()}}" img-src="{{item.ImageLoc}}"></mtg-card-art>
+          <div class="container">
+            <div class="vertical layout fancyText">
+              <div class="name">{{item.Name}}</div>
+              <div class="flex"></div>
+              <span>$<span>{{item.Price}}</span></span>
             </div>
+
+            <div class="bottomButton">
+              <paper-button on-tap="requestCard">view</paper-button>
+            </div>
+
+            <mtg-card-art img-src="{{item.ImageLoc}}"></mtg-card-art>
+          </div>
 
         </template>
       </div>
-    </template>
+      <!-- An element that indicates we are at the bottom of the content -->
+      <div id="bottomStopper" class="paper-font-headline vertical layout center">
+        <preordain-status status="loading"></preordain-status>
+        <div>Loading More!</div>
+      </div>
   </div>
   </template>
 

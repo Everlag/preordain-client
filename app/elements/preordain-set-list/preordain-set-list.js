@@ -1,16 +1,5 @@
 (function () {
 
-  // Whether or not an element is in view
-  //
-  // Finicky but works, courtesy of:
-  //  http://stackoverflow.com/a/22480938
-  function inView(element) {
-    let elementTop    = element.getBoundingClientRect().top;
-    let elementBottom = element.getBoundingClientRect().bottom;
-
-    return elementTop >= 0 && elementBottom <= window.innerHeight;
-  }
-
   // Sets to add to display on a mobile
   // where everything is vertical
   let smallBatch = 5;
