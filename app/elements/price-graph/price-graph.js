@@ -89,9 +89,6 @@
         return a.concat(display);
       });
 
-
-      console.log(this._setAnnotations);
-
       setupGraph(chart, slider, timeline, goodAnnotations, this._prices);
     }
   });
