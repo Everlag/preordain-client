@@ -12,7 +12,9 @@
     <iron-media-query query="(min-width: 600px)" query-matches="{{big}}"></iron-media-query>
 
     <div horizontal$="{{big}}">
-      <mtg-card name="{{name}}" class="flex"></mtg-card>
+      <div class="flex horizontal layout center-justified">
+        <mtg-card name="{{name}}" class="flex"></mtg-card>
+      </div>
       <preordain-card-info name='{{name}}' class="flex"></preordain-card-info>
     </div>
     <preordain-card-prices name="[[name]]" set="{{set}}"></preordain-card-prices>
