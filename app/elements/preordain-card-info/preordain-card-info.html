@@ -17,6 +17,10 @@
       min-width: 1em;
     }
 
+    .half{
+      width: 50%;
+    }
+
     #meta{
       margin-left: 0.4em;
       margin-right: 0.4em;
@@ -71,36 +75,40 @@
 
     <div id="meta" class="horizontal layout">
 
-      <!-- Modern Play Info -->
-      <template is="dom-if" if="{{_interestingModern}}">
-        <div class="vertical layout center">
-          <div class="paper-font-title self-end">Modern</div>
-          <table id="modernPlayTable">
-            <tr class="paper-font-subhead">
-              <th>Deck</th>
-              <th class="avg">Avg</th>
-            </tr>
-            <template is="dom-repeat" items="{{ModernDecks}}">
-              <tr>
-                <td>{{item.Name}}</td>
-                <td class="avg">{{item.Average}}</td>
+      <div class="half">
+        <!-- Modern Play Info -->
+        <template is="dom-if" if="{{_interestingModern}}">
+          <div class="vertical layout center">
+            <div class="paper-font-title self-end">Modern</div>
+            <table id="modernPlayTable" class="self-end">
+              <tr class="paper-font-subhead">
+                <th>Deck</th>
+                <th class="avg">Avg</th>
               </tr>
-            </template>
-          </table>
-          <div class="paper-font-caption self-end"><span>Median&nbsp;</span><span>[[MedianModernPlay]]</span></div>
-        </div>
-      </template>
+              <template is="dom-repeat" items="{{ModernDecks}}">
+                <tr>
+                  <td>{{item.Name}}</td>
+                  <td class="avg">{{item.Average}}</td>
+                </tr>
+              </template>
+            </table>
+            <div class="paper-font-caption self-end"><span>Median&nbsp;</span><span>[[MedianModernPlay]]</span></div>
+          </div>
+        </template>
+      </div>
 
-      <div class="flex" id="metaDivider"></div>
+      <div id="metaDivider"></div>
 
       <!-- Commander Play Info -->
-      <template is="dom-if" if="{{_interestingCommander}}">
-        <div class="vertical layout">
-          <div class="paper-font-title">Commander</div>
-          <div class="paper-font-caption">Avg <span>[[CommanderUsage]]</span>%</div>
-          <div class="paper-font-subhead">[[CommanderAppearance]]</div>
-        </div>
-      </template>
+      <div class="half">
+        <template is="dom-if" if="{{_interestingCommander}}">
+          <div class="vertical layout">
+            <div class="paper-font-title">Commander</div>
+            <div class="paper-font-caption">Avg <span>[[CommanderUsage]]</span>%</div>
+            <div class="paper-font-subhead">[[CommanderAppearance]]</div>
+          </div>
+        </template>
+      </div>
 
     </div>
 
