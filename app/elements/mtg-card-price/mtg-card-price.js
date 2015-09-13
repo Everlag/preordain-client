@@ -24,6 +24,13 @@
         notify: true,
         observer: '_facetChanged',
       },
+      // An override, otherwise it fetches the global value
+      source: {
+        type: String,
+        value: ' ',
+        notify: true,
+        observer: '_facetChanged',
+      },
       // The mode this price fetcher runs in
       latestHighest: { // Highest priced printing
         type: Boolean,
@@ -82,6 +89,8 @@
 
       // Fetch the price source from the global, mutable scope.
       let source = mutable.priceSource;
+      // Check to see if the global has been overrideen
+      if (this.source.trim()) source = this.source;
 
       let officialSetName = '';
       if (this.set.trim().length > 0) {
