@@ -1,0 +1,22 @@
+<dom-module id="price-spread">
+
+  <style>
+    :host {
+      display: none;
+    }
+  </style>
+
+  <template>
+
+  <mtg-card-price name='{{name}}' set="{{set}}"
+  source="[[primary]]" on-price="gotPrice"
+  latest-specific></mtg-card-price>
+  <mtg-card-price name='{{name}}' set="{{set}}"
+  source="[[secondary]]" on-price="gotPrice"
+  latest-specific></mtg-card-price>
+
+  </template>
+
+</dom-module>
+
+<script src="price-spread.js"></script>
