@@ -106,8 +106,10 @@
       if (this.Colors === null){
         this.ColorIdentity = 'artifact';
       }else{
-        if (this.Colors.length > 1) {
+        if (this.Colors.length > 2) {
           this.ColorIdentity = 'gold';
+        }else if(this.Colors.length === 2){
+          this.ColorIdentity = this.Colors.join('');
         }else if (this.Colors.length === 1){
           this.ColorIdentity = this.Colors[0].toLocaleLowerCase();
         }else if (this.Type.indexOf('Land')){
