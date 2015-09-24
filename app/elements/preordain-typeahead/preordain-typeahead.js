@@ -96,8 +96,11 @@
       if (this.showSets) {
         displaySets.forEach((s)=> preloaded.push(s));
       }
-      // Make sure we are sorted by length with lowest first
-      preloaded.sort((a, b)=> a.length - b.length);
+      // Make sure we are sorted by lexicographic order.
+      //
+      // This ensures that foil sets don't appear before their
+      // normal version.
+      preloaded.sort();
 
       var names = new Bloodhound({
         datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
