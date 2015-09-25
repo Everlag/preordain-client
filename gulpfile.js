@@ -21,6 +21,13 @@ var path = require('path');
 var fs = require('fs');
 var glob = require('glob');
 
+// Vulcanization
+var crisper = require('gulp-crisper');
+var lazypipe = require('lazypipe');
+var polyclean = require('polyclean');
+var rename = require('gulp-rename');
+var vulcanize = require('gulp-vulcanize');
+
 // Debugging!
 var compress = require('compression');
 var gutil = require('gulp-util');
@@ -144,15 +151,11 @@ gulp.task('html', function () {
 gulp.task('vulcanize', function () {
   var DEST_DIR = 'dist/elements';
 
-  return gulp.src('dist/elements/elements.vulcanized.html')
-    .pipe($.vulcanize({
-      stripComments: true,
-      inlineCss: true,
-      inlineScripts: true,
-      excludes: ['//fonts.googleapis.com/*'],
-    }))
+  return gulp.src('dist/elements/elements.html')
+    .pipe(polybuildMod())
     .pipe(gulp.dest(DEST_DIR))
     .pipe($.size({title: 'vulcanize'}));
+
 });
 
 // Compile es6 to es5 compliant code
@@ -254,3 +257,45 @@ function swallowError (error) {
 
 // Load custom tasks from the `tasks` directory
 try { require('require-dir')('tasks'); } catch (err) {}
+
+// Stolen from polybuild
+var htmlPipe = lazypipe()
+  // inline html imports, scripts and css
+  // also remove html comments
+  .pipe(vulcanize, {
+    stripComments: true,
+      inlineCss: true,
+      inlineScripts: true,
+      excludes: ['//fonts.googleapis.com/*'],
+  })
+  // remove whitespace from inline css
+  .pipe(polyclean.cleanCss)
+;
+
+// remove javascript whitespace
+var leftAlign = polyclean.leftAlignJs;
+
+// minimize javascript with uglifyjs
+var uglify = polyclean.uglifyJs;
+
+function polybuildMod() {
+  var pipe = htmlPipe
+  // switch between cleaning or minimizing javascript
+  .pipe(leftAlign)
+  // rename files with an infix '.vulcanized'
+  .pipe(rename, function(path) {
+    path.basename += '.vulcanized';
+  })
+  // split the javascript out into `.build.js` for CSP compliance
+  .pipe(crisper)
+  ()
+  ;
+
+  // have to handle errors ourselves, thanks gulp >:(
+  pipe.on('error', function(error) {
+    gutil.log(error.toString());
+    process.exit(1);
+  });
+
+  return pipe;
+}

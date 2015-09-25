@@ -39,6 +39,10 @@
   },
   "dependencies": {
     "compression": "^1.5.2",
-    "gulp-util": "^3.0.6"
+    "gulp-crisper": "0.0.5",
+    "gulp-rename": "^1.2.2",
+    "gulp-util": "^3.0.6",
+    "lazypipe": "^1.0.1",
+    "polyclean": "^1.2.0"
   }
 }
