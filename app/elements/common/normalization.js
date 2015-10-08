@@ -8,7 +8,9 @@
 // cards but makes no guarantees. Always use the imagename presented by the
 // server in mtg-card-data when available.
 function cardToImageName(cardName){
-	cardName = cardName.split('//')[0];
+	// Takes care of split cards as well 
+	// as flip planeswalkers' mkm names
+	cardName = cardName.split('/')[0];
 
 	return cardName
 	.replace(':', '')
