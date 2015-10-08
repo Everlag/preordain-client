@@ -13,6 +13,6 @@ let started;
   'use strict';
 
   // Record when we start execution so we can determine startup time
-  started = new Date();
+  started = performance.now();
 
 })(document);

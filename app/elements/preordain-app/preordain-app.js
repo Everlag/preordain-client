@@ -55,9 +55,19 @@
       // Build the routes!
       buildRoutes(this);
 
-      // Show off the startup time
-      let loaded = new Date();
-      console.log(`Our app is ready to rock, start time is ${loaded-started}ms`);
+      // Show off the polymer startup time
+      let loaded = performance.now();
+      let polymerLoad = (loaded-started).toFixed();
+      console.log(`Our app is ready to rock, start time is ${polymerLoad}ms`);
+
+      // Show off absolute performance timing
+      //
+      // Defer for a moment to allow loadStart to fire
+      this.async(()=> {
+        let timing = performance.timing;
+        let fullLoad = timing.loadEventStart - timing.navigationStart;
+        console.log(`Absolute load time is ${fullLoad}ms`);
+      }, 100);
     },
     // Notifies that a location has changed
     viewedChanged: function(){
