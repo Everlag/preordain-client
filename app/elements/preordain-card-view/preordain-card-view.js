@@ -16,6 +16,11 @@
         type: Boolean,
         value: false,
         notify: true,
+      },
+      massive: {
+        type: Boolean,
+        value: false,
+        notify: true,
       }
     },
   });

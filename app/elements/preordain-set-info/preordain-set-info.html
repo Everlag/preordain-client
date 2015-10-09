@@ -14,18 +14,25 @@
       margin-left: 1em;
     }
 
+    #evDetails{
+      margin-right: 1em;
+    }
+
   </style>
 
   <template>
 
 
   <div class="horizontal layout center">
-    <div class="horizontal layout">
+    <div class="horizontal layout center">
       <mtg-set-symbol id="setSymbol" set="{{name}}"></mtg-set-symbol>
-      <div class="self-start paper-font-title">{{name}}</div>
+      <div class="paper-font-title">{{name}}</div>
     </div>
+
+    <div class="flex"></div>
+
     <template is="dom-if" if="{{_showEV}}">
-      <div class="vertical layout end">
+      <div class="vertical layout end" id="evDetails">
         
         <div class="horizontal layout">
           <span>EV:&nbsp;</span>
@@ -39,16 +46,12 @@
         
         <template is="dom-if" if="[[_validContribs]]">
           <div class="vertical layout">
-            <div class="horizontal layout">
               <span class="contribution">C:&nbsp;<span>[[cContribution]]</span>%</span>
               <div class="flex"></div>
               <span class="contribution">U:&nbsp;<span>[[uContribution]]</span>%</span>
-            </div>
-            <div class="horizontal layout">
               <span class="contribution">R:&nbsp;<span>[[rContribution]]</span>%</span>
               <div class="flex"></div>
               <span class="contribution">M:&nbsp;<span>[[mContribution]]</span>%</span>
-            </div>
           </div>
         </template>
 
