@@ -1,3 +1,5 @@
+<link rel="import" href="preordain-price-graph/preordain-price-graph.html">
+
 <dom-module id="preordain-card-prices">
 
   <style>
@@ -13,7 +15,7 @@
     selected="{{_selected}}"
     ></preordain-printing-selector>
 
-    <price-graph name="[[name]]" set="[[_selected]]"></price-graph>
+    <preordain-price-graph name="[[name]]" set="[[_selected]]"></preordain-price-graph>
 
   </template>
 

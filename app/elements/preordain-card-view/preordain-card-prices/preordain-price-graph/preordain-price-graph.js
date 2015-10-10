@@ -1,7 +1,7 @@
 (function () {
 
   Polymer({
-    is: 'price-graph',
+    is: 'preordain-price-graph',
     properties: {
        // Filters
       name: {
