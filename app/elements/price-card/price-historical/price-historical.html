@@ -1,3 +1,5 @@
+<link rel="import" href="../price-card.html">
+
 <dom-module id="price-historical">
 
   <style>
@@ -8,9 +10,9 @@
 
   <template>
 
-  <mtg-card-price name='{{name}}' set="{{set}}"
+  <price-card name='{{name}}' set="{{set}}"
                 on-price="gotPrices"
-                weeks-median></mtg-card-price>
+                weeks-median></price-card>
 
   </template>
 

@@ -3,7 +3,7 @@
     // A wrapper for raw access to preorda.in pricing.
     //
     // Events are fired when we are successful
-    is: 'mtg-card-price',
+    is: 'price-card',
     properties: {
       // Filters
       name: {

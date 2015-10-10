@@ -1,3 +1,5 @@
+<link rel="import" href="../price-card.html">
+
 <dom-module id="price-closest">
 
   <style>
@@ -8,9 +10,9 @@
 
   <template>
 
-  <mtg-card-price name='{{name}}' set="{{set}}" closest="{{closest}}"
+  <price-card name='{{name}}' set="{{set}}" closest="{{closest}}"
                 on-price="gotPrice"
-                closest-match></mtg-card-price>
+                closest-match></price-card>
 
   </template>
 

@@ -1,3 +1,5 @@
+<link rel="import" href="../price-card.html">
+
 <dom-module id="price-spread">
 
   <style>
@@ -8,10 +10,10 @@
 
   <template>
 
-  <mtg-card-price name='{{name}}' set="{{set}}"
+  <price-card name='{{name}}' set="{{set}}"
   source="[[primary]]" on-price="gotPrice"
   latest-specific></mtg-card-price>
-  <mtg-card-price name='{{name}}' set="{{set}}"
+  <price-card name='{{name}}' set="{{set}}"
   source="[[secondary]]" on-price="gotPrice"
   latest-specific></mtg-card-price>
 

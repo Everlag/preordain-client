@@ -1,3 +1,5 @@
+<link rel="import" href="../price-card.html">
+
 <dom-module id="price-latest">
 
   <style>
@@ -8,8 +10,8 @@
 
   <template>
 
-  <mtg-card-price name='{{name}}' set="{{set}}" on-price="gotPrice"
-  latest-specific></mtg-card-price>
+  <price-card name='{{name}}' set="{{set}}" on-price="gotPrice"
+  latest-specific></price-card>
 
   </template>
 
