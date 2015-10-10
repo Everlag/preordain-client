@@ -1,3 +1,5 @@
+<link rel="import" href="../price-set.html">
+
 <dom-module id="price-complete">
 
   <style>
@@ -8,9 +10,9 @@
 
   <template>
 
-  <mtg-set-price name='{{name}}'
+  <price-set name='{{name}}'
                 on-price="gotPrice"
-                complete-latest></mtg-set-price>
+                complete-latest></price-set>
 
   </template>
 
