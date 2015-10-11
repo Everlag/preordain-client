@@ -96,6 +96,8 @@
       if (this.showSets) {
         displaySets.forEach((s)=> preloaded.push(s));
       }
+      preloaded = preloaded.filter((s)=> !s.includes(' Foil'));
+
       // Make sure we are sorted by lexicographic order.
       //
       // This ensures that foil sets don't appear before their
