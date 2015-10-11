@@ -73,6 +73,8 @@
     viewedChanged: function(){
       // Don't bother if its already been viewed
       this.viewed = JSON.parse(JSON.stringify(this.viewed));
+      // Scroll to the top of the page
+      this.$.content.scrollIntoView();
     },
     // Close drawer after menu item is selected if drawerPanel is narrow
     onMenuSelect: function(){
