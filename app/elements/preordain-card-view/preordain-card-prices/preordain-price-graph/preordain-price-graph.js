@@ -194,7 +194,7 @@
       formatter: function(series, x, y) {
         let date = `<span class="date">${new Date(x * 1000).toDateString()}</span>`
         let swatch = `<span class="detail_swatch" style="background-color: ${series.color}"></span>` 
-        let content = `${swatch}${series.name}: ${parseFloat(parseFloat(y).toFixed(2))}<br>${date}`
+        let content = `${swatch}$${parseFloat(parseFloat(y).toFixed(2))} ${series.name}<br>${date}`
         return content;
     }
     });
