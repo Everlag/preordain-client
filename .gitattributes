@@ -1,1 +1,6 @@
 * text=auto
+
+.js   text
+.html text
+
+eol=crlf
