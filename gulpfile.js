@@ -308,7 +308,7 @@ var uglify = polyclean.uglifyJs;
 function polybuildMod(tag) {
   var pipe = htmlPipe
   // switch between cleaning or minimizing javascript
-  .pipe(leftAlign)
+  .pipe(uglify, {mangle: {except: ["$super"]}})
   // rename files with an infix '.vulcanized'
   .pipe(rename, function(path) {
     path.basename += '.' + tag;
