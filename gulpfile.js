@@ -31,6 +31,13 @@ var vulcanize = require('gulp-vulcanize');
 // Debugging!
 var compress = require('compression');
 var gutil = require('gulp-util');
+var git = require('gulp-git');
+
+// The metadata related to the build.
+//
+// Form:
+//  'commit-time'
+var buildInfo = '';
 
 var AUTOPREFIXER_BROWSERS = [
   'ie >= 10',
@@ -121,17 +128,32 @@ gulp.task('fonts', function () {
     .pipe($.size({title: 'fonts'}));
 });
 
+// Injects build metadata into buildInfo
+gulp.task('meta', function(cb){
+  git.exec({args: 'rev-parse --short HEAD', quiet: true}, function(err, stdout){
+    if (err) throw err;
+
+    // Don't overwrite previously generated buildInfo
+    if (buildInfo.length === 0) {
+      var commit = stdout.trim();
+      var time = Math.floor(new Date() / 1000).toString();
+      buildInfo = commit + '-' + time;
+    };
+
+    cb();
+  });
+})
+
 // Scan Your HTML For Assets & Optimize Them
-gulp.task('html', function () {
+gulp.task('html', ['meta'], function () {
   var assets = $.useref.assets({searchPath: ['.tmp', 'app', 'dist']});
 
-  // Record the build time!
-  var buildTime = Math.floor(new Date() / 1000).toString()
+  var vulcanizedName = 'elements/elements.' + buildInfo +'.html';
 
   return gulp.src(['app/**/*.html', '!app/{elements,test}/**/*.html'])
     // Replace path for vulcanized assets
-    .pipe($.if('*.html', $.replace('elements/elements.html', 'elements/elements.vulcanized.html')))
-    .pipe($.if('*.html', $.replace('#BUILD_TIME#', buildTime)))
+    .pipe($.if('*.html', $.replace('elements/elements.html', vulcanizedName)))
+    .pipe($.if('*.html', $.replace('#BUILD_INFO#', buildInfo)))
     // .pipe(assets)
     // Concatenate And Minify JavaScript
     // .pipe($.if('*.js', $.uglify({preserveComments: 'some'}).on('error', gutil.log)))
@@ -152,11 +174,11 @@ gulp.task('html', function () {
 });
 
 // Vulcanize imports
-gulp.task('vulcanize', function () {
+gulp.task('vulcanize', ['meta'], function () {
   var DEST_DIR = 'dist/elements';
 
   return gulp.src('dist/elements/elements.html')
-    .pipe(polybuildMod())
+    .pipe(polybuildMod(buildInfo))
     .pipe(gulp.dest(DEST_DIR))
     .pipe($.size({title: 'vulcanize'}));
 
@@ -243,6 +265,7 @@ gulp.task('serve:dist', ['default'], function () {
 
 // Build Production Files, the Default Task
 gulp.task('default', ['clean'], function (cb) {
+
   runSequence(
     ['copy', 'styles'],
     'elements', 'babel',
@@ -282,13 +305,13 @@ var leftAlign = polyclean.leftAlignJs;
 // minimize javascript with uglifyjs
 var uglify = polyclean.uglifyJs;
 
-function polybuildMod() {
+function polybuildMod(tag) {
   var pipe = htmlPipe
   // switch between cleaning or minimizing javascript
   .pipe(leftAlign)
   // rename files with an infix '.vulcanized'
   .pipe(rename, function(path) {
-    path.basename += '.vulcanized';
+    path.basename += '.' + tag;
   })
   // split the javascript out into `.build.js` for CSP compliance
   .pipe(crisper)
