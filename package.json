@@ -40,10 +40,13 @@
   "dependencies": {
     "compression": "^1.5.2",
     "gulp-crisper": "0.0.5",
+    "gulp-flatten": "^0.2.0",
     "gulp-git": "^1.5.0",
+    "gulp-gzip": "^1.2.0",
     "gulp-rename": "^1.2.2",
     "gulp-util": "^3.0.6",
+    "gulp-zip": "^3.0.2",
     "lazypipe": "^1.0.1",
-	"polyclean": "https://github.com/Everlag/polyclean/tarball/c395875376b4933941c7f4db5895d33c77608f1a"
+    "polyclean": "https://github.com/Everlag/polyclean/tarball/c395875376b4933941c7f4db5895d33c77608f1a"
   }
 }

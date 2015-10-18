@@ -32,6 +32,9 @@ var vulcanize = require('gulp-vulcanize');
 var compress = require('compression');
 var gutil = require('gulp-util');
 var git = require('gulp-git');
+var flatten = require('gulp-flatten');
+var zip = require('gulp-zip');
+var gzip = require('gulp-gzip');
 
 // The metadata related to the build.
 //
@@ -198,6 +201,38 @@ gulp.task('babel', function () {
     .pipe(gulp.dest(DEST_DIR));
 });
 
+// Flattens all dependencies into dist
+// and ready them for deployment in dist/deploy.zip
+gulp.task('flatten', function(){
+  var DEST_DIR = 'dist';
+
+  var elements = 'dist/elements/elements.'+ buildInfo;
+
+  var dependencies = [
+     elements + ".html",
+     elements + ".js",
+     'dist/bower_components/webcomponentsjs/webcomponents-lite.min.js',
+     'dist/scripts/app.js',
+     'dist/styles/main.css',
+     'dist/index.html'
+  ];
+
+  var flat = gulp.src(dependencies)
+    .pipe(flatten()) // Flatten the files
+    // Flatten the refernces
+    .pipe($.if('*.html', $.replace('scripts/', '')))
+    .pipe($.if('*.html', $.replace('styles/', '')))
+    .pipe($.if('*.html', $.replace('elements/', '')))
+    .pipe($.if('*.html', $.replace('bower_components/webcomponentsjs/', '')))
+    .pipe(gulp.dest(DEST_DIR)); // To the base directory
+
+  var comp = flat.pipe(gzip({gzipOptions: { level: 5 }}));
+
+  return merge(flat, comp)
+    .pipe(zip("deploy.zip")) // To the archive
+    .pipe(gulp.dest(DEST_DIR));
+});
+
 // Clean Output Directory
 gulp.task('clean', del.bind(null, ['.tmp', 'dist']));
 
@@ -271,6 +306,7 @@ gulp.task('default', ['clean'], function (cb) {
     'elements', 'babel',
     ['jshint', 'images', 'fonts', 'html'],
     'vulcanize',
+    'flatten',
     cb);
 });
 
