@@ -68,7 +68,9 @@ let buildRoutes;
 
     // add #! before urls
     page({
-      hashbang: true
+      // Declared in index.html so it
+      // can be populated in the build process
+      hashbang: hashbang
     });
 
   };

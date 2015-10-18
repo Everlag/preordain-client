@@ -156,6 +156,8 @@ gulp.task('html', ['meta'], function () {
   return gulp.src(['app/**/*.html', '!app/{elements,test}/**/*.html'])
     // Replace path for vulcanized assets
     .pipe($.if('*.html', $.replace('elements/elements.html', vulcanizedName)))
+    // Populate production build info
+    .pipe($.if('*.html', $.replace('\'#HASH_BANGS#\'', false)))
     .pipe($.if('*.html', $.replace('#BUILD_INFO#', buildInfo)))
     // .pipe(assets)
     // Concatenate And Minify JavaScript

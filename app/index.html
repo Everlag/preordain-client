@@ -67,6 +67,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <script type="text/javascript">
     // Record the build id
     var buildTime = '#BUILD_INFO#';
+
+    // Default to truthy hashangs,
+    // production builds switch this off
+    var hashbang = true;
+    if ('#HASH_BANGS#' === false) {
+      hashbang = false;
+    };
   </script>
 
 </body>
