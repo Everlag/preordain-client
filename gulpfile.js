@@ -22,7 +22,6 @@ var fs = require('fs');
 var glob = require('glob');
 
 // Vulcanization
-var crisper = require('gulp-crisper');
 var lazypipe = require('lazypipe');
 var polyclean = require('polyclean');
 var rename = require('gulp-rename');
@@ -211,7 +210,6 @@ gulp.task('flatten', function(){
 
   var dependencies = [
      elements + ".html",
-     elements + ".js",
      'dist/bower_components/webcomponentsjs/webcomponents-lite.min.js',
      'dist/scripts/app.js',
      'dist/styles/main.css',
@@ -353,11 +351,7 @@ function polybuildMod(tag) {
   // rename files with an infix '.vulcanized'
   .pipe(rename, function(path) {
     path.basename += '.' + tag;
-  })
-  // split the javascript out into `.build.js` for CSP compliance
-  .pipe(crisper)
-  ()
-  ;
+  })();
 
   // have to handle errors ourselves, thanks gulp >:(
   pipe.on('error', function(error) {
