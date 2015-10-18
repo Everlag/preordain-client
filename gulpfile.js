@@ -35,6 +35,7 @@ var git = require('gulp-git');
 var flatten = require('gulp-flatten');
 var zip = require('gulp-zip');
 var gzip = require('gulp-gzip');
+var prefix = require('gulp-prefix');
 
 // The metadata related to the build.
 //
@@ -217,6 +218,8 @@ gulp.task('flatten', function(){
      'dist/index.html'
   ];
 
+  var prefixURL = 'https://preorda.in';
+
   var flat = gulp.src(dependencies)
     .pipe(flatten()) // Flatten the files
     // Flatten the refernces
@@ -224,7 +227,9 @@ gulp.task('flatten', function(){
     .pipe($.if('*.html', $.replace('styles/', '')))
     .pipe($.if('*.html', $.replace('elements/', '')))
     .pipe($.if('*.html', $.replace('bower_components/webcomponentsjs/', '')))
-    .pipe(gulp.dest(DEST_DIR)); // To the base directory
+    .pipe(gulp.dest(DEST_DIR)) // To the base directory
+    // Make all urls relative for deployment version for cachability
+    .pipe($.if('*.html', prefix(prefixURL, null)));
 
   var comp = flat.pipe(gzip({gzipOptions: { level: 5 }}));
 
