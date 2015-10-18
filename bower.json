@@ -7,9 +7,9 @@
     "platinum-elements": "PolymerElements/platinum-elements#1.1.1",
     "neon-elements": "PolymerElements/neon-elements#1.0.0",
     "page": "visionmedia/page.js#~1.6.3",
-    "typeahead.js": "~0.11.1",
     "css-spinners": "~2.1.0",
-    "re-captcha": "~1.1.0"
+    "re-captcha": "~1.1.0",
+	"typeahead.js": "git://github.com/corejavascript/typeahead.js.git#e5c0213a64"
   },
   "devDependencies": {
     "web-component-tester": "*",
