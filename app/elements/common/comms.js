@@ -5,12 +5,13 @@ let remoteComms = {};
 {
 
   // Fires an ajax request.
-  remoteComms.ajaxJSON = (method, url, body, success, failure) => {
+  remoteComms.ajax = (method, url, body,
+    success, failure, contentType = 'application/json') => {
 
     var request = new XMLHttpRequest();
 
     request.open(method, url);
-    request.setRequestHeader('Content-Type', 'application/json');
+    request.setRequestHeader('Content-Type', contentType);
 
     request.onreadystatechange = function() {
     if (request.readyState === XMLHttpRequest.DONE ) {
@@ -41,7 +42,7 @@ let remoteComms = {};
     let url = urlBuilders.TradesURL(name,
       userDefaults.collection, isPublic);
 
-    remoteComms.ajaxJSON(method, url, payload,
+    remoteComms.ajax(method, url, payload,
       success, failure);
   };
 
@@ -56,7 +57,7 @@ let remoteComms = {};
 
     let url = urlBuilders.SignupURL(name);
 
-    remoteComms.ajaxJSON('POST', url, payload,
+    remoteComms.ajax('POST', url, payload,
       success, failure);
   };
 
@@ -69,7 +70,7 @@ let remoteComms = {};
 
     let url = urlBuilders.LoginURL(name);
 
-    remoteComms.ajaxJSON('POST', url, payload,
+    remoteComms.ajax('POST', url, payload,
       success, failure);
   };
 
@@ -83,7 +84,7 @@ let remoteComms = {};
     let url = urlBuilders.AddCollectionURL(name,
       userDefaults.collection);
 
-    remoteComms.ajaxJSON('POST', url, payload,
+    remoteComms.ajax('POST', url, payload,
       success, failure);
   };
 
@@ -109,7 +110,7 @@ let remoteComms = {};
 
     let method = 'POST';
     let url = urlBuilders.AddItemURL(name, userDefaults.collection);
-    remoteComms.ajaxJSON(method, url, payload,
+    remoteComms.ajax(method, url, payload,
       success, failure);
   };
 
@@ -121,7 +122,7 @@ let remoteComms = {};
 
     let url = urlBuilders.ResetRequestURL(name);
 
-    remoteComms.ajaxJSON( 'POST', url, payload,
+    remoteComms.ajax( 'POST', url, payload,
       success, failure);
   };
 
@@ -134,7 +135,7 @@ let remoteComms = {};
 
     let url = urlBuilders.ResetURL(name);
 
-    remoteComms.ajaxJSON( 'POST', url, payload,
+    remoteComms.ajax( 'POST', url, payload,
       success, failure);
   };
 
