@@ -3,6 +3,11 @@ let buildRoutes;
 
 (function () {
 
+  // Set the window title to whatever we need
+  let title = (t)=>{
+    document.title = t;
+  };
+
   buildRoutes = (app)=>{
 
     // We use Page.js for routing. This is a Micro
@@ -13,18 +18,24 @@ let buildRoutes;
     // load sections as they are viewed
     page('/', function () {
       app.route = 'home';
+
+      title('preordain');
     });
 
     page('/login', function () {
       app.route = 'login';
       app.viewed.login = true;
       app.viewedChanged();
+
+      title('Login');
     });
 
     page('/signup', function () {
       app.route = 'signup';
       app.viewed.signup = true;
       app.viewedChanged();
+
+      title('Signup');
     });
 
     page('/trades/:name?', function (data) {
@@ -37,6 +48,8 @@ let buildRoutes;
       app.viewed.trades = true;
       app.route = 'trades';
       app.viewedChanged();
+
+      title('Trades');
     });
 
     page('/reset/:name?', function (data) {
@@ -44,6 +57,8 @@ let buildRoutes;
       app.route = 'reset';
       app.viewed.reset = true;
       app.viewedChanged();
+
+      title('Reset');
     });
 
     page('/card/:name/:set?', function (data) {
@@ -51,6 +66,8 @@ let buildRoutes;
       app.route = 'card';
       app.viewed.card = true;
       app.viewedChanged();
+
+      title(`${data.params.name}`);
     });
 
     page('/set/:set', function (data) {
@@ -58,12 +75,16 @@ let buildRoutes;
       app.route = 'set';
       app.viewed.set = true;
       app.viewedChanged();
+
+      title(`${setToShort[displayToOfficialSets[data.params.set]]}`);
     });
 
     page('/sets', function (data) {
       app.route = 'sets';
       app.viewed.sets = true;
       app.viewedChanged();
+
+      title('Setlist');
     });
 
     // add #! before urls
