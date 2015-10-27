@@ -228,7 +228,8 @@ gulp.task('flatten', function(){
      'dist/bower_components/webcomponentsjs/webcomponents-lite.min.js',
      'dist/scripts/app.js',
      'dist/styles/main.css',
-     'dist/index.html'
+     'dist/index.html',
+     'dist/*.pmd.html'
   ];
 
   var prefixURL = 'https://preorda.in';
@@ -322,7 +323,8 @@ gulp.task('default', ['clean'], function (cb) {
 
   runSequence(
     ['copy', 'styles'],
-    'elements', 'babel',
+    'elements',
+    ['babel', 'markdown'],
     ['jshint', 'images', 'fonts', 'html'],
     'vulcanize',
     'flatten',

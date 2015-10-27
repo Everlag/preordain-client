@@ -175,7 +175,7 @@ let urlBuilders = {};
     //
     // Fetches relative to location.origin
     urlBuilders.MarkdownURL = (name) => {
-        let content = `${window.location.origin}/${name}.html`;
+        let content = `${window.location.origin}/${name}.pmd.html`;
         return content;
     };
 }
