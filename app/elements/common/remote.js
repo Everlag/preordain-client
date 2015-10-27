@@ -170,4 +170,12 @@ let urlBuilders = {};
         let content = `${name}/Collections/${coll}/Trades`;
         return urlBuilders.UserURL(content);
     };
+
+    // Fetches the html for markdown document
+    //
+    // Fetches relative to location.origin
+    urlBuilders.MarkdownURL = (name) => {
+        let content = `${window.location.origin}/${name}.html`;
+        return content;
+    };
 }

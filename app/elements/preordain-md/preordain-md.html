@@ -1,0 +1,47 @@
+<dom-module id="preordain-md">
+
+  <style>
+    :host {
+      display: block;
+
+      @apply(--paper-font-body1);
+    }
+
+    mtg-set-symbol{
+      width: 2em;
+      height: 2em;
+    }
+
+    h1{
+      @apply(--paper-font-headline);
+    }
+
+    h2{
+      @apply(--paper-font-title);
+    }
+
+    h3{
+      @apply(--paper-font-subhead);
+    }
+
+    h4{
+      @apply(--paper-font-caption);
+    }
+
+    p{
+      @apply(--paper-font-body1);
+    }
+
+  </style>
+
+  <template>
+
+    <preordain-status status="[[status]]"></preordain-status>
+
+    <div id="contentWrap"></div>
+
+  </template>
+
+</dom-module>
+
+<script src="preordain-md.js"></script>

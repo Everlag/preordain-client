@@ -35,6 +35,7 @@ var flatten = require('gulp-flatten');
 var zip = require('gulp-zip');
 var gzip = require('gulp-gzip');
 var prefix = require('gulp-prefix');
+var marked = require('gulp-marked');
 
 // The metadata related to the build.
 //
@@ -129,6 +130,18 @@ gulp.task('fonts', function () {
   return gulp.src(['app/fonts/**'])
     .pipe(gulp.dest('dist/fonts'))
     .pipe($.size({title: 'fonts'}));
+});
+
+// Compiles markdown into html and inserts into
+// root of dist
+gulp.task('markdown', function(cb){
+
+  return gulp.src('app/markdown/*.md')
+    .pipe(marked({
+      smartypants: true,
+    }))
+    .pipe(gulp.dest('dist'))
+
 });
 
 // Injects build metadata into buildInfo
@@ -245,7 +258,7 @@ gulp.task('clean', del.bind(null, ['.tmp', 'dist']));
 gulp.task('serve', function () {
   
   // Run everything to clean up and ready up before we start watching.
-  runSequence('clean', 'styles', 'elements', 'images', 'babel');
+  runSequence('clean', 'styles', 'elements', 'images', 'markdown', 'babel');
 
   browserSync({
     notify: false,
@@ -272,6 +285,7 @@ gulp.task('serve', function () {
   });
 
   gulp.watch(['app/**/*.html'], reload);
+  gulp.watch(['app/markdown/*.md'], ['markdown', reload]);
   gulp.watch(['app/styles/**/*.css'], ['styles', reload]);
   gulp.watch(['app/elements/**/*.css'], ['elements', reload]);
   gulp.watch(['app/{scripts,elements}/**/*.js'], ['script-reload']);
