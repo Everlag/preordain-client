@@ -34,6 +34,10 @@
         value: false,
         observer: '_batchChanged',
       },
+      _dirtyCheck: {
+        type: Boolean,
+        value: true,
+      },
       _batchSize: {
         type: Number,
         value: smallBatch,
@@ -64,7 +68,12 @@
       // When on another view, such as /card/:name,
       // both are true, we want to avoid saying we reached
       // the bottom in that sitatuon!
-      if (atBottom && !refViewed) this._bottomReached();
+      if (atBottom &&
+          (!refViewed || this._dirtyCheck)) this._bottomReached();
+
+      // If we can see the bottom and not the top ever,
+      // then we can stop using the dirty check.
+      if (atBottom && !refViewed) this._dirtyCheck = false;
 
       // Check if we're out of cards for now
       if (this._prices.length === 0) {
