@@ -18,6 +18,10 @@
   // Returns valid html with injection points and a map[id]domNode
   let processIR = (ir)=>{
 
+    // Find which custom tags are valid
+    let validTags = new Set(Polymer.telemetry
+      .registrations.map((e)=> e.is));
+
     // Define a test that will trap the input between
     // command end and start
     let test = /<(.*)\/>/;
@@ -31,7 +35,11 @@
 
       if (data !== null){
         data = data[1];
-        let node = parseIRCommand(data);
+        let node = parseIRCommand(data, validTags);
+        if (node === null){ // Invalid command
+          console.log(`invalid IR command: ${data}`);
+          return;
+        }
         let key = getID();
 
         keyToNode.set(key, node);
@@ -72,7 +80,12 @@
   };
 
   // Translates an intermediate representation command into an element
-  let parseIRCommand = (command)=>{
+  //
+  // Requires a set of valid element tags
+  //
+  // Returns null if invalid command. Invalid commands should be ignored
+  // and allowed to be rendered into final result.
+  let parseIRCommand = (command, validTags)=>{
     // Split on spaces not enclosed in quotes
     // Explicitly ignores single quotes and dashes
     let split = command
@@ -81,6 +94,7 @@
 
     // Create the element
     let tag = split.pop();
+    if (!validTags.has(tag)) return null;
     let node = document.createElement(tag);
     if (split.length % 2 !== 0) throw 'arguments must be in key="value" form';
     
