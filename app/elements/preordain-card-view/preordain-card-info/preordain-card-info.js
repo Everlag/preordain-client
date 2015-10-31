@@ -178,6 +178,8 @@
       } = detail);
       /* jshint ignore:end */
     
+      // Compute easy legalities
+      Legalities.forEach((f)=> Legalities[f.Format] = f.Legality)
       this.ModernBanned = Legalities.Modern === 'Banned';
       this.LegacyBanned = Legalities.Legacy === 'Banned';
       this.CommanderBanned = Legalities.Commander === 'Banned';
