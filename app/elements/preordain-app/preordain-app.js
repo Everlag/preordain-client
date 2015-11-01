@@ -42,10 +42,6 @@
             'card': false,
             'set': false,
             'sets': false,
-            'login': false,
-            'signup': false,
-            'trades': false,
-            'reset': false,
           };
         },
       },

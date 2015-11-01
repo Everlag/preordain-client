@@ -22,45 +22,6 @@ let buildRoutes;
       title('preordain');
     });
 
-    page('/login', function () {
-      app.route = 'login';
-      app.viewed.login = true;
-      app.viewedChanged();
-
-      title('Login');
-    });
-
-    page('/signup', function () {
-      app.route = 'signup';
-      app.viewed.signup = true;
-      app.viewedChanged();
-
-      title('Signup');
-    });
-
-    page('/trades/:name?', function (data) {
-      // Default to our stored username
-      // if the provided one is invalid
-      if (!data.params.name) {
-        data.params.name = mutable.name;
-      }
-      app.tradesParams = data.params;
-      app.viewed.trades = true;
-      app.route = 'trades';
-      app.viewedChanged();
-
-      title('Trades');
-    });
-
-    page('/reset/:name?', function (data) {
-      app.resetParams = data.params;
-      app.route = 'reset';
-      app.viewed.reset = true;
-      app.viewedChanged();
-
-      title('Reset');
-    });
-
     page('/card/:name/:set?', function (data) {
       app.cardParams = data.params;
       app.route = 'card';

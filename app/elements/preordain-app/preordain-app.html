@@ -24,16 +24,6 @@
                 <span>Home</span>
               </a>
 
-              <a data-route="login" href="/login">
-                <iron-icon icon="info"></iron-icon>
-                <span>Sign in</span>
-              </a>
-
-              <a data-route="trades" href="/trades">
-                <iron-icon icon="info"></iron-icon>
-                <span>Trades</span>
-              </a>
-
               <a data-route="sets" href="/sets">
                 <iron-icon icon="info"></iron-icon>
                 <span>Set List</span>
@@ -103,36 +93,6 @@
                 <preordain-set-list
                 on-request-set="setRequested"
                 ></preordain-set-list>
-              </template>
-            </section>
-
-            <section data-route="login">
-              <template is="dom-if" if="[[viewed.login]]">
-                <paper-material elevation="1">
-                  <user-login></user-login>
-                </paper-material>
-              </template>
-            </section>
-
-            <section data-route="signup">
-              <template is="dom-if" if="[[viewed.signup]]">
-                <paper-material elevation="1">
-                  <user-signup></user-signup>
-                </paper-material>
-              </template>
-            </section>
-
-            <section data-route="trades">
-              <template is="dom-if" if="[[viewed.trades]]">
-                <preordain-trade-view name="[[tradesParams.name]]"></preordain-trade-view>
-              </template>
-            </section>
-
-            <section data-route="reset">
-              <template is="dom-if" if="[[viewed.reset]]">
-                <paper-material elevation="1">
-                  <user-reset name="[[resetParams.name]]"></user-reset>
-                </paper-material>
               </template>
             </section>
 
