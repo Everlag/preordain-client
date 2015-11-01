@@ -6,16 +6,24 @@
     :host {
       display: block;
     }
+
+    #inner{
+      padding-bottom: 0.3em;
+    }
   </style>
 
   <template>
 
-    <preordain-printing-selector
-    name="[[name]]" set="{{set}}"
-    selected="{{_selected}}"
-    ></preordain-printing-selector>
+    <paper-material>
+      <div id="inner">
+        <preordain-printing-selector
+        name="[[name]]" set="{{set}}"
+        selected="{{_selected}}"
+        ></preordain-printing-selector>
 
-    <preordain-price-graph name="[[name]]" set="[[_selected]]"></preordain-price-graph>
+        <preordain-price-graph name="[[name]]" set="[[_selected]]"></preordain-price-graph>
+      </div>
+    </paper-material>
 
   </template>
 

@@ -157,6 +157,11 @@
         type: Boolean,
         value: false,
         computed: '_timeSinceInterest(SinceLastPrint)',
+      },
+      _interestingBottom: {  
+        type: Boolean,
+        value: false,
+        computed: '_bottomInterest(SinceLastPrint, ModernBanned, LegacyBanned, CommanderBanned)',
       }
     },
     freshData: function({detail}){
@@ -227,6 +232,12 @@
       // A card that was printed at least two years ago
       // is worthwhile to note.
       return SinceLastPrint >= 2;
+    },
+    _bottomInterest: function(SinceLastPrint,
+      ModernBanned, LegacyBanned, CommanderBanned) {
+      
+      return this._timeSinceInterest(SinceLastPrint) ||
+             this._banInterest(ModernBanned, LegacyBanned, CommanderBanned);
     },
     // Returns whether or not we have data interesting
     // enough to be worth displaying.

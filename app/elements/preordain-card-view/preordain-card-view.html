@@ -7,6 +7,15 @@
     :host {
       display: block;
     }
+
+    #top{
+      padding-bottom: 1em;
+    }
+
+    preordain-card-info{
+      padding-top: 1.5em;
+      padding-left: 1em;
+    }
   </style>
 
   <template>
@@ -16,10 +25,8 @@
 
     <iron-media-query query="(min-width: 1281px)" query-matches="{{massive}}"></iron-media-query>
 
-    <div horizontal$="{{big}}">
-      <div class="flex horizontal layout center-justified">
-        <mtg-card name="{{name}}" class="flex"></mtg-card>
-      </div>
+    <div id="top" horizontal$="{{big}}">
+      <mtg-card name="{{name}}" class="flex"></mtg-card>
       <preordain-card-info name='{{name}}' class="flex"></preordain-card-info>
     </div>
     <preordain-card-prices name="[[name]]" set="{{set}}"></preordain-card-prices>
