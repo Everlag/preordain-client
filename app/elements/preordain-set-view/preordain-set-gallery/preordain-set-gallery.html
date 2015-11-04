@@ -29,11 +29,14 @@
     .fancyGrid .fancyText{
       color: white;
       background-color: rgba(0,0,0, 0.5);
+      top: 0.2em;
+      position: absolute;
+      font-size: 1.1em !important;
+    }
+    .fancyGrid .fancyText .decor{
       padding-top: 0.2em;
       padding-left: 0.2em;
       padding-right: 0.4em;
-      position: absolute;
-      font-size: 1.1em !important;
     }
     .fancyGrid .bottomButton{
       position: absolute;
@@ -87,17 +90,26 @@
         <template is="dom-repeat" items="{{_displayPrices}}">
             
           <div class="container">
-            <div class="vertical layout fancyText">
-              <div class="name">{{item.Name}}</div>
-              <div class="flex"></div>
-              <span>$<span>{{item.Price}}</span></span>
+            <div>
+              <mtg-card-art img-src="{{item.ImageLoc}}"></mtg-card-art>
             </div>
 
+            <!--
+              bottomButton and fancyText must appear below the
+              mtg-card-art due to stacking context shenanigans
+              wherein they get obscured by a temporary state
+            -->
             <div class="bottomButton">
               <paper-button on-tap="requestCard">view</paper-button>
             </div>
 
-            <mtg-card-art img-src="{{item.ImageLoc}}"></mtg-card-art>
+            <div class="vertical layout fancyText">
+              <div class="decor">
+                <div class="name">{{item.Name}}</div>
+                <div class="flex"></div>
+                <span>$<span>{{item.Price}}</span></span>
+              </div>
+            </div>
           </div>
 
         </template>

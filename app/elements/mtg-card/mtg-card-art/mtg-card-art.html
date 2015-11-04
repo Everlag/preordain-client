@@ -7,16 +7,49 @@
 
     img { 
       width: 100%; 
-      height: auto; 
+      height: auto;
+    }
+
+    #placeHolder{
+      /*blur the image to fall in line with #tiny*/
+      filter: blur(5px);
+      -webkit-filter: blur(5px);
+      -moz-filter: blur(5px);
+      -o-filter: blur(5px);
+      -ms-filter: blur(5px);
+      /*Force the browser to use the gpu*/
+      -webkit-transform: translate3d(0, 0, 0);
+      -moz-transform: translate3d(0, 0, 0);
+      transform: translate3d(0, 0, 0);
+      opacity: 0.7;
+    }
+
+    #tiny{
+      /*blur the image to hide the shameful quality*/
+      filter: blur(5px);
+      -webkit-filter: blur(5px);
+      -moz-filter: blur(5px);
+      -o-filter: blur(5px);
+      -ms-filter: blur(5px);
+      /*Force the browser to use the gpu*/
+      -webkit-transform: translate3d(0, 0, 0);
+      -moz-transform: translate3d(0, 0, 0);
+      transform: translate3d(0, 0, 0);
+
+      /*Fill any container but don't overfill*/
+      max-width: 100%;
+      width: 1200px;
     }
 
   </style>
 
   <template>
 
-    <img hidden$="{{_loaded}}" id="placeHolder" src$="{{_placeHolder}}">
+    <img hidden$="{{_anyLoaded}}" id="placeHolder" src$="{{_placeHolder}}">
 
-    <img hidden$="{{!_loaded}}" id="img" src$="{{imgSrc}}">
+    <img hidden$="{{!_showTiny}}" id="tiny" src$="{{_tinyImgSrc}}">
+
+    <img hidden$="{{!_loaded}}" id="img" src$="{{_storedSource}}">
   
   </template>
 

@@ -6,6 +6,7 @@ const remote = {
     cardText: 'https://beta.perfectlag.me/cardText/',
     cardSymbol: 'https://beta.perfectlag.me/cardSymbols/',
     cardImage: 'https://beta.perfectlag.me/cardImages/',
+    cardImageTiny: 'https://beta.perfectlag.me/cardImagesTiny/',
     cardPrice: 'https://beta.perfectlag.me/api/Prices/Card',
     setPrice: 'https://beta.perfectlag.me/api/Prices/Set',
     typeAhead: 'https://beta.perfectlag.me/typeAhead/%QUERY.json',
@@ -41,6 +42,26 @@ let urlBuilders = {};
         }
 
         return `${remote.cardImage}${inner}${imageName}.jpg`;
+    };
+
+    // Returns the URL of an image given the card's imageName
+    // and an optional setName.
+    //
+    // This is the stripped down thumbnail instead of the full quality
+    urlBuilders.TinyImageURL = (imageName, setName = '') => {
+        // Translate the setname to offial name
+        // and then to the proper set code if possible
+        let inner = '';
+
+        if (setName.trim().length > 0) {
+          // We make the assumption any set we get is an
+          // internal display set
+          let official = displayToOfficialSets[setName];
+          // We do not assume the set code is present
+          if (official in setToShort) inner = `${setToShort[official]}/`;
+        }
+
+        return `${remote.cardImageTiny}${inner}${imageName}.jpg`;
     };
 
     // Card price URL builders
