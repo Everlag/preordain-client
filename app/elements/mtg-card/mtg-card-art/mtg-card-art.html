@@ -38,19 +38,28 @@
 
       /*Fill any container but don't overfill*/
       max-width: 100%;
-      width: 1200px;
+      width: 100%;
+    }
+
+    #holster{
+      max-width: 100%;
+      width: 100%;
     }
 
   </style>
 
   <template>
 
-    <img hidden$="{{_anyLoaded}}" id="placeHolder" src$="{{_placeHolder}}">
+    <div id="holster">
 
-    <img hidden$="{{!_showTiny}}" id="tiny" src$="{{_tinyImgSrc}}">
+      <img hidden$="{{_anyLoaded}}" id="placeHolder" src$="{{_placeHolder}}">
 
-    <img hidden$="{{!_loaded}}" id="img" src$="{{_storedSource}}">
-  
+      <img hidden$="{{!_showTiny}}" id="tiny" src$="{{_tinyImgSrc}}">
+
+      <img hidden$="{{!_loaded}}" id="img" src$="{{_storedSource}}">
+    
+    </div>
+
   </template>
 
 
