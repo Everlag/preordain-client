@@ -63,40 +63,44 @@
 
         <!-- Main Content -->
         <div class="content" id="content">
-          <iron-pages attr-for-selected="data-route" selected="{{route}}">
 
-            <section data-route="home">
+          <neon-animated-pages selected="[[_cleanRoute]]"
+          attr-for-selected="data-route"
+          entry-animation="[[_entry]]" exit-animation="[[_exit]]">
+
+            <neon-animatable data-route="home">
               <paper-material elevation="1">
                 This is home, it could use some work!
                 <preordain-md work="announce"></preordain-md>
               </paper-material>
-            </section>
+            </neon-animatable>
 
-            <section data-route="card">
+            <neon-animatable data-route="card">
               <template is="dom-if" if="[[viewed.card]]">
                 <preordain-card-view
                 name="[[cardParams.name]]"
                 set="[[cardParams.set]]"></preordain-card-view>
               </template>
-            </section>
-
-            <section data-route="set">
+            </neon-animatable>
+            
+            <neon-animatable data-route="set">
               <template is="dom-if" if="[[viewed.set]]">
                 <preordain-set-view name="[[setParams.set]]"
                 on-request-card="cardRequested"
                 ></preordain-set-view>
               </template>
-            </section>
-
-            <section data-route="sets">
+            </neon-animatable>
+            
+            <neon-animatable data-route="sets">
               <template is="dom-if" if="[[viewed.sets]]">
                 <preordain-set-list
                 on-request-set="setRequested"
                 ></preordain-set-list>
               </template>
-            </section>
+            </neon-animatable>
 
-          </iron-pages>
+          </neon-animated-pages>
+
         </div>
       </paper-header-panel>
     </paper-drawer-panel>

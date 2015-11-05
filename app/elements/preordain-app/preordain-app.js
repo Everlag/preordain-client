@@ -1,5 +1,33 @@
 (function () {
 
+
+  // The keying function used to encode
+  // route-pairs for transitions.
+  let tkey = (a)=> a.join();
+
+  // The standard [exit, entry] pair
+  // to 
+  let standardTransition = [
+    'slide-left-animation',
+    'slide-from-right-animation'
+  ];
+
+  let backwardTransition = [
+    'slide-right-animation',
+    'slide-from-left-animation'
+  ];
+
+  // Converts a route array of form
+  // [from, to]
+  // into a transition pair of form
+  // [exit, entry]
+  let transitions = new Map();
+  // Backward transitions, each from is spatially scoped
+  // to be a subset of the from
+  transitions.set(tkey(['card', 'set']), backwardTransition);
+  transitions.set(tkey(['card', 'sets']), backwardTransition);
+  transitions.set(tkey(['set', 'sets']), backwardTransition);
+
   Polymer({
     // preorda.in the Custom Element!
     is: 'preordain-app',
@@ -7,6 +35,22 @@
       route: {
         type: String,
         value: 'home',
+        observer: '_newRoute'
+      },
+      // Intermediate used for adjusting animations
+      // before they occur
+      _cleanRoute: {
+        type: String,
+        value: '',
+      },
+      // Transition animations
+      _entry: {
+        type: String,
+        value: 'slide-from-right-animation',
+      },
+      _exit: {
+        type: String,
+        value: 'slide-left-animation',
       },
       // Responsive layout
       big: {
@@ -99,6 +143,15 @@
       // Navigate to the desired set
       page(`/set/${Name}`);
     },
+    _newRoute: function(fresh, old) {
+      // Change animations contextually!
+      let transition = transitions.get(tkey([old, fresh]));
+      if (!transition) transition = standardTransition;
+      [this._exit, this._entry] = transition;
+
+      // Setup the viewed route
+      this._cleanRoute = fresh;
+    }
 
   });
 })();
