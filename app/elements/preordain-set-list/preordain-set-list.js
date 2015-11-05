@@ -53,6 +53,7 @@
       // Also sort by descending timestamp
       this._sets = setArray
         .filter((s)=> !s.includes('Foil'))
+        .filter((s)=> !isNaN(displaySetReleases[s]))
         .sort((a, b)=> displaySetReleases[a] - displaySetReleases[b])
         .reverse();
 
