@@ -34,7 +34,7 @@
     properties: {
       route: {
         type: String,
-        value: 'home',
+        value: undefined,
         observer: '_newRoute'
       },
       // Intermediate used for adjusting animations
