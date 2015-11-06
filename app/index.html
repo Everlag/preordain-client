@@ -41,6 +41,16 @@
     if ('#HASH_BANGS#' === false) {
       hashbang = false;
     };
+
+    // Switch on some conveniences in dev mode that
+    // we don't want in distribution builds
+    if (hashbang) {
+      // Press f12 stop execution.
+      // Handy for dealing with preordain-typeahead!
+      window.addEventListener('keydown', (e)=>{
+        if (e.keyCode == 123) debugger;
+      });
+    };
   </script>
 
 </body>
