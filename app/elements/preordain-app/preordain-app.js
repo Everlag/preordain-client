@@ -3,7 +3,11 @@
 
   // The keying function used to encode
   // route-pairs for transitions.
-  let tkey = (a)=> a.join();
+  let tkey = (a)=>{
+    // Special case of moving to home; no spatial relation
+    if (a.some((r)=> r === 'home')) a = ['home', '*'] ;
+    return a.join();
+  };
 
   // The standard [exit, entry] pair
   // to 
@@ -17,6 +21,11 @@
     'slide-from-left-animation'
   ];
 
+  let opacityTransition = [
+    'fade-out-animation',
+    'fade-in-animation'
+  ];
+
   // Converts a route array of form
   // [from, to]
   // into a transition pair of form
@@ -27,6 +36,9 @@
   transitions.set(tkey(['card', 'set']), backwardTransition);
   transitions.set(tkey(['card', 'sets']), backwardTransition);
   transitions.set(tkey(['set', 'sets']), backwardTransition);
+  // Anything involving home gets transformed into this
+  // A fade transition means no spatial relation!
+  transitions.set(tkey(['home', '*']), opacityTransition);
 
   Polymer({
     // preorda.in the Custom Element!
