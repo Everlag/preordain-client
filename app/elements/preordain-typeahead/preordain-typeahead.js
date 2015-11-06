@@ -56,6 +56,11 @@
         type: Boolean,
         value: false,
       },
+      limit: {
+        type: Number,
+        value: 5,
+        notify: true,
+      },
       _small: {
         type: Boolean,
         value: false,
@@ -82,7 +87,10 @@
           replace: customReplacer,
           filter: (list)=> {
             // Filter out any official set names the remote presents to us.
-            list = list.filter((s)=> !setList.has(s));
+            // Also choices to the
+            list = list
+              .filter((s)=> !setList.has(s))
+              .splice(0, this.limit);
             return list.map((s)=> {
               return {name: s};
             });
@@ -128,9 +136,14 @@
         name: 'names',
         display: 'name',
         source: names.ttAdapter(),
-        limit: 5,
+        limit: this.limit,
         templates:{
-          suggestion: wrappedSuggestion
+          suggestion: wrappedSuggestion,
+          pending: `<span class="vertical layout center flex">
+            <preordain-status status="loading"></preordain-status>
+            waiting
+          </span>`,
+          notFound: `<preordain-status status="error" error="Nothing Found"></preordain-status>`,
         }
       });
 
@@ -150,6 +163,12 @@
         'choice':selection,
         'isSet': displaySets.has(selection),
       });
+
+      // Clear the current value
+      //
+      // Mobile users don't want to have to backspace for
+      // a new search.
+      this.setValue('');
     },
     // Cleanly sets the value of the typeahead
     setValue: function(v) {
