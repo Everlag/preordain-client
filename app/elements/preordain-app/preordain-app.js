@@ -89,9 +89,20 @@
           };
         },
       },
+      // Knowledge of currently active route
+      active: {
+        type: Object,
+        value: ()=> {
+          return {
+            'card': false,
+            'set': false,
+            'sets': false,
+          };
+        },
+      },
     },
     attached: function() {
-      
+
       // Build the routes!
       buildRoutes(this);
 
@@ -113,8 +124,16 @@
     viewedChanged: function(){
       // Don't bother if its already been viewed
       this.viewed = JSON.parse(JSON.stringify(this.viewed));
-      // Scroll to the top of the page
-      this.$.content.scrollIntoView();
+    },
+    // Lets the current route know its active
+    setActive: function(view) {
+      // Clear others
+      for (let v in this.active) this.active[v] = false;
+      // Set this
+      this.active[view] = true;
+
+      // Force the notification
+      this.active = JSON.parse(JSON.stringify(this.active));
     },
     // Close drawer after menu item is selected if drawerPanel is narrow
     onMenuSelect: function(){
@@ -148,7 +167,26 @@
       let transition = transitions.get(tkey([old, fresh]));
       if (!transition) transition = standardTransition;
       [this._exit, this._entry] = transition;
+      
+      // Determine when to scroll the top content into view
+      let isAnimating = ()=> {
+        return document.querySelectorAll('.neon-animating').length !== 0;
+      };
+      let signalOnAnimEnd = ()=> {
+        // Check if we're animating, if we are wait a moment
+        // then check again
+        if (isAnimating()){
+          this.async(signalOnAnimEnd, 50);
+          return;
+        }
 
+        // Scroll to the top of the page
+        this.$.content.scrollIntoView();
+      };
+      // Let the animation start before checking
+      // that its completed
+      this.async(signalOnAnimEnd, 10);
+      
       // Setup the viewed route
       this._cleanRoute = fresh;
     }

@@ -27,6 +27,7 @@ let buildRoutes;
       app.route = 'card';
       app.viewed.card = true;
       app.viewedChanged();
+      app.setActive(app.route);
 
       title(`${data.params.name}`);
     });
@@ -36,6 +37,7 @@ let buildRoutes;
       app.route = 'set';
       app.viewed.set = true;
       app.viewedChanged();
+      app.setActive(app.route);
 
       title(`${setToShort[displayToOfficialSets[data.params.set]]}`);
     });
@@ -44,6 +46,7 @@ let buildRoutes;
       app.route = 'sets';
       app.viewed.sets = true;
       app.viewedChanged();
+      app.setActive(app.route);
 
       title('Setlist');
     });

@@ -86,6 +86,7 @@
             <neon-animatable data-route="set">
               <template is="dom-if" if="[[viewed.set]]">
                 <preordain-set-view name="[[setParams.set]]"
+                active="[[active.set]]"
                 on-request-card="cardRequested"
                 ></preordain-set-view>
               </template>
@@ -94,6 +95,7 @@
             <neon-animatable data-route="sets">
               <template is="dom-if" if="[[viewed.sets]]">
                 <preordain-set-list
+                active="[[active.sets]]"
                 on-request-set="setRequested"
                 ></preordain-set-list>
               </template>

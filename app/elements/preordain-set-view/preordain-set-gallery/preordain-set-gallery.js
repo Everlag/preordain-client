@@ -21,6 +21,10 @@
         notify: true,
         observer: '_facetChanged',
       },
+      active: {
+        type: Boolean,
+        value: false,
+      },
       _displayPrices: {
         type: Array,
         value: ()=> [],
@@ -52,6 +56,9 @@
 
       // Load up the next callback
       this.async(this._inView, 300);
+
+      // Not active? Don't bother!
+      if (!this.active) return;
 
       if (this.$.bottomStopper.hidden && this._prices.length === 0) {
         return;

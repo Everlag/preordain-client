@@ -12,6 +12,10 @@
         notify: true,
         observer: '_facetChanged',
       },
+      active: {
+        type: Boolean,
+        value: false,
+      },
     },
     attached: function() {
     },

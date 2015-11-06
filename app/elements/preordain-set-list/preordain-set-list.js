@@ -12,6 +12,10 @@
     // A full list of supported sets
     is: 'preordain-set-list',
     properties: {
+      active: {
+        type: Boolean,
+        value: false,
+      },
       _displaySets: {
         type: Array,
         value: ()=> [],
@@ -73,12 +77,15 @@
       // When on another view, such as /card/:name,
       // both are true, we want to avoid saying we reached
       // the bottom in that sitatuon!
-      if (atBottom &&
+      //
+      // When transitioning, things get funky so we check
+      // only if we're the active element.
+      if (atBottom && this.active &&
           (!refViewed || this._dirtyCheck)) this._bottomReached();
 
       // If we can see the bottom and not the top ever,
       // then we can stop using the dirty check.
-      if (atBottom && !refViewed) this._dirtyCheck = false;
+      if (atBottom && !refViewed && !this.active) this._dirtyCheck = false;
 
       // Check if we're out of sets
       if (this._sets.length === 0) {
