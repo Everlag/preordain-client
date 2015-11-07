@@ -54,9 +54,13 @@
 
       // We don't want to deal with the foil counterpart!
       //
+      // Duel decks are also undesirable due to lack of
+      // signficiant value.
+      //
       // Also sort by descending timestamp
       this._sets = setArray
         .filter((s)=> !s.includes('Foil'))
+        .filter((s)=> !s.includes('Duel Decks'))
         .filter((s)=> !isNaN(displaySetReleases[s]))
         .sort((a, b)=> displaySetReleases[a] - displaySetReleases[b])
         .reverse();
