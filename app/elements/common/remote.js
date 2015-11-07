@@ -3,14 +3,14 @@
 
 // Store all remote urls so we don't overly pollute global scope
 const remote = {
-    cardText: 'https://beta.perfectlag.me/cardText/',
-    cardSymbol: 'https://beta.perfectlag.me/cardSymbols/',
-    cardImage: 'https://beta.perfectlag.me/cardImages/',
-    cardImageTiny: 'https://beta.perfectlag.me/cardImagesTiny/',
-    cardPrice: 'https://beta.perfectlag.me/api/Prices/Card',
-    setPrice: 'https://beta.perfectlag.me/api/Prices/Set',
-    typeAhead: 'https://beta.perfectlag.me/typeAhead/%QUERY.json',
-    users: 'https://beta.perfectlag.me/api/Users',
+    cardText: 'https://preorda.in/backend/cardText/',
+    cardSymbol: 'https://preorda.in/backend/cardSymbols/',
+    cardImage: 'https://preorda.in/backend/cardImages/',
+    cardImageTiny: 'https://preorda.in/backend/cardImagesTiny/',
+    cardPrice: 'https://preorda.in/backend/api/Prices/Card',
+    setPrice: 'https://preorda.in/backend/api/Prices/Set',
+    typeAhead: 'https://preorda.in/backend/typeAhead/%QUERY.json',
+    users: 'https://preorda.in/backend/api/Users',
 };
 
 // Store all the suffixes here.
