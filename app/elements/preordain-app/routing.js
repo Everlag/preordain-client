@@ -18,6 +18,7 @@ let buildRoutes;
     // load sections as they are viewed
     page('/', function () {
       app.route = 'home';
+      app.setActive(app.route);
 
       title('preordain');
     });
