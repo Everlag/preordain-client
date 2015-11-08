@@ -46,7 +46,7 @@
     "gulp-prefix": "0.0.14",
     "gulp-rename": "^1.2.2",
     "gulp-util": "^3.0.6",
-    "gulp-zip": "^3.0.2",
+    "gulp-zip": "^2.0.3",
     "lazypipe": "^1.0.1",
     "polyclean": "https://github.com/Everlag/polyclean/tarball/c395875376b4933941c7f4db5895d33c77608f1a"
   }
