@@ -11,3 +11,5 @@ Now? Cut down to the core of a [set list](https://preorda.in/sets), [set galleri
 ## Let me know what you want
 
 Here's a survey, it's short. I want preorda.in to have a niche, you decide which one it fills. Open until November 22.
+
+If you have any questions, you probably got here from a forum. If you didn't, try me on twitter [@ExcessiveLag](https://twitter.com/ExcessiveLag)
