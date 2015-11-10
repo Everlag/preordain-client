@@ -132,11 +132,6 @@
         console.log(`Absolute load time is ${fullLoad}ms`);
       }, 100);
     },
-    // Notifies that a location has changed
-    viewedChanged: function(){
-      // Don't bother if its already been viewed
-      this.viewed = JSON.parse(JSON.stringify(this.viewed));
-    },
     // Lets the current route know its active
     setActive: function(view) {
       // Clear others

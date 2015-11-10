@@ -27,7 +27,7 @@ let buildRoutes;
       app.cardParams = data.params;
       app.route = 'card';
       app.viewed.card = true;
-      app.viewedChanged();
+      app.set('viewed.card', app.viewed.card);
       app.setActive(app.route);
 
       title(`${data.params.name}`);
@@ -37,7 +37,7 @@ let buildRoutes;
       app.setParams = data.params;
       app.route = 'set';
       app.viewed.set = true;
-      app.viewedChanged();
+      app.set('viewed.set', app.viewed.set);
       app.setActive(app.route);
 
       title(`${setToShort[displayToOfficialSets[data.params.set]]}`);
@@ -46,7 +46,7 @@ let buildRoutes;
     page('/sets', function (data) {
       app.route = 'sets';
       app.viewed.sets = true;
-      app.viewedChanged();
+      app.set('viewed.sets', app.viewed.sets);
       app.setActive(app.route);
 
       title('Setlist');
