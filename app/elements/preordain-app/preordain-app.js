@@ -122,15 +122,6 @@
       let loaded = performance.now();
       let polymerLoad = (loaded-started).toFixed();
       console.log(`Our app is ready to rock, start time is ${polymerLoad}ms`);
-
-      // Show off absolute performance timing
-      //
-      // Defer for a moment to allow loadStart to fire
-      this.async(()=> {
-        let timing = performance.timing;
-        let fullLoad = timing.loadEventStart - timing.navigationStart;
-        console.log(`Absolute load time is ${fullLoad}ms`);
-      }, 100);
     },
     // Lets the current route know its active
     setActive: function(view) {
