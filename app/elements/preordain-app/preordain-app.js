@@ -131,7 +131,7 @@
       this.active[view] = true;
 
       // Force the notification
-      this.active = JSON.parse(JSON.stringify(this.active));
+      this.set('active', this.active);
     },
     // Close drawer after menu item is selected if drawerPanel is narrow
     onMenuSelect: function(){
