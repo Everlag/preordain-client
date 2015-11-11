@@ -47,7 +47,7 @@
     if (hashbang) {
       // Press f12 stop execution.
       // Handy for dealing with preordain-typeahead!
-      window.addEventListener('keydown', (e)=>{
+      window.addEventListener('keydown', function(e){
         if (e.keyCode == 123) debugger;
       });
     };
