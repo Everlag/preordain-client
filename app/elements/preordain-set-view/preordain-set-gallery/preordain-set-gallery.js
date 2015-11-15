@@ -2,11 +2,11 @@
 
   // Sets to add to display on a mobile
   // where everything is vertical
-  let smallBatch = 5;
+  let smallBatch = 20;
   // Sets to display on a desktop with a lot
   // of horizontal room 
-  let bigBatch = 20;
-  let batchSize = 10;
+  let bigBatch = 30;
+  let batchSize = 20;
 
   Polymer({
     // A full set's gallery of cards with prices.
