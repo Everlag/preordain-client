@@ -65,9 +65,9 @@
       }
 
       // Check if we can see the topmost reference element
-      let refViewed = inView(this.$.topSignage);
+      let refViewed = $(this.$.topSignage).isOnScreen();
       // Check if we can see the bottom element we append by
-      let atBottom = inView(this.$.bottomStopper);
+      let atBottom = $(this.$.bottomStopper).isOnScreen(0.1, 0.1);
 
       // If we can see the bottom but not the top, then
       // we have reached the bottom.
