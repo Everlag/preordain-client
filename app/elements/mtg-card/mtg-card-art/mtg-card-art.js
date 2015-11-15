@@ -45,6 +45,23 @@
       // Add a manual listener
       this.$.img.addEventListener('load',()=> this._hasLoaded());
       this.$.tiny.addEventListener('load',()=> this._tinyLoaded());
+      
+      this.async(this._inView, 100);
+    },
+    _inView: function(){
+
+      // Set up the next view
+      //
+      // It's important to always check,
+      // the src could've changed!
+      this.async(this._inView, 100);
+
+      // Early exit if we've already loaded everything
+      // or we're not actually in the view of the user.
+      if (this._loaded || !$(this).isOnScreen(0.1, 0.1)) return;
+
+      // If we've loaded the tiny, attempt to pull the full
+      if (this._anyLoaded) this._pullFull();
     },
     _hasLoaded: function(){
       // Remove the placeholder.
@@ -55,9 +72,11 @@
     _tinyLoaded: function(){
       // Remove the placeholder.
       this._anyLoaded = true;
+      
       // Show the thumbnail only if we don't already have the full
       if (!this._loaded) this._showTiny = true;
-
+    },
+    _pullFull: function(){
       // Start loading the full source if the stored source
       // hasn't gone stale already
       //
