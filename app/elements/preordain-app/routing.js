@@ -17,37 +17,27 @@ let buildRoutes;
     // All navigation goes through this. Thus, we use this to lazily
     // load sections as they are viewed
     page('/', function () {
-      app.route = 'home';
-      app.setActive(app.route);
+      app.setActive('home');
 
       title('preordain');
     });
 
     page('/card/:name/:set?', function (data) {
       app.cardParams = data.params;
-      app.route = 'card';
-      app.viewed.card = true;
-      app.set('viewed.card', app.viewed.card);
-      app.setActive(app.route);
+      app.setActive('card');
 
       title(`${data.params.name}`);
     });
 
     page('/set/:set', function (data) {
       app.setParams = data.params;
-      app.route = 'set';
-      app.viewed.set = true;
-      app.set('viewed.set', app.viewed.set);
-      app.setActive(app.route);
+      app.setActive('set');
 
       title(`${setToShort[displayToOfficialSets[data.params.set]]}`);
     });
 
     page('/sets', function (data) {
-      app.route = 'sets';
-      app.viewed.sets = true;
-      app.set('viewed.sets', app.viewed.sets);
-      app.setActive(app.route);
+      app.setActive('sets');
 
       title('Setlist');
     });

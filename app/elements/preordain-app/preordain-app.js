@@ -123,15 +123,22 @@
       let polymerLoad = (loaded-started).toFixed();
       console.log(`Our app is ready to rock, start time is ${polymerLoad}ms`);
     },
-    // Lets the current route know its active
-    setActive: function(view) {
+    // Handle context of a route change
+    setActive: function(route) {
       // Clear others
       for (let v in this.active) this.active[v] = false;
       // Set this
-      this.active[view] = true;
+      this.active[route] = true;
+
+      // Note that this has been viewed and notify
+      this.viewed[route] = true;
+      this.set(`viewed.${route}`, true)
 
       // Force the notification
       this.set('active', this.active);
+
+      // Actually move to new route
+      this.route = route;
     },
     // Close drawer after menu item is selected if drawerPanel is narrow
     onMenuSelect: function(){
