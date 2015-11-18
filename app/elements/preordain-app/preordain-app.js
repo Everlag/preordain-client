@@ -5,7 +5,8 @@
   // route-pairs for transitions.
   let tkey = (a)=>{
     // Special case of moving to home; no spatial relation
-    if (a.some((r)=> r === 'home')) a = ['home', '*'] ;
+    if (a.some((r)=> r === 'home')) a = ['home', '*'];
+    if (a.some((r)=> r === '_blank')) a = ['_blank', '*'];
     return a.join();
   };
 
@@ -39,6 +40,7 @@
   // Anything involving home gets transformed into this
   // A fade transition means no spatial relation!
   transitions.set(tkey(['home', '*']), opacityTransition);
+  transitions.set(tkey(['_blank', '*']), opacityTransition);
 
   Polymer({
     // preorda.in the Custom Element!
@@ -137,11 +139,18 @@
       // Force the notification
       this.set('active', this.active);
 
+      // Check if we're moving inside a route
+      let intraRoute = this.route === route;
+
       // Actually move to new route
       this.route = route;
+
+      // Force transition if we changed context inside a route,
+      // the route change handler will navigate for us/
+      if (intraRoute) this.route = '_blank';
     },
     // Close drawer after menu item is selected if drawerPanel is narrow
-    onMenuSelect: function(){
+    onMenuSelect: function(e){
       var drawerPanel = this.$.paperDrawerPanel;
       if (drawerPanel.narrow) {
         drawerPanel.closeDrawer();
@@ -187,6 +196,10 @@
 
         // Scroll to the top of the page
         this.$.content.scrollIntoView();
+
+        // If we transitioned to a blank place to just animate,
+        // head back to where we should be.
+        if (fresh === '_blank') this.route = old;
       };
       // Let the animation start before checking
       // that its completed

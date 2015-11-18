@@ -18,7 +18,9 @@
         </paper-toolbar>
 
         <!-- Drawer Content -->
-          <paper-menu class="list" attr-for-selected="data-route" selected="{{route}}" on-iron-select="onMenuSelect">
+          <paper-menu class="list"
+          attr-for-selected="data-route"
+          on-iron-select="onMenuSelect">
               <a data-route="home" href="/">
                 <iron-icon icon="home"></iron-icon>
                 <span>Home</span>
@@ -91,6 +93,10 @@
                 on-request-set="setRequested"
                 ></preordain-set-list>
               </template>
+            </neon-animatable>
+
+            <!-- Manual placeholder for blanking -->
+            <neon-animatable data-route="_blank">
             </neon-animatable>
 
           </neon-animated-pages>
