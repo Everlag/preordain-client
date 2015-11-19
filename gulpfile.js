@@ -114,6 +114,11 @@ gulp.task('copy', function () {
     'bower_components/**/*'
   ]).pipe(gulp.dest('dist/bower_components'));
 
+  var babel_polyfill = gulp.src([
+    'node_modules/**/polyfill.min.js'
+  ]).pipe(gulp.dest('dist/node_modules'));
+
+
   var elements = gulp.src(['app/elements/**/*.html'])
     .pipe(gulp.dest('dist/elements'));
 
@@ -237,6 +242,7 @@ gulp.task('flatten', function(){
   var dependencies = [
      elements + ".html",
      'dist/bower_components/webcomponentsjs/webcomponents-lite.min.js',
+     'dist/node_modules/babel-polyfill/dist/polyfill.min.js',
      'dist/scripts/app.js',
      'dist/styles/main.css',
      'dist/index.html',
@@ -252,6 +258,7 @@ gulp.task('flatten', function(){
     .pipe($.if('*.html', $.replace('styles/', '')))
     .pipe($.if('*.html', $.replace('elements/', '')))
     .pipe($.if('*.html', $.replace('bower_components/webcomponentsjs/', '')))
+    .pipe($.if('*.html', $.replace('node_modules/babel-polyfill/dist/', '')))
     .pipe(gulp.dest(DEST_DIR)) // To the base directory
     // Make all urls relative for deployment version for cachability
     .pipe($.if('*.html', prefix(prefixURL, null)));
@@ -291,7 +298,8 @@ gulp.task('serve', function () {
       baseDir: ['.tmp', 'dist', 'app'],
       middleware: [],
       routes: {
-        '/bower_components': 'bower_components'
+        '/bower_components': 'bower_components',
+        '/node_modules': 'node_modules'
       }
     }
   });
