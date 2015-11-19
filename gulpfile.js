@@ -206,7 +206,18 @@ gulp.task('vulcanize', ['meta'], function () {
 gulp.task('babel', function () {
   var DEST_DIR = 'dist';
 
-  var opts = {ignore: ['**/d3.v3.js', '**/rickshaw.js']};
+  var plugins = [
+    'transform-member-expression-literals',
+    'transform-merge-sibling-variables',
+    'transform-minify-booleans',
+    'transform-simplify-comparison-operators'
+  ]
+
+  var opts = {
+    presets: ["es2015"],
+    plugins: plugins,
+    ignore: ['**/d3.v3.js', '**/rickshaw.js']
+  };
 
   return gulp.src(['app/**/*.js'])
     .pipe($.sourcemaps.init())
