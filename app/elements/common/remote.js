@@ -34,6 +34,9 @@ let urlBuilders = {};
         let inner = '';
 
         if (setName.trim().length > 0) {
+          // Strip possible foil prefix
+          setName = setName.replace(' Foil', '');
+
           // We make the assumption any set we get is an
           // internal display set
           let official = displayToOfficialSets[setName];
