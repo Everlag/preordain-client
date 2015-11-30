@@ -238,9 +238,11 @@ gulp.task('flatten', function(){
   var DEST_DIR = 'dist';
 
   var elements = 'dist/elements/elements.'+ buildInfo;
+  var images   = 'dist/images/touch/*';
 
   var dependencies = [
      elements + ".html",
+     images,
      'dist/bower_components/webcomponentsjs/webcomponents-lite.min.js',
      'dist/node_modules/babel-polyfill/dist/polyfill.min.js',
      'dist/scripts/app.js',
@@ -259,6 +261,7 @@ gulp.task('flatten', function(){
     .pipe($.if('*.html', $.replace('elements/', '')))
     .pipe($.if('*.html', $.replace('bower_components/webcomponentsjs/', '')))
     .pipe($.if('*.html', $.replace('node_modules/babel-polyfill/dist/', '')))
+    .pipe($.if('*.html', $.replace('images/touch/', '')))
     .pipe(gulp.dest(DEST_DIR)) // To the base directory
     // Make all urls relative for deployment version for cachability
     .pipe($.if('*.html', prefix(prefixURL, null)));
