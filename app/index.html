@@ -30,29 +30,87 @@
   <link rel="stylesheet" href="styles/main.css">
   <!-- endbuild-->
 
-  <!-- build:js bower_components/webcomponentsjs/webcomponents-lite.min.js -->
-  <script src="bower_components/webcomponentsjs/webcomponents-lite.js"></script>
-  <!-- endbuild -->
-
   <!-- Babel polyfill -->
-  <script src="node_modules/babel-polyfill/dist/polyfill.min.js"></script>
+  <script defer src="node_modules/babel-polyfill/dist/polyfill.min.js"></script>
 
 
   <!-- will be replaced with elements/elements.vulcanized.html -->
-  <link rel="import" href="elements/elements.html">
+  <link id="bundle" rel="import" href="elements/elements.html" async>
   <!-- endreplace-->
+
+  <style>
+    #splash {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      transition: opacity 300ms cubic-bezier(0,0,0.2,1);
+      opacity: 0;
+      will-change: opacity;
+      z-index: 1;
+      background-color: #B2DFDB;
+    }
+    #splash > div{
+      position: absolute;
+      top: 20%;
+      left: 50%;
+    }
+    #splashIcon{
+      border-radius: 50%;
+      background-color: #FF9800;
+      margin-left: -5em;
+      margin-top: -5em;
+      height: 10em;
+      width: 10em;
+      text-align: center;
+      line-height: 10em;
+      background-image: url(images/touch/favicon-310.png);
+      background-position:50% 50%;
+      background-size: 90%;
+      background-repeat:no-repeat;
+      box-shadow: 0 8px 10px 1px rgba(0, 0, 0, 0.14),
+                  0 3px 14px 2px rgba(0, 0, 0, 0.12),
+                  0 5px 5px -3px rgba(0, 0, 0, 0.4);
+    }
+    #splashText{
+      padding-top: 1em;
+      text-align: center;
+      margin-left: -5em;
+    }
+
+    body.loading #splash {
+      opacity: 1;
+    }
+  </style>
 </head>
 
-<body unresolved class="fullbleed layout vertical">
+<body class="loading fullbleed layout vertical">
 
   <span id="browser-sync-binding"></span>
 
+  <div id="splash">
+    <div>
+      <div id="splashIcon">
+      </div>
+      <div id="splashText">
+        Scry 2, then draw a card.
+      </div>
+    </div>
+  </div>
+
   <preordain-app></preordain-app>
 
-  <!-- build:js scripts/app.js -->
-  <script src="scripts/app.js"></script>
-  <!-- endbuild-->
+  <!--
+    Gulpfile script config point
+    
+    Babel doesn't touch this, so es5 please
+  -->
   <script type="text/javascript">
+
+    // Location of webcomponents polyfill
+    var webcomponentsPolyfill = 'bower_components/webcomponentsjs/webcomponents-lite.min.js'; 
+
     // Record the build id
     var buildTime = '#BUILD_INFO#';
 
@@ -73,6 +131,8 @@
       });
     };
   </script>
+
+  <script src="scripts/app.js" defer></script>
 
 </body>
 
