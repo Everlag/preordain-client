@@ -2,7 +2,7 @@
 
   // Sets to add to display on a mobile
   // where everything is vertical
-  let smallBatch = 20;
+  let smallBatch = 7;
   // Sets to display on a desktop with a lot
   // of horizontal room 
   let bigBatch = 30;
