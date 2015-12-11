@@ -71,7 +71,9 @@
       <div class="fancyGrid">
         <template is="dom-repeat" items="{{_displaySets}}">
           <div class="container">
-              <preordain-set-summary name="[[item]]"></preordain-set-summary>
+              <preordain-set-summary
+                name="[[item]]"
+                on-is-visible="_summaryVisible"></preordain-set-summary>
 
               <div class="bottomButton">
                 <paper-button on-tap="requestSet">view</paper-button>

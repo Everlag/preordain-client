@@ -6,16 +6,11 @@
   // Sets to display on a desktop with a lot
   // of horizontal room 
   let bigBatch = 30;
-  let batchSize = 20;
 
   Polymer({
     // A full list of supported sets
     is: 'preordain-set-list',
     properties: {
-      active: {
-        type: Boolean,
-        value: false,
-      },
       _displaySets: {
         type: Array,
         value: ()=> [],
@@ -27,11 +22,6 @@
       _big: {
         type: Boolean,
         value: false,
-        observer: '_batchChanged',
-      },
-      _dirtyCheck: {
-        type: Boolean,
-        value: true,
       },
       _batchSize: {
         type: Number,
@@ -45,12 +35,8 @@
         setArray.push(s);
       }
 
-      // Set the inital timeout to check for
-      // being at the bottom 
-      this.async(this._inView, 300);
-
-      // Set the inital batch size level
-      this._batchChanged();
+      // Set the batch size based on display size
+      if (this._big) this._batchSize = bigBatch;
 
       // We don't want to deal with the foil counterpart!
       //
@@ -67,38 +53,36 @@
 
       // Populate the inital batch
       this._bottomReached();
+
     },
     _inView: function(){
 
-      // Check if we can see the topmost reference element
-      let refViewed = $(this.$.topSignage).isOnScreen();
-      // Check if we can see the bottom element we append by
-      let atBottom = $(this.$.bottomStopper).isOnScreen(0.1, 0.1);
-
-      // If we can see the bottom but not the top, then
-      // we have reached the bottom.
-      //
-      // When on another view, such as /card/:name,
-      // both are true, we want to avoid saying we reached
-      // the bottom in that sitatuon!
-      //
-      // When transitioning, things get funky so we check
-      // only if we're the active element.
-      if (atBottom && this.active &&
-          (!refViewed || this._dirtyCheck)) this._bottomReached();
-
-      // If we can see the bottom and not the top ever,
-      // then we can stop using the dirty check.
-      if (atBottom && !refViewed && !this.active) this._dirtyCheck = false;
+      // Call for the next batch of sets,
+      // it doesn't matter if we're out
+      this._bottomReached();
 
       // Check if we're out of sets
       if (this._sets.length === 0) {
-        // Hide the bottom stopper
+        // Hide the bottom stopper if we are
         this.$.bottomStopper.hidden = true;
-        // Stop checking to see if we're at the bottom!
-        return;
       }
-      this.async(this._inView, 300);
+    },
+    _summaryVisible: function(e) {
+      
+      // Check to see where this set sits
+      let set = e.target.name;
+      let pos = this._displaySets.indexOf(set);
+      let remaining = this._displaySets.length - pos;
+
+      // Determine threshold for next batch based on display size
+      let threshold = this._batchSize / 2;
+      if (this._batchSize === bigBatch) {
+        threshold = this._batchSize / 4;
+      }
+
+      if (remaining < threshold){
+        this._inView();
+      }
     },
     requestSet: function(e){
       let data = {
@@ -113,13 +97,6 @@
 
       // Add the elements in an observable manner
       additions.forEach((item)=> this.push('_displaySets', item));
-    },
-    _batchChanged: function() {
-      if (this._big) {
-        this._batchSize = bigBatch;
-      }else{
-        this._batchSize = smallBatch;
-      }
     }
 
   });
