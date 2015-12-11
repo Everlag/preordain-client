@@ -6,6 +6,7 @@
     // While loading, or failure of, the image it shows a placeholder. This
     // prevents layout from being 'jostled'.
     is: 'mtg-card-art',
+    behaviors: [ViewNotifyBehavior],
     properties: {
       imgSrc: { // The source they want to show
         type: String,
@@ -45,23 +46,15 @@
       // Add a manual listener
       this.$.img.addEventListener('load',()=> this._hasLoaded());
       this.$.tiny.addEventListener('load',()=> this._tinyLoaded());
-      
-      this.async(this._inView, 100);
     },
-    _inView: function(){
+    // Callback for ViewNotifyBehavior to let us know
+    // we're sufficiently visible to the user
+    _viewNotify: function(){
+      // If we've loaded the tiny, attempt to pull the full only if
+      // we haven't already loaded it.
+      if (this.loaded || !this._anyLoaded) return;
 
-      // Set up the next view
-      //
-      // It's important to always check,
-      // the src could've changed!
-      this.async(this._inView, 100);
-
-      // Early exit if we've already loaded everything
-      // or we're not actually in the view of the user.
-      if (this._loaded || !$(this).isOnScreen(0.1, 0.1)) return;
-
-      // If we've loaded the tiny, attempt to pull the full
-      if (this._anyLoaded) this._pullFull();
+      this._pullFull();
     },
     _hasLoaded: function(){
       // Remove the placeholder.
