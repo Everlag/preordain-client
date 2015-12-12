@@ -86,10 +86,8 @@
           url: this.url,
           replace: customReplacer,
           filter: (list)=> {
-            // Filter out any official set names the remote presents to us.
-            // Also choices to the
+            // Filter choices down to the limit
             list = list
-              .filter((s)=> !setList.has(s))
               .splice(0, this.limit);
             return list.map((s)=> {
               return {name: s};
