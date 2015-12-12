@@ -4,12 +4,24 @@
     :host{
       display: block;
     }
+
+    mtg-set-symbol{
+      height: 1.7em;
+      width: 1.7em;
+    }
   </style>
 
   <template>
 
     <div>
-      <div>{{suggestion}}</div>
+      <div class="horizontal layout">
+        <span>{{suggestion}}</span>
+        <div class="flex"></div>
+        <template is="dom-if" if="{{_set}}">
+          <mtg-set-symbol id="setSymbol"
+          set="[[suggestion]]"></mtg-set-symbol>
+        </template>
+      </div>
       <template is="dom-if" if="{{_showPrices}}">
         <div class="horizontal layout">
           
