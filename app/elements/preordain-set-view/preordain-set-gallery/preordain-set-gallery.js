@@ -6,7 +6,6 @@
   // Sets to display on a desktop with a lot
   // of horizontal room 
   let bigBatch = 30;
-  let batchSize = 20;
 
   Polymer({
     // A full set's gallery of cards with prices.
@@ -47,40 +46,10 @@
         value: smallBatch,
       },
     },
-    attached: function(){
-      // Set the inital timeout to check for
-      // being at the bottom 
-      this.async(this._inView, 300);
-    },
     _inView: function(){
 
-      // Load up the next callback
-      this.async(this._inView, 300);
-
-      // Not active? Don't bother!
-      if (!this.active) return;
-
-      if (this.$.bottomStopper.hidden && this._prices.length === 0) {
-        return;
-      }
-
-      // Check if we can see the topmost reference element
-      let refViewed = $(this.$.topSignage).isOnScreen();
-      // Check if we can see the bottom element we append by
-      let atBottom = $(this.$.bottomStopper).isOnScreen(0.1, 0.1);
-
-      // If we can see the bottom but not the top, then
-      // we have reached the bottom.
-      //
-      // When on another view, such as /card/:name,
-      // both are true, we want to avoid saying we reached
-      // the bottom in that sitatuon!
-      if (atBottom &&
-          (!refViewed || this._dirtyCheck)) this._bottomReached();
-
-      // If we can see the bottom and not the top ever,
-      // then we can stop using the dirty check.
-      if (atBottom && !refViewed) this._dirtyCheck = false;
+      // Call for the next batch of cards
+      this._bottomReached();
 
       // Check if we're out of cards for now
       if (this._prices.length === 0) {
@@ -91,6 +60,22 @@
         this.$.bottomStopper.hidden = false;
       }
 
+    },
+    _cardVisible: function(e){
+      // Check to see where this card sits
+      let card = e.target.name;
+      let pos = this._displayPrices.findIndex((p)=> card === p.Name);
+      let remaining = this._displayPrices.length - pos;
+
+      // Determine threshold for next batch based on display size
+      let threshold = this._batchSize / 2;
+      if (this._batchSize === bigBatch) {
+        threshold = this._batchSize / 4;
+      }
+
+      if (remaining < threshold){
+        this._inView();
+      }
     },
     pricesDown: function(e){
       let prices = e.detail;

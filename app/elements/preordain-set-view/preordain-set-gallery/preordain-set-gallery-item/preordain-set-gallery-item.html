@@ -1,0 +1,42 @@
+<dom-module id="preordain-set-gallery-item">
+
+  <style>
+    :host {
+      display: block;
+    }
+
+    .decor{
+      padding-top: 0.2em;
+      padding-left: 0.2em;
+      padding-right: 0.4em;
+    }
+
+    .fancyText{
+      color: white;
+      background-color: rgba(0,0,0, 0.5);
+      top: 0.2em;
+      position: absolute;
+      font-size: 1.1em !important;
+    }
+  </style>
+
+  <template>
+
+    <div>
+      <mtg-card-art img-src="[[imageLoc]]"></mtg-card-art>
+    </div>
+
+    <div class="vertical layout fancyText">
+      <div class="decor">
+        <div class="name">[[name]]</div>
+        <div class="flex"></div>
+        <span>$<span>[[price]]</span></span>
+      </div>
+    </div>
+
+  </template>
+
+
+</dom-module>
+
+<script src="preordain-set-gallery-item.js"></script>
