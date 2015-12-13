@@ -1,12 +1,5 @@
 (function () {
 
-  // Sets to add to display on a mobile
-  // where everything is vertical
-  let smallBatch = 7;
-  // Sets to display on a desktop with a lot
-  // of horizontal room 
-  let bigBatch = 30;
-
   Polymer({
     // A full list of supported sets
     is: 'preordain-set-list',
@@ -19,13 +12,9 @@
         type: Array,
         value: ()=> [],
       },
-      _big: {
-        type: Boolean,
-        value: false,
-      },
       _batchSize: {
         type: Number,
-        value: smallBatch,
+        value: 10,
       },
     },
     attached: function() {
@@ -34,9 +23,6 @@
       for (let s of displaySets){
         setArray.push(s);
       }
-
-      // Set the batch size based on display size
-      if (this._big) this._batchSize = bigBatch;
 
       // We don't want to deal with the foil counterpart!
       //
@@ -74,11 +60,8 @@
       let pos = this._displaySets.indexOf(set);
       let remaining = this._displaySets.length - pos;
 
-      // Determine threshold for next batch based on display size
+      // Determine threshold for next batch
       let threshold = this._batchSize / 2;
-      if (this._batchSize === bigBatch) {
-        threshold = this._batchSize / 4;
-      }
 
       if (remaining < threshold){
         this._inView();

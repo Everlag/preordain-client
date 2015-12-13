@@ -1,12 +1,5 @@
 (function () {
 
-  // Sets to add to display on a mobile
-  // where everything is vertical
-  let smallBatch = 7;
-  // Sets to display on a desktop with a lot
-  // of horizontal room 
-  let bigBatch = 30;
-
   Polymer({
     // A full set's gallery of cards with prices.
     //
@@ -32,18 +25,13 @@
         type: Array,
         value: ()=> [],
       },
-      _big: {
-        type: Boolean,
-        value: false,
-        observer: '_batchChanged',
-      },
       _dirtyCheck: {
         type: Boolean,
         value: true,
       },
       _batchSize: {
         type: Number,
-        value: smallBatch,
+        value: 10,
       },
     },
     _inView: function(){
@@ -67,11 +55,8 @@
       let pos = this._displayPrices.findIndex((p)=> card === p.Name);
       let remaining = this._displayPrices.length - pos;
 
-      // Determine threshold for next batch based on display size
+      // Determine threshold for next batch
       let threshold = this._batchSize / 2;
-      if (this._batchSize === bigBatch) {
-        threshold = this._batchSize / 4;
-      }
 
       if (remaining < threshold){
         this._inView();
@@ -93,9 +78,6 @@
 
       this._prices = prices;
 
-      // Set the inital batch size level
-      this._batchChanged();
-
       // Populate the inital batch
       this._bottomReached();
     },
@@ -113,13 +95,6 @@
 
       // Add the elements in an observable manner
       additions.forEach((item)=> this.push('_displayPrices', item));
-    },
-    _batchChanged: function() {
-      if (this._big) {
-        this._batchSize = bigBatch;
-      }else{
-        this._batchSize = smallBatch;
-      }
     },
     requestCard: function(e){
       let data = {
