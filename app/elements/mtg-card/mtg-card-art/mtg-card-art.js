@@ -50,11 +50,14 @@
     // Callback for ViewNotifyBehavior to let us know
     // we're sufficiently visible to the user
     _viewNotify: function(){
+
       // If we've loaded the tiny, attempt to pull the full only if
       // we haven't already loaded it.
       if (this.loaded || !this._anyLoaded) return;
 
       this._pullFull();
+
+      return true;
     },
     _hasLoaded: function(){
       // Remove the placeholder.
@@ -66,8 +69,12 @@
       // Remove the placeholder.
       this._anyLoaded = true;
       
-      // Show the thumbnail only if we don't already have the full
-      if (!this._loaded) this._showTiny = true;
+      // Show the thumbnail and check for visibility
+      // only if we don't already have the full
+      if (!this._loaded){
+        this._ViewNotifyStartCheck();
+        this._showTiny = true;
+      }
     },
     _pullFull: function(){
       // Start loading the full source if the stored source
