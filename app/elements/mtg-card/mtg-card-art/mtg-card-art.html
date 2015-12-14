@@ -52,11 +52,14 @@
 
     <div id="holster">
 
-      <img hidden$="{{_anyLoaded}}" id="placeHolder" src$="{{_placeHolder}}">
+      <img hidden$="{{_anyLoaded}}" id="placeHolder" src$="{{_placeHolder}}"
+      draggable="false">
 
-      <img hidden$="{{!_showTiny}}" id="tiny" src$="{{_tinyImgSrc}}">
+      <img hidden$="{{!_showTiny}}" id="tiny" src$="{{_tinyImgSrc}}"
+      draggable="false">
 
-      <img hidden$="{{!_loaded}}" id="img" src$="{{_storedSource}}">
+      <img hidden$="{{!_loaded}}" id="img" src$="{{_storedSource}}"
+      draggable="false">
     
     </div>
 
