@@ -22,6 +22,10 @@
     _facetChanged: function(){
       // Ensure we are dealing only with valid set names
       if (!displaySets.has(this.name)) throw 'invalid set name';
+
+      // Let the parent know any recorded scroll position is now
+      // completely invalid
+      this.fire('discard-scroll', 'set');
     },
 
   });

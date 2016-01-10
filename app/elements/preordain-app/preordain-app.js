@@ -114,6 +114,20 @@
           };
         },
       },
+      // Scroll position on views which we care about
+      //
+      // on-discard-scroll from the route means we discard
+      // that position as it is stale.
+      scrollPosition: {
+        type: Object,
+        value: ()=> {
+          return {
+            'card': 0,
+            'set': 0,
+            'sets': 0,
+          };
+        },
+      },
     },
     attached: function() {
 
@@ -127,6 +141,12 @@
     },
     // Handle context of a route change
     setActive: function(route) {
+      // Record the scroll position for our previous active route
+      if (this.route !== undefined) {
+        this.scrollPosition[this.route] = this.$.
+                                            mainPanel.scroller.scrollTop;
+      }
+
       // Clear others
       for (let v in this.active) this.active[v] = false;
       // Set this
@@ -134,7 +154,7 @@
 
       // Note that this has been viewed and notify
       this.viewed[route] = true;
-      this.set(`viewed.${route}`, true)
+      this.set(`viewed.${route}`, true);
 
       // Force the notification
       this.set('active', this.active);
@@ -176,26 +196,40 @@
       // Navigate to the desired set
       page(`/set/${Name}`);
     },
+    scrollDiscarded: function({detail}) {
+      // Toss away the recorded scroll position
+      this.scrollPosition[detail] = 0;
+    },
     _newRoute: function(fresh, old) {
       // Change animations contextually!
       let transition = transitions.get(tkey([old, fresh]));
       if (!transition) transition = standardTransition;
       [this._exit, this._entry] = transition;
       
+      // Keep track if we already moved the user back to their
+      // previous position.
+      let scrolled = false;
+
       // Determine when to scroll the top content into view
       let isAnimating = ()=> {
         return document.querySelectorAll('.neon-animating').length !== 0;
       };
       let signalOnAnimEnd = ()=> {
+        if (!scrolled) {
+          // Scroll to the top of the page or the previous
+          // location
+          let pos = this.scrollPosition[fresh];
+          if (!pos) pos = 0;
+          this.$.mainPanel.scroller.scrollTop = pos;
+          scrolled = true;
+        }
+
         // Check if we're animating, if we are wait a moment
         // then check again
         if (isAnimating()){
-          this.async(signalOnAnimEnd, 50);
+          this.async(signalOnAnimEnd, 10);
           return;
         }
-
-        // Scroll to the top of the page
-        this.$.content.scrollIntoView();
 
         // If we transitioned to a blank place to just animate,
         // head back to where we should be.

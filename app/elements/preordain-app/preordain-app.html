@@ -37,7 +37,7 @@
           <preordain-source-selector></preordain-source-selector>
 
       </div>
-      <paper-header-panel main mode="seamed">
+      <paper-header-panel id="mainPanel" main mode="seamed">
 
         <!-- Main Toolbar -->
         <paper-toolbar id="mainToolbar">
@@ -73,7 +73,9 @@
               <template is="dom-if" if="[[viewed.card]]">
                 <preordain-card-view
                 name="[[cardParams.name]]"
-                set="[[cardParams.set]]"></preordain-card-view>
+                set="[[cardParams.set]]"
+                on-discard-scroll="scrollDiscarded"
+                ></preordain-card-view>
               </template>
             </neon-animatable>
             
@@ -82,6 +84,7 @@
                 <preordain-set-view name="[[setParams.set]]"
                 active="[[active.set]]"
                 on-request-card="cardRequested"
+                on-discard-scroll="scrollDiscarded"
                 ></preordain-set-view>
               </template>
             </neon-animatable>
