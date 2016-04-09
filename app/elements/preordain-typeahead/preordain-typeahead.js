@@ -88,7 +88,7 @@
           filter: (list)=> {
             // Filter choices down to the limit
             list = list
-              .splice(0, this.limit);
+              .slice(0, this.limit);
             return list.map((s)=> {
               return {name: s};
             });
